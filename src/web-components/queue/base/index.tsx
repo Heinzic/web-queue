@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import styles from './index.css?inline';
+import App from '../../../App';
+import styles from '../../../App.css?inline';
 
-class WebQueueComponent extends HTMLElement {
-  private shadow: ShadowRoot;
+export class WebQueueComponentBase extends HTMLElement {
+  protected shadow: ShadowRoot;
 
   constructor() {
     super();
@@ -30,6 +30,4 @@ class WebQueueComponent extends HTMLElement {
       </React.StrictMode>
     );
   }
-}
-
-customElements.define('web-queue', WebQueueComponent);
+} 

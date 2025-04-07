@@ -8,7 +8,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         widget: 'src/main.tsx',
-        webComponent: 'src/WebQueueComponent.tsx',
+        webComponent: 'src/web-components/queue/build/index.tsx',
       },
       output: {
         entryFileNames: '[name].js',

@@ -1,11 +1,16 @@
-import './App.css'
+import React from 'react';
+import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <p>integration test</p>
-    </>
-  )
-}
+    <div className="widget-container">
+      <h2>Queue Widget</h2>
+      <div className="queue-content">
+        <p>This is a queue widget content</p>
+        <a href="https://google.com">Google</a>
+      </div>
+    </div>
+  );
+};
 
-export default App
+export default App;

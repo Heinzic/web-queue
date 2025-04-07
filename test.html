@@ -3,23 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Widget Test Page</title>
+    <title>Queue Widget Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        iframe {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .widget-container {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>iframe Widget Test</h1>
-    <iframe src="http://localhost:5173/widget.html" width="1000" height="1000"></iframe>
+    <h1>Queue Widget Test Page</h1>
 
-    <h1>Web Component Widget Test</h1>
-    <div id="web-component-container"></div>
+    <div class="test-section">
+        <h2>1. Iframe Integration (Dev Server)</h2>
+        <iframe src="http://localhost:5173/widget.html" width="100%" height="300"></iframe>
+    </div>
 
-    <script type="module" src="/dist/webComponent.js"></script>
-    <script>
-        // Wait for web component to be defined
-        customElements.whenDefined('web-queue').then(() => {
-            document.getElementById('web-component-container').innerHTML = '<web-queue></web-queue>';
-        });
-        
-    </script>
-    <!-- <web-queue></web-queue> -->
+    <div class="test-section">
+        <h2>2. Web Component Integration (Dev)</h2>
+        <div id="web-component-container"></div>
+        <script type="module" src="/src/web-components/queue/dev/index.tsx"></script>
+        <script>
+            customElements.whenDefined('web-queue-dev').then(() => {
+                document.getElementById('web-component-container').innerHTML = '<web-queue-dev></web-queue-dev>';
+            });
+        </script>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Web Component Integration (Build)</h2>
+        <div id="web-component-build-container"></div>
+        <script type="module" src="/dist/webComponent.js"></script>
+        <script>
+            customElements.whenDefined('web-queue').then(() => {
+                document.getElementById('web-component-build-container').innerHTML = '<web-queue></web-queue>';
+            });
+        </script>
+    </div>
 </body>
 </html>
