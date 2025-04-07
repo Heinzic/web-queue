@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Test Page</title>
+</head>
+<body>
+    <h1>iframe Widget Test</h1>
+    <iframe src="http://localhost:5173/widget.html" width="1000" height="1000"></iframe>
+
+    <h1>Web Component Widget Test</h1>
+    <div id="web-component-container"></div>
+
+    <script type="module" src="/dist/webComponent.js"></script>
+    <script>
+        // Wait for web component to be defined
+        customElements.whenDefined('web-queue').then(() => {
+            document.getElementById('web-component-container').innerHTML = '<web-queue></web-queue>';
+        });
+        
+    </script>
+    <!-- <web-queue></web-queue> -->
+</body>
+</html>
