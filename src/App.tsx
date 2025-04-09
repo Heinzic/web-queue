@@ -1,19 +1,7 @@
 import React from 'react';
 import './App.css';
 import styled from '@emotion/styled';
-
-// Basic styled component
-const Button = styled.button`
-  padding: 32px;
-  background-color: hotpink;
-  font-size: 24px;
-  border-radius: 4px;
-  color: black;
-  font-weight: bold;
-  &:hover {
-    color: white;
-  }
-`;
+import Button from './ui/Button';
 
 // Styled component with props
 const Container = styled.div<{ isActive?: boolean }>`
@@ -41,28 +29,16 @@ const Card = styled.div`
   }
 `;
 
-// Extending existing styled component
-const PrimaryButton = styled(Button)`
-  background-color: #007bff;
-  color: white;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
 const App: React.FC = () => {
   return (
-    <Container isActive={true} className="widget-container">
+    <Container isActive={true}>
       <h2>Queue Widget</h2>
-      <Card className='queue-content'>
+      <Card>
         <h3>Welcome to Queue Widget</h3>
         <p>This is a queue widget content with styled components</p>
         <a href="https://google.com">Google</a>
+        <Button variant="primary">Primary Button</Button>
       </Card>
-      <div style={{ marginTop: '20px' }}>
-        <Button>Default Button</Button>
-        <PrimaryButton>Primary Button</PrimaryButton>
-      </div>
     </Container>
   );
 };
