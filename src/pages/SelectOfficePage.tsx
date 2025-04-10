@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { Link, useLocation } from 'react-router-dom';
 import theme from '../ui/theme/theme';
 import Title from '../ui/Title';
-import BackLink from '../ui/BackLink';
 import SearchInput from '../ui/SearchInput';
 import Container from '../components/Container';
 
@@ -124,7 +123,7 @@ const Distance = styled.div`
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: ${theme.spacing[2]} ${theme.spacing[3]};
+  padding: ${theme.spacing[2]} ${theme.spacing[0]};
 `;
 
 const ArrowBackIcon = styled.div`
