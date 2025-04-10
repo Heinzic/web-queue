@@ -3,7 +3,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/HomePage';
 import CancelAppointmentPage from './pages/CancelAppointmentPage';
-import SelectClinicPage from './pages/SelectOfficePage';
+import SelectOfficePage from './pages/SelectOfficeAndServicePage';
 import LocationSelectionPage from './pages/LocationSelectionPage';
 
 const App: React.FC = () => {
@@ -15,7 +15,7 @@ const App: React.FC = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/cancel-appointment" element={<CancelAppointmentPage />} />
             <Route path="/select-location" element={<LocationSelectionPage />} />
-            <Route path="/select-clinic" element={<SelectClinicPage />} />
+            <Route path="/select-office" element={<SelectOfficePage />} />
           </Routes>
         </div>
       </HashRouter>

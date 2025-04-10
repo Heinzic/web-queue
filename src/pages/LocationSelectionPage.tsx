@@ -56,7 +56,7 @@ const LocationSelectionPage: React.FC = () => {
         {filteredLocations.map((location, index) => (
           <CardLink 
             key={index}
-            to={`/select-clinic?location=${encodeURIComponent(location)}`}
+            to={`/select-office?location=${encodeURIComponent(location)}`}
             size="medium"
             variant="default"
             withArrow
