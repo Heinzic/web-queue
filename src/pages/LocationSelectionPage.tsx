@@ -45,13 +45,6 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchIcon = styled.span`
-  position: absolute;
-  left: ${theme.spacing[3]};
-  top: 50%;
-  transform: translateY(-50%);
-  color: ${theme.colors.neutral.gray[500]};
-`;
 
 const InputWrapper = styled.div`
   position: relative;
