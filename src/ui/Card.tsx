@@ -133,7 +133,7 @@ export const CardLink: React.FC<CardLinkProps> = ({
   variant = 'default',
   className,
   backgroundColor = theme.colors.neutral.white,
-  withArrow = true,
+  withArrow = false,
 }) => {
   return (
     <StyledCardLink

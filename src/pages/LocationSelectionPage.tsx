@@ -1,54 +1,11 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 import theme from '../ui/theme/theme';
 import Title from '../ui/Title';
 import { CardLink } from '../ui/Card';
-
-const Container = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: ${theme.spacing[6]};
-  background-color: #f8f4ed;
-  min-height: 100vh;
-`;
-
-const BackLink = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  color: ${theme.colors.primary.main};
-  font-weight: ${theme.typography.fontWeight.medium};
-  margin-bottom: ${theme.spacing[4]};
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const SearchContainer = styled.div`
-  margin-bottom: ${theme.spacing[4]};
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  padding: ${theme.spacing[3]};
-  border: 1px solid ${theme.colors.neutral.gray[200]};
-  border-radius: ${theme.borderRadius.default};
-  font-family: ${theme.typography.fontFamily.primary};
-  font-size: ${theme.typography.fontSize.base};
-  background-color: white;
-  outline: none;
-  
-  &:focus {
-    border-color: ${theme.colors.primary.main};
-  }
-`;
-
-
-const InputWrapper = styled.div`
-  position: relative;
-`;
+import BackLink from '../ui/BackLink';
+import SearchInput from '../ui/SearchInput';
+import Container from '../components/Container';
 
 const LocationsContainer = styled.div`
   display: flex;
@@ -79,8 +36,8 @@ const LocationSelectionPage: React.FC = () => {
     : locations;
 
   return (
-    <Container>
-      <BackLink to="/">← Назад</BackLink>
+    <Container padding={6} backgroundColor="#f8f4ed">
+      <BackLink to="/" />
       <Title 
         size="large" 
         marginBottom={5}
@@ -89,16 +46,11 @@ const LocationSelectionPage: React.FC = () => {
         Выбор населенного пункта
       </Title>
       
-      <SearchContainer>
-        <InputWrapper>
-          <SearchInput 
-            type="text" 
-            placeholder="Поиск" 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </InputWrapper>
-      </SearchContainer>
+      <SearchInput
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        showIcon
+      />
       
       <LocationsContainer>
         {filteredLocations.map((location, index) => (

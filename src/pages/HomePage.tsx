@@ -3,14 +3,7 @@ import styled from '@emotion/styled';
 import Title from '../ui/Title';
 import { CardLink } from '../ui/Card';
 import theme from '../ui/theme/theme';
-
-const Container = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: ${theme.spacing[6]};
-  background-color: #f8f4ed;
-  min-height: 100vh;
-`;
+import Container from '../components/Container';
 
 const CardsContainer = styled.div`
   display: flex;
@@ -27,7 +20,7 @@ const CardTitle = styled.h2`
 
 const HomePage: React.FC = () => {
   return (
-    <Container>
+    <Container padding={6}>
       <Title 
         size="large" 
         marginBottom={6}
@@ -44,15 +37,15 @@ const HomePage: React.FC = () => {
           withArrow
         >
           <CardTitle>Записаться на прием</CardTitle>
-      </CardLink>
+        </CardLink>
         
-      <CardLink 
-        to="/cancel-appointment"
-        size="medium"
-        variant="default"
-        withArrow
-      >
-        <CardTitle>Отменить запись на прием</CardTitle>
+        <CardLink 
+          to="/cancel-appointment"
+          size="medium"
+          variant="default"
+          withArrow
+        >
+          <CardTitle>Отменить запись на прием</CardTitle>
         </CardLink>
       </CardsContainer>
     </Container>

@@ -3,7 +3,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/HomePage';
 import CancelAppointmentPage from './pages/CancelAppointmentPage';
-import SelectClinicPage from './pages/SelectClinicPage';
+import SelectClinicPage from './pages/SelectOfficePage';
 import LocationSelectionPage from './pages/LocationSelectionPage';
 
 const App: React.FC = () => {
