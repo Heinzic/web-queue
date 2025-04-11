@@ -1,13 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Link, useLocation } from 'react-router-dom';
-import theme from '../ui/theme/theme';
-import Title from '../ui/Title';
-import SearchInput from '../ui/SearchInput';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Container from '../components/Container';
 import ServicesList from '../components/ServicesList';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { Office, Service, setSelectedOffice, setSelectedService } from '../store/appointmentSlice';
+import { Title, SearchInput, theme } from '../ui';
 
 const Breadcrumbs = styled.div`
   display: flex;
@@ -79,7 +77,7 @@ const OfficeLogo = styled.div`
   height: 40px;
   min-width: 40px;
   border-radius: 8px;
-  background-color: #FF5722;
+  background-color: ${theme.colors.primary.main};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,7 +137,7 @@ const ArrowBackIcon = styled.div`
 const ResetButton = styled.button`
   background: none;
   border: none;
-  color: #F44336;
+  color: ${theme.colors.primary.main};
   font-size: ${theme.typography.fontSize.sm};
   cursor: pointer;
   padding: ${theme.spacing[1]} ${theme.spacing[2]};
@@ -194,6 +192,7 @@ const mockOffices = [
 ];
 
 const SelectOfficePage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const selectedLocation = searchParams.get('location') || 'г. Екатеринбург';
@@ -203,6 +202,12 @@ const SelectOfficePage = () => {
   
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);
+  
+  useEffect(() => {
+    if (selectedOffice && selectedService) {
+      navigate('/appointment-datetime');
+    }
+  }, [selectedOffice, selectedService]);
   
   // Filter offices based on search query and selected service
   const filteredOffices = mockOffices

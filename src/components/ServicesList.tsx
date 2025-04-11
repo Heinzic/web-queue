@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import theme from '../ui/theme/theme';
-import SearchInput from '../ui/SearchInput';
+import { theme, SearchInput } from '../ui';
 import { Service } from '../store/appointmentSlice';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { setSelectedService } from '../store/appointmentSlice';
@@ -114,7 +113,6 @@ const ServicesList: React.FC<ServicesListProps> = ({
   setSearchQuery: externalSetSearchQuery,
   onServiceSelect,
   onResetService,
-  switchTabAfterSelect = false
 }) => {
   // Use internal state only if external search props are not provided
   const [internalSearchQuery, setInternalSearchQuery] = useState("");

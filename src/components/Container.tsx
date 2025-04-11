@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import theme from '../ui/theme/theme';
+import { theme } from '../ui/theme/theme';
 
 export interface ContainerProps {
   children: React.ReactNode;

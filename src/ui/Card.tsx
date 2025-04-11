@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import theme from './theme/theme';
+import { theme } from './theme/theme';
 
 export type CardSize = 'small' | 'medium' | 'large';
 export type CardVariant = 'default' | 'outlined' | 'elevated';
@@ -67,6 +67,7 @@ const BaseCardStyles = styled.div<{
   background-color: ${props => props.backgroundColor};
   border-radius: ${theme.borderRadius.default};
   ${props => getCardStyles(props.variant)}
+  margin: ${theme.spacing[2]};
   
   &:hover {
     background-color: #f9f9f9;

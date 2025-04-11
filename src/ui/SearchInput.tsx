@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import styled from '@emotion/styled';
-import theme from './theme/theme';
+import { theme } from './theme/theme';
 
 export interface SearchInputProps {
   value: string;
@@ -56,7 +56,7 @@ const SearchIcon = styled.img`
   opacity: 0.7;
 `;
 
-const SearchInput: React.FC<SearchInputProps> = ({
+export const SearchInput: React.FC<SearchInputProps> = ({
   value,
   onChange,
   placeholder = "Поиск",
@@ -84,5 +84,3 @@ const SearchInput: React.FC<SearchInputProps> = ({
     </Container>
   );
 };
-
-export default SearchInput; 

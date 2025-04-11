@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import theme from '../ui/theme/theme';
-import Title from '../ui/Title';
-import { CardLink } from '../ui/Card';
-import BackLink from '../ui/BackLink';
-import SearchInput from '../ui/SearchInput';
 import Container from '../components/Container';
+import { Title, CardLink, BackLink, SearchInput, theme } from '../ui';
 
 const LocationsContainer = styled.div`
   display: flex;

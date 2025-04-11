@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import theme from './theme/theme';
+import { theme } from './theme/theme';
 
 export type TitleSize = 'small' | 'medium' | 'large';
 export type TitleAlign = 'left' | 'center' | 'right';
@@ -42,7 +42,7 @@ const StyledTitle = styled.h1<{
   line-height: 1.2;
 `;
 
-const Title: React.FC<TitleProps> = ({
+export const Title: React.FC<TitleProps> = ({
   children,
   size = 'medium',
   align = 'left',
@@ -62,5 +62,3 @@ const Title: React.FC<TitleProps> = ({
     </StyledTitle>
   );
 };
-
-export default Title; 

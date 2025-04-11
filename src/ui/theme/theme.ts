@@ -1,7 +1,7 @@
 export const colors = {
   // Primary colors
   primary: {
-    main: '#1976d2',
+    main: '#F44336',
     light: '#42a5f5',
     dark: '#1565c0',
     contrastText: '#ffffff',
@@ -136,7 +136,7 @@ export const borderRadius = {
   full: '9999px',
 };
 
-const theme = {
+export const theme = {
   colors,
   typography,
   spacing,
@@ -147,4 +147,3 @@ const theme = {
 };
 
 export type Theme = typeof theme;
-export default theme;

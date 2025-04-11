@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Title from '../ui/Title';
-import { CardLink } from '../ui/Card';
-import theme from '../ui/theme/theme';
 import Container from '../components/Container';
+import { Title, CardLink, theme } from '../ui';
 
 const CardsContainer = styled.div`
   display: flex;

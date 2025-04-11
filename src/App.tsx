@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import CancelAppointmentPage from './pages/CancelAppointmentPage';
 import SelectOfficePage from './pages/SelectOfficeAndServicePage';
 import LocationSelectionPage from './pages/LocationSelectionPage';
+import AppointmentDateTimePage from './pages/AppointmentDateTimePage';
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
             <Route path="/cancel-appointment" element={<CancelAppointmentPage />} />
             <Route path="/select-location" element={<LocationSelectionPage />} />
             <Route path="/select-office" element={<SelectOfficePage />} />
+            <Route path="/appointment-datetime" element={<AppointmentDateTimePage />} />
           </Routes>
         </div>
       </HashRouter>
