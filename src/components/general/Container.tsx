@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { theme } from '../ui/theme/theme';
+import { theme } from '../../ui/theme/theme';
 
 export interface ContainerProps {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ const StyledContainer = styled.div<{
   width: 100%;
 `;
 
-const Container: React.FC<ContainerProps> = ({
+export const Container: React.FC<ContainerProps> = ({
   children,
   maxWidth = 800,
   padding = 4,
@@ -40,6 +40,4 @@ const Container: React.FC<ContainerProps> = ({
       {children}
     </StyledContainer>
   );
-};
-
-export default Container; 
+}; 

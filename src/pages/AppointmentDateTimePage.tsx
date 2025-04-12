@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '../components/Container';
+import { Container } from '../components/general';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { resetAppointment } from '../store/appointmentSlice';
 import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../ui';

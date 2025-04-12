@@ -6,7 +6,7 @@ import CancelAppointmentPage from './pages/CancelAppointmentPage';
 import SelectOfficePage from './pages/SelectOfficeAndServicePage';
 import LocationSelectionPage from './pages/LocationSelectionPage';
 import AppointmentDateTimePage from './pages/AppointmentDateTimePage';
-import HandleAppointment from './HOC/handleAppointment';
+import HandleAppointment from './HOC/HandleAppointment';
 
 const App: React.FC = () => {
   return (

@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Container from '../components/Container';
-import ServicesList from '../components/ServicesList';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { Service, setSelectedOffice, setSelectedService } from '../store/appointmentSlice';
 import { Title, SearchInput, theme, FlexBox } from '../ui';
@@ -10,12 +8,7 @@ import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../components/
 import { Tabs, TabItem } from '../components/appointment/Tabs';
 import { Office } from '../models';
 import { OfficesList } from '../components/appointment';
-
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: ${theme.spacing[2]} ${theme.spacing[0]};
-`;
+import { Container, ServicesList } from '../components/general';
 
 const ArrowBackIcon = styled.div`
   cursor: pointer;
@@ -87,8 +80,8 @@ const mockOffices = [
 ];
 
 const SelectOfficePage = () => {
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const selectedLocation = searchParams.get('location') || 'г. Екатеринбург';
   
@@ -97,8 +90,6 @@ const SelectOfficePage = () => {
   
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);
-  
-
   
   // Filter offices based on search query and selected service
   const filteredOffices = mockOffices
@@ -131,6 +122,7 @@ const SelectOfficePage = () => {
 
   const handleResetService = () => {
     dispatch(setSelectedService(null));
+    setActiveTab("services");
   };
 
   // Handle tab change
@@ -178,8 +170,12 @@ const SelectOfficePage = () => {
           </TabItem>
         </Tabs>
       
-        <SearchContainer>
-          <ArrowBackIcon onClick={() => window.history.back()}>
+        <FlexBox justify="space-between" align="center">
+          <ArrowBackIcon onClick={() => {
+            dispatch(setSelectedOffice(null)); 
+            dispatch(setSelectedService(null));
+            navigate('/');
+            }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15 18L9 12L15 6" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -219,7 +215,7 @@ const SelectOfficePage = () => {
               showIcon
             />
           )}
-        </SearchContainer>
+        </FlexBox>
         
         <div>
           {activeTab === "places" && (

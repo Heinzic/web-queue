@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Container from '../components/Container';
+import { useState } from 'react';
+import { Container } from '../components/general';
 import { Title, CardLink, BackLink, SearchInput, FlexBox, Text } from '../ui';
 
 const locations = [

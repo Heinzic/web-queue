@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { theme, SearchInput } from '../ui';
-import { Service } from '../store/appointmentSlice';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { setSelectedService } from '../store/appointmentSlice';
+import { theme, SearchInput } from '../../ui';
+import { Service } from '../../store/appointmentSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setSelectedService } from '../../store/appointmentSlice';
 
 const ServicesContainer = styled.div`
   display: flex;
@@ -107,7 +107,7 @@ interface ServicesListProps {
   switchTabAfterSelect?: boolean;
 }
 
-const ServicesList: React.FC<ServicesListProps> = ({ 
+export const ServicesList: React.FC<ServicesListProps> = ({ 
   showSearch = true, 
   searchQuery: externalSearchQuery,
   setSearchQuery: externalSetSearchQuery,
@@ -193,5 +193,3 @@ const ServicesList: React.FC<ServicesListProps> = ({
     </>
   );
 };
-
-export default ServicesList; 
