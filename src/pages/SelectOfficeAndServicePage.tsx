@@ -98,11 +98,7 @@ const SelectOfficePage = () => {
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);
   
-  useEffect(() => {
-    if (selectedOffice && selectedService) {
-      navigate('/appointment-datetime');
-    }
-  }, [selectedOffice, selectedService]);
+
   
   // Filter offices based on search query and selected service
   const filteredOffices = mockOffices
