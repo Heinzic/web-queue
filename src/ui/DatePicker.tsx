@@ -46,14 +46,14 @@ const GlobalDatePickerStyles = styled.div`
     border: 1px solid ${theme.colors.neutral.gray[200]};
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     background-color: ${theme.colors.neutral.white};
-    padding: 16px;
-    margin-top: 12px;
+    padding: 12px;
+    margin-top: 0;
   }
 
   .react-datepicker__header {
     background-color: ${theme.colors.neutral.white};
     border-bottom: none;
-    padding: 0 0 12px 0;
+    padding: 0 0 8px 0;
     position: relative;
   }
   
@@ -65,7 +65,7 @@ const GlobalDatePickerStyles = styled.div`
     font-size: 16px;
     font-weight: ${theme.typography.fontWeight.medium};
     color: ${theme.colors.neutral.gray[900]};
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     display: flex;
     justify-content: center;
   }
@@ -73,16 +73,16 @@ const GlobalDatePickerStyles = styled.div`
   .react-datepicker__day-names {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   .react-datepicker__day-name {
     color: ${theme.colors.neutral.gray[500]};
     font-size: 12px;
-    width: 32px;
+    width: 28px;
     text-transform: uppercase;
     margin: 0;
-    padding: 4px 0;
+    padding: 2px 0;
     text-align: center;
   }
 
@@ -97,8 +97,8 @@ const GlobalDatePickerStyles = styled.div`
 
   .react-datepicker__day {
     color: ${theme.colors.neutral.gray[800]};
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -119,7 +119,7 @@ const GlobalDatePickerStyles = styled.div`
   }
 
   .react-datepicker__day--keyboard-selected {
-    background-color: ${theme.colors.primary.main}50;
+    background-color: ${theme.colors.primary.light};
   }
 
   .react-datepicker__day--selected:hover {
@@ -140,17 +140,20 @@ const GlobalDatePickerStyles = styled.div`
   }
 
   .react-datepicker__navigation {
-    top: 16px;
+    top: 12px;
     &--previous {
-      left: 20px;
+      left: 12px;
     }
     &--next {
-      right: 20px;
+      right: 12px;
     }
   }
 
   .react-datepicker__navigation-icon::before {
     border-color: ${theme.colors.neutral.gray[600]};
+    border-width: 2px 2px 0 0;
+    height: 8px;
+    width: 8px;
   }
 
   .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {

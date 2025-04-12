@@ -1,17 +1,6 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
 import Container from '../components/Container';
-import { Title, CardLink, BackLink, SearchInput, theme } from '../ui';
-
-const LocationsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing[3]};
-`;
-
-const LocationText = styled.div`
-  font-size: ${theme.typography.fontSize.base};
-`;
+import { Title, CardLink, BackLink, SearchInput, FlexBox, Text } from '../ui';
 
 const locations = [
   "г. Екатеринбург",
@@ -48,7 +37,7 @@ const LocationSelectionPage: React.FC = () => {
         showIcon
       />
       
-      <LocationsContainer>
+      <FlexBox direction="column" gap={3}>
         {filteredLocations.map((location, index) => (
           <CardLink 
             key={index}
@@ -57,10 +46,10 @@ const LocationSelectionPage: React.FC = () => {
             variant="default"
             withArrow
           >
-            <LocationText>{location}</LocationText>
+            <Text size="base">{location}</Text>
           </CardLink>
         ))}
-      </LocationsContainer>
+      </FlexBox>
     </Container>
   );
 };

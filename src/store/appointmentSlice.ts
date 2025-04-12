@@ -1,12 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface Office {
-  id: number;
-  name: string;
-  city: string;
-  workingHours: string;
-  distance: string;
-}
+import { Office } from '../models';
 
 export interface Service {
   id: number;

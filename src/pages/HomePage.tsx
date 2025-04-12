@@ -1,20 +1,6 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import Container from '../components/Container';
-import { Title, CardLink, theme } from '../ui';
-
-const CardsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing[4]};
-`;
-
-const CardTitle = styled.h2`
-  font-family: ${theme.typography.fontFamily.primary};
-  font-size: ${theme.typography.fontSize.base};
-  font-weight: ${theme.typography.fontWeight.medium};
-  margin: 0;
-`;
+import { Title, CardLink, Text, FlexBox } from '../ui';
 
 const HomePage: React.FC = () => {
   return (
@@ -27,14 +13,14 @@ const HomePage: React.FC = () => {
         Запись на прием
       </Title>
       
-      <CardsContainer>
+      <FlexBox direction="column" gap={4}>
         <CardLink 
           to="/select-location"
           size="medium"
           variant="default"
           withArrow
         >
-          <CardTitle>Записаться на прием</CardTitle>
+          <Text size="base" weight="medium">Записаться на прием</Text>
         </CardLink>
         
         <CardLink 
@@ -43,9 +29,9 @@ const HomePage: React.FC = () => {
           variant="default"
           withArrow
         >
-          <CardTitle>Отменить запись на прием</CardTitle>
+          <Text size="base" weight="medium">Отменить запись на прием</Text>
         </CardLink>
-      </CardsContainer>
+      </FlexBox>
     </Container>
   );
 };

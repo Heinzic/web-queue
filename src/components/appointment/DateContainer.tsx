@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { theme } from '../../ui';
 import { CustomDatePicker } from '../../ui';
@@ -102,6 +102,7 @@ const HiddenDatePicker = styled.div`
 
 const DatePickerContainer = styled.div`
   position: relative;
+  margin-left: 0;
 `;
 
 interface DateContainerProps {
@@ -115,6 +116,24 @@ export const AppointmentDateContainer: React.FC<DateContainerProps> = ({
 }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const datePickerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        datePickerRef.current && 
+        !datePickerRef.current.contains(event.target as Node) &&
+        isCalendarOpen
+      ) {
+        setIsCalendarOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isCalendarOpen]);
 
   const handleCalendarIconClick = () => {
     setIsCalendarOpen(!isCalendarOpen);
@@ -159,11 +178,20 @@ export const AppointmentDateContainer: React.FC<DateContainerProps> = ({
   return (
     <DateContainer>
       <DateSelectionSection>
-        <CalendarIconButton onClick={handleCalendarIconClick} aria-label="Open calendar">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM7 12h5v5H7z"/>
-          </svg>
-        </CalendarIconButton>
+        <DatePickerContainer ref={datePickerRef}>
+          <CalendarIconButton onClick={handleCalendarIconClick} aria-label="Open calendar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM7 12h5v5H7z"/>
+            </svg>
+          </CalendarIconButton>
+          
+          <HiddenDatePicker className={isCalendarOpen ? 'visible' : ''}>
+            <CustomDatePicker
+              selectedDate={selectedDate || new Date()}
+              onDateSelect={handleDateSelect}
+            />
+          </HiddenDatePicker>
+        </DatePickerContainer>
         
         <DaySelector>
           {daysList.map((day) => (
@@ -179,15 +207,6 @@ export const AppointmentDateContainer: React.FC<DateContainerProps> = ({
             </DayButton>
           ))}
         </DaySelector>
-
-        <DatePickerContainer ref={datePickerRef}>
-          <HiddenDatePicker className={isCalendarOpen ? 'visible' : ''}>
-            <CustomDatePicker
-              selectedDate={selectedDate || new Date()}
-              onDateSelect={handleDateSelect}
-            />
-          </HiddenDatePicker>
-        </DatePickerContainer>
       </DateSelectionSection>
     </DateContainer>
   );
