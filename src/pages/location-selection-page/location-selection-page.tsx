@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Container } from '../components/general';
-import { Title, CardLink, BackLink, SearchInput, FlexBox, Text } from '../ui';
+import { Container } from '../../components/general';
+import { Title, BackLink, Text, FlexBox, CardLink, SearchInput } from '../../ui';
 
 const locations = [
   "г. Екатеринбург",

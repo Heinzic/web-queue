@@ -1,35 +1,15 @@
 import { useState } from 'react';
-import styled from '@emotion/styled';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { Service, setSelectedOffice, setSelectedService } from '../store/appointmentSlice';
-import { Title, SearchInput, theme, FlexBox } from '../ui';
-import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../components/appointment/Breadcrumbs';
-import { Tabs, TabItem } from '../components/appointment/Tabs';
-import { Office } from '../models';
-import { OfficesList } from '../components/appointment';
-import { Container, ServicesList } from '../components/general';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { Service, setSelectedOffice, setSelectedService } from '../../store/appointmentSlice';
+import { Title, SearchInput, theme, FlexBox } from '../../ui';
+import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../components/appointment/Breadcrumbs';
+import { Tabs, TabItem } from '../../components/appointment/Tabs';
+import { Office } from '../../models';
+import { OfficesList } from '../../components/appointment';
+import { Container, ServicesList } from '../../components/general';
+import { ArrowBackIcon, ResetButton } from './styled';
 
-const ArrowBackIcon = styled.div`
-  cursor: pointer;
-  margin-right: ${theme.spacing[2]};
-  display: flex;
-  align-items: center;
-`;
-
-const ResetButton = styled.button`
-  background: none;
-  border: none;
-  color: ${theme.colors.primary.main};
-  font-size: ${theme.typography.fontSize.sm};
-  cursor: pointer;
-  padding: ${theme.spacing[1]} ${theme.spacing[2]};
-  margin-left: auto;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 
 const mockOffices = [
   {
@@ -79,7 +59,7 @@ const mockOffices = [
   }
 ];
 
-const SelectOfficePage = () => {
+const SelectOfficeAndServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
@@ -252,4 +232,4 @@ const SelectOfficePage = () => {
   );
 };
 
-export default SelectOfficePage; 
+export default SelectOfficeAndServicePage; 

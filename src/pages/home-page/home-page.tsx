@@ -1,7 +1,7 @@
-import { Container } from '../components/general';
-import { Title, CardLink, Text, FlexBox } from '../ui';
+import { Container } from '../../components/general';
+import { Title, CardLink, Text, FlexBox } from '../../ui';
 
-const HomePage: React.FC = () => {
+const HomePage = () => {
   return (
     <Container padding={6}>
       <Title 

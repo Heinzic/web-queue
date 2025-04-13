@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container } from '../components/general';
-import { useAppSelector, useAppDispatch } from '../store/hooks';
-import { resetAppointment } from '../store/appointmentSlice';
-import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../ui';
-import { AppointmentDateContainer, TimeSlots } from '../components/appointment';
+import { Container } from '../../components/general';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { resetAppointment } from '../../store/appointmentSlice';
+import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../../ui';
+import { AppointmentDateContainer, TimeSlots } from '../../components/appointment';
 
 const timeSlots = {
   morning: { title: 'Утро', range: 'С 9 до 12', slots: ['9:10', '9:30', '10:10', '10:25', '10:40', '11:00'] },

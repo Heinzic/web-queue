@@ -1,0 +1,1 @@
+export {default as CancelAppointmentPage} from './cancel-appointment-page';
