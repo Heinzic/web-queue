@@ -8,7 +8,7 @@ export const colors = {
   },
   // Secondary colors
   secondary: {
-    main: '#9c27b0',
+    main: '#E7205F',
     light: '#ba68c8',
     dark: '#7b1fa2',
     contrastText: '#ffffff',

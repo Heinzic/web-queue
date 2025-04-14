@@ -1,21 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Office } from '../models';
-
-export interface Service {
-  id: number;
-  name: string;
-  description?: string;
-  duration?: string;
-}
+import { Office, Service } from '../models';
 
 interface AppointmentState {
   selectedOffice: Office | null;
   selectedService: Service | null;
+  amountOfPackages: number;
 }
 
 const initialState: AppointmentState = {
   selectedOffice: null,
   selectedService: null,
+  amountOfPackages: 1,
 };
 
 const appointmentSlice = createSlice({
@@ -28,9 +23,13 @@ const appointmentSlice = createSlice({
     setSelectedService: (state, action: PayloadAction<Service | null>) => {
       state.selectedService = action.payload;
     },
+    setAmountOfPackages: (state, action: PayloadAction<number>) => {
+      state.amountOfPackages = action.payload;
+    },
     resetAppointment: (state) => {
       state.selectedOffice = null;
       state.selectedService = null;
+      state.amountOfPackages = 1;
     },
   },
 });
@@ -38,6 +37,7 @@ const appointmentSlice = createSlice({
 export const { 
   setSelectedOffice, 
   setSelectedService, 
+  setAmountOfPackages,
   resetAppointment 
 } = appointmentSlice.actions;
 

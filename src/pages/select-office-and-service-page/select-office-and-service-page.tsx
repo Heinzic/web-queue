@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Service, setSelectedOffice, setSelectedService } from '../../store/appointmentSlice';
-import { Title, SearchInput, theme, FlexBox } from '../../ui';
+import { setSelectedOffice, setSelectedService } from '../../store/appointmentSlice';
+import { Title, SearchInput, theme, FlexBox, FastFilters } from '../../ui';
 import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../components/appointment/Breadcrumbs';
 import { Tabs, TabItem } from '../../components/appointment/Tabs';
-import { Office } from '../../models';
+import { Office, Service } from '../../models';
 import { OfficesList } from '../../components/appointment';
 import { Container, ServicesList } from '../../components/general';
 import { ArrowBackIcon, ResetButton } from './styled';
@@ -14,7 +14,7 @@ import { ArrowBackIcon, ResetButton } from './styled';
 const mockOffices = [
   {
     id: 1,
-    name: "МФЦ, Дублёр Сибирского тракта, 2 (ТРК \"КомсоМолл\")",
+    name: "МФЦ",
     city: "Екатеринбург",
     address: "Дублёр Сибирского тракта, 2 (ТРК \"КомсоМолл\")",
     workingHours: "С 9:00 до 20:00",
@@ -23,7 +23,7 @@ const mockOffices = [
   },
   {
     id: 2,
-    name: "МФЦ, ул. Рощинская, 21",
+    name: "МФЦ",
     city: "Екатеринбург",
     address: "ул. Рощинская, 21",
     workingHours: "С 9:00 до 20:00",
@@ -32,7 +32,7 @@ const mockOffices = [
   },
   {
     id: 3,
-    name: "МФЦ, ул. Учителей, 25",
+    name: "МФЦ",
     city: "Екатеринбург",
     address: "ул. Учителей, 25",
     workingHours: "С 9:00 до 20:00",
@@ -41,7 +41,7 @@ const mockOffices = [
   },
   {
     id: 4,
-    name: "МФЦ, ул. Бориса Ельцина, 3",
+    name: "МФЦ",
     city: "Екатеринбург",
     address: "ул. Бориса Ельцина, 3",
     workingHours: "С 9:00 до 20:00",
@@ -50,15 +50,34 @@ const mockOffices = [
   },
   {
     id: 5,
-    name: "МФЦ, ул. Героев России, 2 (ТДЦ Свердловск)",
+    name: "МФЦ",
     city: "Екатеринбург",
     address: "ул. Героев России, 2 (ТДЦ Свердловск)",
+    workingHours: "С 9:00 до 20:00",
+    distance: "7,5 км",
+    services: [1, 2, 3] // Service IDs that this office provides
+  },
+  {
+    id: 6,
+    name: "Росреестр",
+    city: "Спб",
+    address: "тест 1",
+    workingHours: "С 9:00 до 20:00",
+    distance: "7,5 км",
+    services: [1, 2, 3] // Service IDs that this office provides
+  },
+  {
+    id: 7,
+    name: "Росреестр",
+    city: "Спб",
+    address: "тест 2",
     workingHours: "С 9:00 до 20:00",
     distance: "7,5 км",
     services: [1, 2, 3] // Service IDs that this office provides
   }
 ];
 
+const filtersList = {name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"]};
 const SelectOfficeAndServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -84,6 +103,37 @@ const SelectOfficeAndServicePage = () => {
       
       return matchesSearch && matchesService;
     });
+
+    function filterOffices(
+      offices: typeof mockOffices,
+      filters: typeof filtersList,
+      searchQuery: string,
+      selectedService?: { id: number }
+    ) {
+      return offices.filter(office => {
+        // 1. Handle search query
+        const matchesSearch = !searchQuery || 
+          Object.values(office).some(
+            val => typeof val === 'string' && 
+            val.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+    
+        // 2. Handle service filter
+        const matchesService = !selectedService || 
+          (office.services && office.services.includes(selectedService.id));
+    
+        // 3. Handle dynamic filters from filtersList
+        const matchesFilters = Object.entries(filters).every(([key, allowedValues]) => {
+          if (!allowedValues || allowedValues.length === 0) return true;
+    
+          // Convert office[key] to string for comparison
+          const officeValue = office[key as keyof typeof office];
+          return allowedValues.includes(String(officeValue)); // Convert to string
+        });
+    
+        return matchesSearch && matchesService && matchesFilters;
+      });
+    }
 
   const handleOfficeSelect = (office: Office) => {
     dispatch(setSelectedOffice(office));
@@ -196,7 +246,7 @@ const SelectOfficeAndServicePage = () => {
             />
           )}
         </FlexBox>
-        
+        <FastFilters options={filtersList.name} selectedOption={activeTab} onSelect={handleTabChange} />
         <div>
           {activeTab === "places" && (
             <FlexBox direction="column" gap={3}>

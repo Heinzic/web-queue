@@ -7,3 +7,4 @@ export { SearchInput } from './SearchInput';
 export { Title } from './Title';
 export { Button } from './Button';
 export { theme } from './theme/theme';
+export { FastFilters } from './FastFilters';

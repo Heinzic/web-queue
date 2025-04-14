@@ -28,7 +28,7 @@ export const OfficeCard: React.FC<OfficeCardProps> = ({ isSelected, onClick, off
       <FlexBox direction="row">
         <Logo>М</Logo>
         <FlexBox direction="column" gap={2}>
-          <Text size="sm" weight="medium">{office.name}</Text>
+          <Text size="sm" weight="medium">{office.name}, {office.address}</Text>
           <FlexBox direction="column" gap={2}>
             <Text size="sm" color='muted'>{office.city}</Text>
             <FlexBox direction="row" gap={2}>
