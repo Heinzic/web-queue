@@ -3,7 +3,7 @@ import { theme } from './theme/theme';
 
 export type TextSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl';
 export type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
-export type TextColor = 'primary' | 'secondary' | 'muted' | 'error' | 'success';
+export type TextColor = 'primary' | 'secondary' | 'muted' | 'error' | 'success' | 'neutral';
 
 interface TextProps {
   size?: TextSize;
@@ -50,15 +50,17 @@ const getFontWeight = (weight: TextWeight) => {
 const getTextColor = (color: TextColor) => {
   switch (color) {
     case 'primary':
-      return theme.colors.neutral.gray[900];
+      return theme.colors.primary.main;
     case 'secondary':
-      return theme.colors.neutral.gray[700];
+      return theme.colors.secondary.main;
     case 'muted':
       return theme.colors.neutral.gray[600];
     case 'error':
       return theme.colors.error.main;
     case 'success':
       return theme.colors.success.main;
+    case 'neutral':
+      return theme.colors.neutral.gray[900];
     default:
       return theme.colors.neutral.gray[900];
   }
@@ -82,7 +84,7 @@ const StyledText = styled.p<TextProps>`
 export const Text: React.FC<TextProps> = ({
   size = 'base',
   weight = 'regular',
-  color = 'primary',
+  color = 'neutral',
   align = 'left',
   truncate = false,
   className,
