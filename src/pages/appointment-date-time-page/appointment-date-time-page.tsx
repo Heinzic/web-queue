@@ -5,26 +5,27 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { resetAppointment } from '../../store/appointmentSlice';
 import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../../ui';
 import { AppointmentDateContainer, TimeSlots } from '../../components/appointment';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { DateInfo } from '../../models';
 
-const timeSlots = {
-  morning: { title: 'Утро', range: 'С 9 до 12', slots: ['9:10', '9:30', '10:10', '10:25', '10:40', '11:00'] },
-  day: { title: 'День', range: 'С 12 до 15', slots: ['12:50', '13:40', '13:50', '14:00', '14:30', '15:00'] },
-  evening: { title: 'Вечер', range: 'С 15 до 20', slots: ['15:10', '15:30', '16:00', '16:25', '17:40', '19:00'] },
-};
 
 const AppointmentDateTimePage: React.FC = () => {
+  
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);
+
+  const { data: timeSlots, isLoading, error } = useQuery({
+    queryKey: ['dates', selectedOffice?.id, selectedService?.id],
+    queryFn: async () => {
+      const response = await axios.get<{ dates: DateInfo[] }>(`http://localhost:5173/api/dates?placeId=${selectedOffice?.id}&serviceId=${selectedService?.id}`);
+      return response.data.dates;
+    }
+  });
   
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
-  
-  // Prevent direct access if office or service is not selected
-  if (!selectedOffice || !selectedService) {
-    navigate('/select-office');
-    return null;
-  }
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);  
   
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
@@ -43,6 +44,19 @@ const AppointmentDateTimePage: React.FC = () => {
     dispatch(resetAppointment());
     navigate('/select-office');
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  
+  if (!selectedOffice || !selectedService) {
+    navigate('/select-office');
+    return null;
+  }
 
   return (
     <Container padding={0} maxWidth={800}>
@@ -68,7 +82,7 @@ const AppointmentDateTimePage: React.FC = () => {
         </CardLink>
       </Card>
 
-      {selectedDate && (
+      {selectedDate && timeSlots && (
         <TimeSlots
           selectedTimeSlot={selectedTimeSlot}
           onTimeSlotSelect={handleTimeSlotSelect}

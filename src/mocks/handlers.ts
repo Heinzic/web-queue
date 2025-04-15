@@ -1,5 +1,5 @@
 import { http, HttpResponse, HttpHandler } from 'msw';
-import { Office } from '../models';
+import { MonthData, Office } from '../models';
 
 const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[] }>(
   '/api/offices',
@@ -260,4 +260,78 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
   }
 );
 
-export const handlers = [getOfficesHandler];
+const getDatesHandler: HttpHandler = http.get<never, {lineName: string, placeId: string, serviceId: string, participantsNumber: number}, MonthData>(
+  '/api/dates',
+  () => {
+    return HttpResponse.json({
+            month: "2025-04-17T00:00:00Z",
+            dates: [
+                        {
+                            available: true,
+                            date: "2025-04-15T00:00:00Z",
+                            from: "2025-04-15T08:40:00Z",
+                            to: "2025-04-15T09:20:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-17T00:00:00Z",
+                            from: "2025-04-17T09:20:00Z",
+                            to: "2025-04-17T17:20:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-18T00:00:00Z",
+                            from: "2025-04-18T09:00:00Z",
+                            to: "2025-04-18T17:20:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-19T00:00:00Z",
+                            from: "2025-04-19T09:00:00Z",
+                            to: "2025-04-19T16:00:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-21T00:00:00Z",
+                            from: "2025-04-21T09:20:00Z",
+                            to: "2025-04-21T18:20:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-22T00:00:00Z",
+                            from: "2025-04-22T09:00:00Z",
+                            to: "2025-04-22T17:20:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-23T00:00:00Z",
+                            from: "2025-04-23T09:00:00Z",
+                            to: "2025-04-23T18:40:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-24T00:00:00Z",
+                            from: "2025-04-24T09:00:00Z",
+                            to: "2025-04-24T18:40:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-25T00:00:00Z",
+                            from: "2025-04-25T09:20:00Z",
+                            to: "2025-04-25T18:40:00Z",
+                            description: ""
+                        }
+                    ]
+    });
+  }
+);
+
+export const handlers = [getOfficesHandler, getDatesHandler];

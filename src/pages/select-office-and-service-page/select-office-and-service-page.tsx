@@ -7,7 +7,8 @@ import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../componen
 import { Tabs, TabItem } from '../../components/appointment/Tabs';
 import { Office, Service } from '../../models';
 import { OfficesList } from '../../components/appointment';
-import { Container, ServicesList } from '../../components/general';
+import { Container } from '../../components/general';
+import { ServicesList } from '../../components/appointment/ServicesList';
 import { ArrowBackIcon, PackagesAmountButton, ResetButton } from './styled';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

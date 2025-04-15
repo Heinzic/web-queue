@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { theme, SearchInput } from '../../ui';
-import { Service } from '../../store/appointmentSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setSelectedService } from '../../store/appointmentSlice';
+import { Service } from '../../models';
 
 const ServicesContainer = styled.div`
   display: flex;

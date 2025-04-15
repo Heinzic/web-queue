@@ -2,6 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { theme, Text, FlexBox } from '../../ui';
 import { TimeSlot } from './TimeSlot';
+import { DateInfo } from '../../models';
+import { parseISO, format } from 'date-fns';
 
 const TimeSection = styled.div`
   margin-bottom: ${theme.spacing[4]};
@@ -17,11 +19,7 @@ const TimeSlotContainer = styled.div`
 interface TimeSlotsProps {
   selectedTimeSlot: string | null;
   onTimeSlotSelect: (timeSlot: string) => void;
-  timeSlots: {
-    morning: { title: string; range: string; slots: string[] };
-    day: { title: string; range: string; slots: string[] };
-    evening: { title: string; range: string; slots: string[] };
-  };
+  timeSlots: DateInfo[]
 }
 
 export const TimeSlots: React.FC<TimeSlotsProps> = ({
@@ -29,62 +27,24 @@ export const TimeSlots: React.FC<TimeSlotsProps> = ({
   onTimeSlotSelect,
   timeSlots,
 }) => {
+  console.log(timeSlots);
   return (
     <>
-      {/* Morning Time Slots */}
       <TimeSection>
         <FlexBox justify="space-between" align="center" padding={4}>
-          <Text weight="medium">{timeSlots.morning.title}</Text>
-          <Text size="sm" color="muted">{timeSlots.morning.range}</Text>
+          <Text weight="medium">Время</Text>
         </FlexBox>
         <TimeSlotContainer>
-          {timeSlots.morning.slots.map(time => (
+          {timeSlots.map(time => (
             <TimeSlot 
-              key={time} 
-              isSelected={selectedTimeSlot === time}
-              onClick={() => onTimeSlotSelect(time)}
+              key={time.from} 
+              isSelected={selectedTimeSlot === time.from}
+              onClick={() => onTimeSlotSelect(time.from)}
             >
-              {time}
+              {format(parseISO(time.from), 'HH:mm')}
             </TimeSlot>
-          ))}
-        </TimeSlotContainer>
-      </TimeSection>
-      
-      {/* Day Time Slots */}
-      <TimeSection>
-        <FlexBox justify="space-between" align="center" padding={4}>
-          <Text weight="medium">{timeSlots.day.title}</Text>
-          <Text size="sm" color="muted">{timeSlots.day.range}</Text>
-        </FlexBox>
-        <TimeSlotContainer>
-          {timeSlots.day.slots.map(time => (
-            <TimeSlot 
-              key={time} 
-              isSelected={selectedTimeSlot === time}
-              onClick={() => onTimeSlotSelect(time)}
-            >
-              {time}
-            </TimeSlot>
-          ))}
-        </TimeSlotContainer>
-      </TimeSection>
-      
-      {/* Evening Time Slots */}
-      <TimeSection>
-        <FlexBox justify="space-between" align="center" padding={4}>
-          <Text weight="medium">{timeSlots.evening.title}</Text>
-          <Text size="sm" color="muted">{timeSlots.evening.range}</Text>
-        </FlexBox>
-        <TimeSlotContainer>
-          {timeSlots.evening.slots.map(time => (
-            <TimeSlot 
-              key={time} 
-              isSelected={selectedTimeSlot === time}
-              onClick={() => onTimeSlotSelect(time)}
-            >
-              {time}
-            </TimeSlot>
-          ))}
+          ))
+          }
         </TimeSlotContainer>
       </TimeSection>
     </>
