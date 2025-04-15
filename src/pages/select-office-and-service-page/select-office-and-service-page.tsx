@@ -9,73 +9,8 @@ import { Office, Service } from '../../models';
 import { OfficesList } from '../../components/appointment';
 import { Container, ServicesList } from '../../components/general';
 import { ArrowBackIcon, PackagesAmountButton, ResetButton } from './styled';
-
-
-const mockOffices = [
-  {
-    id: 1,
-    name: "МФЦ",
-    city: "Екатеринбург",
-    address: "Дублёр Сибирского тракта, 2 (ТРК \"КомсоМолл\")",
-    workingHours: "С 9:00 до 20:00",
-    distance: "200 м",
-    services: [1, 2, 3] // Service IDs that this office provides
-  },
-  {
-    id: 2,
-    name: "МФЦ",
-    city: "Екатеринбург",
-    address: "ул. Рощинская, 21",
-    workingHours: "С 9:00 до 20:00",
-    distance: "800 м",
-    services: [1, 2] // Service IDs that this office provides
-  },
-  {
-    id: 3,
-    name: "МФЦ",
-    city: "Екатеринбург",
-    address: "ул. Учителей, 25",
-    workingHours: "С 9:00 до 20:00",
-    distance: "3,2 км",
-    services: [1, 3] // Service IDs that this office provides
-  },
-  {
-    id: 4,
-    name: "МФЦ",
-    city: "Екатеринбург",
-    address: "ул. Бориса Ельцина, 3",
-    workingHours: "С 9:00 до 20:00",
-    distance: "6,8 км",
-    services: [2, 3] // Service IDs that this office provides
-  },
-  {
-    id: 5,
-    name: "МФЦ",
-    city: "Екатеринбург",
-    address: "ул. Героев России, 2 (ТДЦ Свердловск)",
-    workingHours: "С 9:00 до 20:00",
-    distance: "7,5 км",
-    services: [1, 2, 3] // Service IDs that this office provides
-  },
-  {
-    id: 6,
-    name: "Росреестр",
-    city: "Спб",
-    address: "тест 1",
-    workingHours: "С 9:00 до 20:00",
-    distance: "7,5 км",
-    services: [1, 2, 3] // Service IDs that this office provides
-  },
-  {
-    id: 7,
-    name: "Росреестр",
-    city: "Спб",
-    address: "тест 2",
-    workingHours: "С 9:00 до 20:00",
-    distance: "7,5 км",
-    services: [1, 2, 3] // Service IDs that this office provides
-  }
-];
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const filtersList = {name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"]};
 const SelectOfficeAndServicePage = () => {
@@ -89,51 +24,60 @@ const SelectOfficeAndServicePage = () => {
   
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService, amountOfPackages } = useAppSelector(state => state.appointment);
+
+  const {data: offices, isLoading, error} = useQuery({
+    queryKey: ['offices'],
+    queryFn: async (): Promise<Office[]> => {
+      const response = await axios.get<{ offices: Office[] }>('http://localhost:5173/api/offices');
+      return response.data.offices;
+    }
+  })
   
   // Filter offices based on search query and selected service
-  const filteredOffices = mockOffices
-    .filter(office => {
+  const filteredOffices = offices
+    ?.filter(office => {
       // Filter by search query
       const matchesSearch = !searchQuery || 
-        office.name.toLowerCase().includes(searchQuery.toLowerCase());
+        office.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        office.address.toLowerCase().includes(searchQuery.toLowerCase());
       
       // Filter by selected service if one is selected
       const matchesService = !selectedService || 
-        (office.services && office.services.includes(selectedService.id));
+        office.lines.some(line => line.serviceId === selectedService.id);
       
       return matchesSearch && matchesService;
     });
 
-    function filterOffices(
-      offices: typeof mockOffices,
-      filters: typeof filtersList,
-      searchQuery: string,
-      selectedService?: { id: number }
-    ) {
-      return offices.filter(office => {
-        // 1. Handle search query
-        const matchesSearch = !searchQuery || 
-          Object.values(office).some(
-            val => typeof val === 'string' && 
-            val.toLowerCase().includes(searchQuery.toLowerCase())
-          );
+    // function filterOffices(
+    //   offices: Office[],
+    //   filters: typeof filtersList,
+    //   searchQuery: string,
+    //   selectedService?: { id: number }
+    // ) {
+    //   return offices.filter(office => {
+    //     // 1. Handle search query
+    //     const matchesSearch = !searchQuery || 
+    //       Object.values(office).some(
+    //         val => typeof val === 'string' && 
+    //         val.toLowerCase().includes(searchQuery.toLowerCase())
+    //       );
     
-        // 2. Handle service filter
-        const matchesService = !selectedService || 
-          (office.services && office.services.includes(selectedService.id));
+    //     // 2. Handle service filter
+    //     const matchesService = !selectedService || 
+    //       office.lines.some(line => line.serviceId === selectedService.id);
     
-        // 3. Handle dynamic filters from filtersList
-        const matchesFilters = Object.entries(filters).every(([key, allowedValues]) => {
-          if (!allowedValues || allowedValues.length === 0) return true;
+    //     // 3. Handle dynamic filters from filtersList
+    //     const matchesFilters = Object.entries(filters).every(([key, allowedValues]) => {
+    //       if (!allowedValues || allowedValues.length === 0) return true;
     
-          // Convert office[key] to string for comparison
-          const officeValue = office[key as keyof typeof office];
-          return allowedValues.includes(String(officeValue)); // Convert to string
-        });
+    //       // Convert office[key] to string for comparison
+    //       const officeValue = office[key as keyof typeof office];
+    //       return allowedValues.includes(String(officeValue)); // Convert to string
+    //     });
     
-        return matchesSearch && matchesService && matchesFilters;
-      });
-    }
+    //     return matchesSearch && matchesService && matchesFilters;
+    //   });
+    // }
 
   const handleOfficeSelect = (office: Office) => {
     dispatch(setSelectedOffice(office));
@@ -164,6 +108,9 @@ const SelectOfficeAndServicePage = () => {
     
     setActiveTab(tab);
   };
+
+  if (isLoading) return <div>Загрузка...</div>
+  if (error) return <div>Ошибка: {error.message}</div>
 
   return (
     <Container maxWidth={800}>
@@ -262,7 +209,7 @@ const SelectOfficeAndServicePage = () => {
         <div>
           {activeTab === "places" && (
             <FlexBox direction="column" gap={3}>
-              {filteredOffices.length > 0 ? (
+              {filteredOffices && filteredOffices.length > 0 ? (
                 <OfficesList 
                   offices={filteredOffices} 
                   selectedOfficeId={selectedOffice?.id}

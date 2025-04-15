@@ -5,7 +5,7 @@ import { Office } from '../../models';
 
 interface OfficesListProps {
   offices: Office[];
-  selectedOfficeId?: number;
+  selectedOfficeId?: string;
   onOfficeSelect?: (office: Office) => void;
 }
 

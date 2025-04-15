@@ -1,9 +1,12 @@
+import { Line } from "./Line";
+
 export interface Office {
-  id: number;
   name: string;
-  city: string;
   address: string;
-  workingHours: string;
-  distance: string;
-  services: number[];
-} 
+  city: string;
+  id: string;
+  lines: Line[];
+  timeZoneId: string;
+  nearestDate: number;
+  active: boolean;
+}
