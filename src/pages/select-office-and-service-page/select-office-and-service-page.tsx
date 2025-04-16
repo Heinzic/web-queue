@@ -12,7 +12,7 @@ import { ServicesList } from '../../components/appointment/ServicesList';
 import { ArrowBackIcon, PackagesAmountButton, ResetButton } from './styled';
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../provider/client';
-
+import { nav } from '..';
 const filtersList = {name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"]};
 const SelectOfficeAndServicePage = () => {
   const location = useLocation();
@@ -117,11 +117,11 @@ const SelectOfficeAndServicePage = () => {
     <Container maxWidth={800}>
       <FlexBox direction="column" gap={1}>
         <Breadcrumbs>
-          <BreadcrumbItem to="/">Главная</BreadcrumbItem>
+          <BreadcrumbItem to={nav.index()}>Главная</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem to="/">Услуги</BreadcrumbItem>
+          <BreadcrumbItem to={nav.selectLocation()}>Услуги</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem to="/">Запись на прием</BreadcrumbItem>
+          <BreadcrumbItem to={nav.appointmentDateTime()}>Запись на прием</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
           <BreadcrumbItem>Запись в отделы города {selectedLocation}</BreadcrumbItem>
         </Breadcrumbs>

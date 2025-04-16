@@ -5,6 +5,12 @@ import { TimeSlot } from './TimeSlot';
 import { DateInfo } from '../../models';
 import { parseISO, format } from 'date-fns';
 
+interface TimeSlotsProps {
+  selectedTimeSlot: string | null;
+  onTimeSlotSelect: (timeSlot: string) => void;
+  timeSlots: DateInfo[]
+}
+
 const TimeSection = styled.div`
   margin-bottom: ${theme.spacing[4]};
 `;
@@ -15,12 +21,6 @@ const TimeSlotContainer = styled.div`
   gap: ${theme.spacing[2]};
   padding: 0 ${theme.spacing[4]};
 `;
-
-interface TimeSlotsProps {
-  selectedTimeSlot: string | null;
-  onTimeSlotSelect: (timeSlot: string) => void;
-  timeSlots: DateInfo[]
-}
 
 export const TimeSlots: React.FC<TimeSlotsProps> = ({
   selectedTimeSlot,

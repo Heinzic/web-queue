@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../provider/client';
 import { DateInfo } from '../../models';
 import { isSameDay } from 'date-fns';
+import { nav } from '..';
 
 const AppointmentDateTimePage: React.FC = () => {
   
@@ -42,7 +43,11 @@ const AppointmentDateTimePage: React.FC = () => {
   
   const handleChangeOffice = () => {
     dispatch(resetAppointment());
-    navigate('/select-office');
+    navigate(nav.selectOffice());
+  };
+
+  const handleBookAppointment = () => {
+    navigate(nav.enterData());
   };
 
   if (isLoading) {
@@ -54,7 +59,7 @@ const AppointmentDateTimePage: React.FC = () => {
   }
   
   if (!selectedOffice || !selectedService) {
-    navigate('/select-office');
+    navigate(nav.selectOffice());
     return null;
   }
 
@@ -89,10 +94,13 @@ const AppointmentDateTimePage: React.FC = () => {
           timeSlots={timeSlots.filter(slot => isSameDay(new Date(slot.date), selectedDate))}
         />
       )}
-      <FlexBox justify='center' padding={4}>
+      <FlexBox justify='center' padding={4} gap={2}>
         <Button size='large' variant='outlined' onClick={handleChangeOffice}>
           Другой офис
         </Button>
+        {selectedTimeSlot && <Button size='large' variant='primary' onClick={handleBookAppointment}>
+          Записаться
+        </Button>}
       </FlexBox>
     </Container>
   );
