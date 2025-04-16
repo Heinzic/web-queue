@@ -8,7 +8,7 @@ import { AppointmentDateContainer, TimeSlots } from '../../components/appointmen
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { DateInfo } from '../../models';
-
+import { isSameDay } from 'date-fns';
 
 const AppointmentDateTimePage: React.FC = () => {
   
@@ -25,7 +25,7 @@ const AppointmentDateTimePage: React.FC = () => {
   });
   
   const [selectedDate, setSelectedDate] = useState<Date>(timeSlots?.[0]?.date ? new Date(timeSlots[0].date) : new Date());
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);  
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
   
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
@@ -86,7 +86,7 @@ const AppointmentDateTimePage: React.FC = () => {
         <TimeSlots
           selectedTimeSlot={selectedTimeSlot}
           onTimeSlotSelect={handleTimeSlotSelect}
-          timeSlots={timeSlots}
+          timeSlots={timeSlots.filter(slot => isSameDay(new Date(slot.date), selectedDate))}
         />
       )}
       <FlexBox justify='center' padding={4}>
