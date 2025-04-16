@@ -186,7 +186,7 @@ CustomInput.displayName = 'CustomDatePickerInput';
 
 interface CustomDatePickerProps {
   selectedDate: Date;
-  onDateSelect: (date: Date | undefined) => void;
+  onDateSelect: (date: Date) => void;
   className?: string;
 }
 

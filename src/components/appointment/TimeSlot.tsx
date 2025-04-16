@@ -12,7 +12,7 @@ export const TimeSlot = styled.button<{ isSelected?: boolean }>`
   transition: all 0.2s ease;
   
   &:hover {
-    background-color: ${props => props.isSelected ? theme.colors.primary.dark : theme.colors.neutral.gray[100]};
+    background-color: ${props => props.isSelected ? theme.colors.primary.dark : theme.colors.neutral.gray[400]};
   }
 `;
 

@@ -24,10 +24,10 @@ const AppointmentDateTimePage: React.FC = () => {
     }
   });
   
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date>(timeSlots?.[0]?.date ? new Date(timeSlots[0].date) : new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);  
   
-  const handleDateChange = (date: Date | null) => {
+  const handleDateChange = (date: Date) => {
     setSelectedDate(date);
     setSelectedTimeSlot(null);
   };

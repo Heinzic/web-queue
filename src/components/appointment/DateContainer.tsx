@@ -106,8 +106,8 @@ const DatePickerContainer = styled.div`
 `;
 
 interface DateContainerProps {
-  selectedDate: Date | null;
-  onDateChange: (date: Date | null) => void;
+  selectedDate: Date;
+  onDateChange: (date: Date) => void;
 }
 
 export const AppointmentDateContainer: React.FC<DateContainerProps> = ({
@@ -139,8 +139,8 @@ export const AppointmentDateContainer: React.FC<DateContainerProps> = ({
     setIsCalendarOpen(!isCalendarOpen);
   };
 
-  const handleDateSelect = (date: Date | undefined) => {
-    onDateChange(date || null);
+  const handleDateSelect = (date: Date) => {
+    onDateChange(date);
     setIsCalendarOpen(false);
   };
 

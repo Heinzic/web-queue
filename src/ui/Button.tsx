@@ -73,7 +73,8 @@ const StyledButton = styled.button<ButtonProps>`
           color: ${theme.colors.primary.main};
           border: 1px solid ${theme.colors.primary.main};
           &:hover {
-            background-color: ${theme.colors.neutral.gray[50]};
+            background-color: ${theme.colors.primary.main};
+            color: ${theme.colors.primary.contrastText};
           }
           &:focus {
             box-shadow: 0 0 0 2px ${theme.colors.primary.light};

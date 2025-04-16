@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { theme, Text, FlexBox } from '../../ui';
+import { theme, FlexBox, Title } from '../../ui';
 import { TimeSlot } from './TimeSlot';
 import { DateInfo } from '../../models';
 import { parseISO, format } from 'date-fns';
@@ -27,12 +27,11 @@ export const TimeSlots: React.FC<TimeSlotsProps> = ({
   onTimeSlotSelect,
   timeSlots,
 }) => {
-  console.log(timeSlots);
   return (
     <>
       <TimeSection>
         <FlexBox justify="space-between" align="center" padding={4}>
-          <Text weight="medium">Время</Text>
+          <Title size="medium">Время</Title>
         </FlexBox>
         <TimeSlotContainer>
           {timeSlots.map(time => (
