@@ -1,5 +1,5 @@
 import { http, HttpResponse, HttpHandler } from 'msw';
-import { MonthData, Office } from '../models';
+import { Appointment, MonthData, Office } from '../models';
 
 const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[] }>(
   '/api/offices',
@@ -334,4 +334,19 @@ const getDatesHandler: HttpHandler = http.get<never, {lineName: string, placeId:
   }
 );
 
-export const handlers = [getOfficesHandler, getDatesHandler];
+const createAppointmentHandler: HttpHandler = http.post<never, Appointment, never>(
+    '/api/create-appointment',
+    async ({ request }) => {
+      try {
+        const appointment = await request.json() as Appointment;
+        return HttpResponse.json(appointment, { status: 201 });
+      } catch (error) {
+        return HttpResponse.json(
+          { error: 'Invalid appointment data' },
+          { status: 400 }
+        );
+      }
+    }
+);
+
+export const handlers = [getOfficesHandler, getDatesHandler, createAppointmentHandler];

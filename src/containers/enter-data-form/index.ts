@@ -1,0 +1,1 @@
+export { default as EnterDataForm } from './enter-data-form';
