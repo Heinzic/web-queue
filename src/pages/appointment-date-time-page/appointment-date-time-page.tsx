@@ -6,7 +6,7 @@ import { resetAppointment } from '../../store/appointmentSlice';
 import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../../ui';
 import { AppointmentDateContainer, TimeSlots } from '../../components/appointment';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { instance } from '../../provider/client';
 import { DateInfo } from '../../models';
 import { isSameDay } from 'date-fns';
 
@@ -19,7 +19,7 @@ const AppointmentDateTimePage: React.FC = () => {
   const { data: timeSlots, isLoading, error } = useQuery({
     queryKey: ['dates', selectedOffice?.id, selectedService?.id],
     queryFn: async () => {
-      const response = await axios.get<{ dates: DateInfo[] }>(`http://localhost:5173/api/dates?placeId=${selectedOffice?.id}&serviceId=${selectedService?.id}`);
+      const response = await instance.get<{ dates: DateInfo[] }>(`/api/dates?placeId=${selectedOffice?.id}&serviceId=${selectedService?.id}`);
       return response.data.dates;
     }
   });

@@ -11,7 +11,7 @@ import { Container } from '../../components/general';
 import { ServicesList } from '../../components/appointment/ServicesList';
 import { ArrowBackIcon, PackagesAmountButton, ResetButton } from './styled';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { instance } from '../../provider/client';
 
 const filtersList = {name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"]};
 const SelectOfficeAndServicePage = () => {
@@ -29,7 +29,7 @@ const SelectOfficeAndServicePage = () => {
   const {data: offices, isLoading, error} = useQuery({
     queryKey: ['offices'],
     queryFn: async (): Promise<Office[]> => {
-      const response = await axios.get<{ offices: Office[] }>('http://localhost:5173/api/offices');
+      const response = await instance.get<{ offices: Office[] }>('/api/offices');
       return response.data.offices;
     }
   })
