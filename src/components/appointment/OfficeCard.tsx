@@ -32,8 +32,8 @@ export const OfficeCard: React.FC<OfficeCardProps> = ({ isSelected, onClick, off
           <FlexBox direction="column" gap={2}>
             <Text size="sm" color='muted'>{office.city}</Text>
             <FlexBox direction="row" gap={2}>
-              <Text size="sm" color='muted'>{office.workingHours}</Text>
-              <Text size="sm" color='muted'>{office.distance}</Text>
+              <Text size="sm" color='muted'>8:00 - 20:00</Text>
+              <Text size="sm" color='muted'>200м</Text>
             </FlexBox>
         </FlexBox>
         </FlexBox>
