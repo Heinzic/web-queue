@@ -5,7 +5,7 @@ import { theme } from './theme/theme';
 interface FastFiltersProps {
   options: string[];
   selectedOption: string;
-  onSelect: (option: string) => void;
+  onSelect: (option: 'places' | 'services') => void;
 }
 
 const FilterButton = styled.button<{ active: boolean }>`
@@ -30,7 +30,7 @@ export const FastFilters: React.FC<FastFiltersProps> = ({ options, selectedOptio
         <FilterButton
           key={option}
           active={option === selectedOption}
-          onClick={() => onSelect(option)}
+          onClick={() => onSelect(option as 'places' | 'services')}
         >
           {option}
         </FilterButton>

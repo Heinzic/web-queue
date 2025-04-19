@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 import styled from '@emotion/styled';
 import { theme } from './theme/theme';
 import { Input } from './Input';
+
 export interface SearchInputProps {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;

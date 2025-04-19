@@ -13,6 +13,7 @@ import { ArrowBackIcon, PackagesAmountButton, ResetButton } from './styled';
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../provider/client';
 import { nav } from '..';
+
 const filtersList = {name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"]};
 const SelectOfficeAndServicePage = () => {
   const location = useLocation();
@@ -24,7 +25,7 @@ const SelectOfficeAndServicePage = () => {
   const [activeTab, setActiveTab] = useState("places");
   
   const dispatch = useAppDispatch();
-  const { selectedOffice, selectedService, amountOfPackages } = useAppSelector(state => state.appointment);
+  const { selectedOffice, selectedService, amountOfPackages } = useAppSelector(state => state.appointment);  
 
   const {data: offices, isLoading, error} = useQuery({
     queryKey: ['offices'],

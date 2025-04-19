@@ -289,6 +289,20 @@ const getDatesHandler: HttpHandler = http.get<never, {lineName: string, placeId:
                         },
                         {
                             available: true,
+                            date: "2025-04-18T09:00:00Z",
+                            from: "2025-04-18T09:20:00Z",
+                            to: "2025-04-18T17:20:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
+                            date: "2025-04-18T09:20:00Z",
+                            from: "2025-04-18T09:40:00Z",
+                            to: "2025-04-18T17:20:00Z",
+                            description: ""
+                        },
+                        {
+                            available: true,
                             date: "2025-04-19T00:00:00Z",
                             from: "2025-04-19T09:00:00Z",
                             to: "2025-04-19T16:00:00Z",

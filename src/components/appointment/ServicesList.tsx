@@ -54,14 +54,6 @@ const ServiceDescription = styled.div`
   margin-bottom: ${theme.spacing[2]};
 `;
 
-const ServiceDuration = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing[1]};
-  font-size: ${theme.typography.fontSize.sm};
-  color: ${theme.colors.neutral.gray[600]};
-`;
-
 const ResetButton = styled.button`
   background: none;
   border: none;
@@ -82,19 +74,16 @@ const mockServices = [
     id: 1,
     name: "Физические лица",
     description: "Регистрация, получение документов и другие услуги для физических лиц",
-    duration: "с 9:00 до 20:00"
   },
   {
     id: 2,
     name: "Юридические лица",
     description: "Регистрация ООО, ИП и другие услуги для бизнеса",
-    duration: "с 9:00 до 20:00"
   },
   {
     id: 3,
     name: "Биометрия",
     description: "Сдача биометрических данных, получение биометрических документов",
-    duration: "с 12:00 до 18:00"
   }
 ];
 
@@ -182,9 +171,6 @@ export const ServicesList: React.FC<ServicesListProps> = ({
               <ServiceName>{service.name}</ServiceName>
               {service.description && (
                 <ServiceDescription>{service.description}</ServiceDescription>
-              )}
-              {service.duration && (
-                <ServiceDuration>{service.duration}</ServiceDuration>
               )}
             </ServiceInfo>
           </ServiceCard>
