@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setAmountOfPackages, setSelectedOffice, setSelectedService } from '../../store/appointmentSlice';
-import { Title, SearchInput, theme, FlexBox, FastFilters, Text } from '../../ui';
+import { setSelectedOffice, setSelectedService } from '../../store/appointmentSlice';
+import { Title, SearchInput, theme, FlexBox, FastFilters } from '../../ui';
 import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../components/appointment/Breadcrumbs';
 import { Tabs, TabItem } from '../../components/appointment/Tabs';
 import { Office, Service } from '../../models';
 import { OfficesList } from '../../components/appointment';
 import { Container } from '../../components/general';
 import { ServicesList } from '../../components/appointment/ServicesList';
-import { ArrowBackIcon, PackagesAmountButton, ResetButton } from './styled';
+import { ArrowBackIcon, ResetButton } from './styled';
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../provider/client';
 import { nav } from '..';
@@ -25,7 +25,7 @@ const SelectOfficeAndServicePage = () => {
   const [activeTab, setActiveTab] = useState("places");
   
   const dispatch = useAppDispatch();
-  const { selectedOffice, selectedService, amountOfPackages } = useAppSelector(state => state.appointment);  
+  const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);  
 
   const {data: offices, isLoading, error} = useQuery({
     queryKey: ['offices'],
@@ -197,16 +197,7 @@ const SelectOfficeAndServicePage = () => {
         </FlexBox>
         <FlexBox justify="space-between" align="center">
           <FastFilters options={filtersList.name} selectedOption={activeTab} onSelect={handleTabChange} />
-          <FlexBox align="center" gap={2}>
-            <Text size="sm">Количество пакетов документов</Text>
-            <PackagesAmountButton onClick={() => dispatch(setAmountOfPackages(amountOfPackages - 1))} disabled={amountOfPackages === 1}>
-              <Text size="xl" color={amountOfPackages === 1 ? 'muted' : 'primary'}>−</Text>
-            </PackagesAmountButton>
-            <Text size="sm">{amountOfPackages}</Text>
-            <PackagesAmountButton onClick={() => dispatch(setAmountOfPackages(amountOfPackages + 1))}>
-              <Text size="xl" color="primary">+</Text>
-            </PackagesAmountButton>
-          </FlexBox>
+          
         </FlexBox>
         <div>
           {activeTab === "places" && (

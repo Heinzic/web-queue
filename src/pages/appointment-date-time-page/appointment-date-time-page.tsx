@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../../components/general';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { resetAppointment } from '../../store/appointmentSlice';
+import { resetAppointment, setAmountOfPackages } from '../../store/appointmentSlice';
 import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../../ui';
 import { AppointmentDateContainer, TimeSlots } from '../../components/appointment';
 import { useQuery } from '@tanstack/react-query';
@@ -10,12 +10,12 @@ import { instance } from '../../provider/client';
 import { DateInfo } from '../../models';
 import { isSameDay } from 'date-fns';
 import { nav } from '..';
+import { PackagesAmountButton } from './styled';
 
-const AppointmentDateTimePage: React.FC = () => {
-  
+const AppointmentDateTimePage: React.FC = () => {  
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);
+  const { selectedOffice, selectedService, amountOfPackages } = useAppSelector(state => state.appointment);
 
   const { data: timeSlots, isLoading, error } = useQuery({
     queryKey: ['dates', selectedOffice?.id, selectedService?.id],
@@ -72,15 +72,27 @@ const AppointmentDateTimePage: React.FC = () => {
           </svg>
         </BackLink>
         <FlexBox direction="column" gap={1}>
-          <Text size="lg" weight="bold">{selectedOffice?.name}</Text>
-          <Text size="sm" color="muted">МФЦ. Справки, время обслуживания ≈ 15 минут</Text>
+          <Text size="lg" weight="bold">{selectedOffice?.name + ' ' + selectedOffice?.address}</Text>
+          <Text size="sm" color="muted">{selectedService?.name}</Text>
         </FlexBox>
       </FlexBox>
 
-      <AppointmentDateContainer
-        selectedDate={selectedDate}
-        onDateChange={handleDateChange}
-      />
+      <FlexBox align="center" justify="space-between" gap={2}>
+        <AppointmentDateContainer
+          selectedDate={selectedDate}
+          onDateChange={handleDateChange}
+        />
+        <FlexBox align="center" gap={2}>
+            <Text size="sm">Количество пакетов документов</Text>
+            <PackagesAmountButton onClick={() => dispatch(setAmountOfPackages(amountOfPackages - 1))} disabled={amountOfPackages === 1}>
+              <Text size="xl" color={amountOfPackages === 1 ? 'muted' : 'primary'}>−</Text>
+            </PackagesAmountButton>
+            <Text size="sm">{amountOfPackages}</Text>
+            <PackagesAmountButton onClick={() => dispatch(setAmountOfPackages(amountOfPackages + 1))}>
+              <Text size="xl" color="primary">+</Text>
+            </PackagesAmountButton>
+        </FlexBox>
+      </FlexBox>
       <Card variant='elevated' withArrow size='small'>
         <CardLink to="/select-office">
           <Text size="lg" weight="medium">Записаться на ближайшее время</Text>
