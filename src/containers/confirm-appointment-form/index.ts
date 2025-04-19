@@ -1,0 +1,1 @@
+export { default as ConfirmAppointmentForm } from './confirm-appointment-form';

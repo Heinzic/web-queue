@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import HandleAppointment from './HOC/HandleAppointment';
-import {nav, SelectOfficeAndServicePage, AppointmentDateTimePage, HomePage, CancelAppointmentPage, LocationSelectionPage, EnterDataPage} from './pages'
+import {nav, SelectOfficeAndServicePage, AppointmentDateTimePage, HomePage, CancelAppointmentPage, LocationSelectionPage, EnterDataPage, ConfirmAppointmentPage} from './pages'
 import './App.css';
 
 const App: React.FC = () => {
@@ -17,6 +17,7 @@ const App: React.FC = () => {
                 <Route path={nav.selectOffice()} element={<SelectOfficeAndServicePage />} />
                 <Route path={nav.appointmentDateTime()} element={<AppointmentDateTimePage />} />
                 <Route path={nav.enterData()} element={<EnterDataPage />} />
+                <Route path={nav.confirmAppointment()} element={<ConfirmAppointmentPage />} />
               </Routes>
             </HandleAppointment>
           </div>
