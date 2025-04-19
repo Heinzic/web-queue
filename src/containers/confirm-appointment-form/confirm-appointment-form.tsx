@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../provider/client";
 import { useMutation } from "@tanstack/react-query";
+import { UserService } from "../../services/UserService";
+import { User } from "../../models";
 
 function ConfirmAppointmentForm() {
     
@@ -26,8 +28,10 @@ function ConfirmAppointmentForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createAppointment.mutate();
-        console.log(createAppointment.status);
+        await createAppointment.mutate();
+        if (createAppointment.status === 'success') {
+            UserService.saveUserData(userData as User);
+        }
     }
 
     return ( 
