@@ -19,7 +19,7 @@ const SelectOfficeAndServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const selectedLocation = searchParams.get('location') || 'г. Екатеринбург';
+  const selectedLocation = searchParams.get('location') || 'Екатеринбург';
   
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("places");
@@ -27,7 +27,7 @@ const SelectOfficeAndServicePage = () => {
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);  
 
-  const {data: offices, isLoading, error} = useQuery({
+  const {data: offices, isLoading: isLoadingOffice, error: officeError} = useQuery({
     queryKey: ['offices'],
     queryFn: async (): Promise<Office[]> => {
       const response = await instance.get<{ offices: Office[] }>('/api/offices');
@@ -35,7 +35,14 @@ const SelectOfficeAndServicePage = () => {
     }
   })
   
-  // Filter offices based on search query and selected service
+  const {data: services, isLoading: isServicesLoading, error: servicesError} = useQuery({
+    queryKey: ['services'],
+    queryFn: async (): Promise<Service[]> => {
+      const response = await instance.get<{ services: Service[] }>('/api/services');
+      return response.data.services;
+    }
+  })
+
   const filteredOffices = offices
     ?.filter(office => {
       // Filter by search query
@@ -49,6 +56,17 @@ const SelectOfficeAndServicePage = () => {
       
       return matchesSearch && matchesService;
     });
+
+  const filteredServices = services?.filter(service => {
+        const matchesSearch = !searchQuery || 
+          service.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          (service.description && service.description.toLowerCase().includes(searchQuery.toLowerCase()));
+        
+        const matchesOffice = !selectedOffice || 
+          service.officeIds.some(officeId => officeId === selectedOffice.id);
+
+    return matchesSearch && matchesOffice;
+  })
 
   const handleOfficeSelect = (office: Office) => {
     dispatch(setSelectedOffice(office));
@@ -70,18 +88,16 @@ const SelectOfficeAndServicePage = () => {
     setActiveTab("services");
   };
 
-  // Handle tab change
   const handleTabChange = (tab: string) => {
-    // Only clear office/service selection when appropriate
     if (tab === "services" && activeTab === "places" && !selectedOffice) {
       dispatch(setSelectedOffice(null));
     }
-    
+    setSearchQuery("");
     setActiveTab(tab);
   };
 
-  if (isLoading) return <div>Загрузка...</div>
-  if (error) return <div>Ошибка: {error.message}</div>
+  if (isLoadingOffice || isServicesLoading) return <div>Загрузка...</div>
+  if (officeError || servicesError) return <div>Ошибка: {officeError?.message || servicesError?.message}</div>
 
   return (
     <Container maxWidth={800}>
@@ -166,7 +182,6 @@ const SelectOfficeAndServicePage = () => {
         </FlexBox>
         <FlexBox justify="space-between" align="center">
           <FastFilters options={filtersList.name} selectedOption={activeTab} onSelect={handleTabChange} />
-          
         </FlexBox>
         <div>
           {activeTab === "places" && (
@@ -190,9 +205,8 @@ const SelectOfficeAndServicePage = () => {
           
           {activeTab === "services" && (
             <ServicesList 
-              showSearch={false} 
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
+              services={filteredServices || []}
+              showSearch={false}
               onServiceSelect={handleServiceSelect}
               onResetService={handleResetService}
             />

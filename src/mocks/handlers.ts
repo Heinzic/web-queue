@@ -1,5 +1,5 @@
 import { http, HttpResponse, HttpHandler } from 'msw';
-import { Appointment, MonthData, Office } from '../models';
+import { Appointment, MonthData, Office, Service } from '../models';
 
 const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[] }>(
   '/api/offices',
@@ -13,8 +13,8 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             id: "3538314b-16b5-46db-9825-08c536bc6653",
             lines: [
                 {
-                    name: "Физические лица",
-                    id: 2,
+                    name: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
+                    id: 1,
                     shortName: "doc",
                     nearestDate: 1744705200000,
                     notActive: false,
@@ -28,20 +28,66 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
                     servicePointsShowAlert: false
                 },
                 {
-                    name: "Биометрия",
-                    id: 19,
+                    name: "Лагеря",
+                    id: 4,
                     shortName: "doc",
                     nearestDate: 1744710000000,
                     notActive: false,
                     lineBookingOpenHours: false,
                     totalWaitingDelayShowAlert: false,
-                    serviceId: 3,
+                    serviceId: 4,
                     lineBookingUnavailable: false,
                     smartphoneModeEnabled: false,
                     smartphoneModeEnabledShowAlert: false,
                     positionsShowAlert: false,
                     servicePointsShowAlert: false
-                }
+                },
+                {
+                    name: "Школы",
+                    id: 5,
+                    shortName: "doc",
+                    nearestDate: 1744710000000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 5,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "МВД. Регистрация/снятие с регистрации",
+                    id: 7,
+                    shortName: "doc",
+                    nearestDate: 1744710000000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 7,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "Другие услуги",
+                    id: 9,
+                    shortName: "doc",
+                    nearestDate: 1744710000000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 9,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744705200000,
@@ -54,14 +100,29 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             id: "d81b5e25-b72d-4ae0-b761-0b0b13c46b7a",
             lines: [
                 {
-                    name: "Физические лица",
-                    id: 1,
+                    name: "Комплексная услуга по газификации",
+                    id: 3,
                     shortName: "doc",
                     nearestDate: 1744705200000,
                     notActive: false,
                     lineBookingOpenHours: false,
                     totalWaitingDelayShowAlert: false,
-                    serviceId: 1,
+                    serviceId: 3,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "Услуги пенсионного обеспечения и социальной защиты (пособия, опека, пенсия и др.)",
+                    id: 6,
+                    shortName: "doc",
+                    nearestDate: 1744705200000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 6,
                     lineBookingUnavailable: false,
                     smartphoneModeEnabled: false,
                     smartphoneModeEnabledShowAlert: false,
@@ -80,14 +141,29 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             id: "9e1ffa3d-5d37-4e6a-a776-4a9740627ad2",
             lines: [
                 {
-                    name: "Физические лица",
-                    id: 446,
+                    name: "Внесудебное банкротство физических лиц",
+                    id: 2,
                     shortName: "doc",
                     nearestDate: 1744706400000,
                     notActive: false,
                     lineBookingOpenHours: false,
                     totalWaitingDelayShowAlert: false,
-                    serviceId: 1,
+                    serviceId: 2,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "МВД. Замена водительского удостоверения",
+                    id: 8,
+                    shortName: "doc",
+                    nearestDate: 1744706400000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 8,
                     lineBookingUnavailable: false,
                     smartphoneModeEnabled: false,
                     smartphoneModeEnabledShowAlert: false,
@@ -106,14 +182,29 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             id: "C961BF59-6ADA-42B9-92F4-8A59D9ECD64B",
             lines: [
                 {
-                    name: "Юридические лица",
-                    id: 5,
+                    name: "Комплексная услуга по газификации",
+                    id: 3,
                     shortName: "doc",
-                    nearestDate: 1744708800000,
+                    nearestDate: 1744705200000,
                     notActive: false,
                     lineBookingOpenHours: false,
                     totalWaitingDelayShowAlert: false,
-                    serviceId: 2,
+                    serviceId: 3,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "Школы",
+                    id: 5,
+                    shortName: "doc",
+                    nearestDate: 1744705200000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 5,
                     lineBookingUnavailable: false,
                     smartphoneModeEnabled: false,
                     smartphoneModeEnabledShowAlert: false,
@@ -131,21 +222,6 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             city: "Екатеринбург",
             id: "5E575B0C-D1C5-4C96-B1EE-45D028E87D8A",
             lines: [
-                {
-                    name: "Юридические лица",
-                    id: 17,
-                    shortName: "doc",
-                    nearestDate: 1744708800000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 2,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                }
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744708800000,
@@ -157,21 +233,6 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             city: "Екатеринбург",
             id: "5aaca759-164c-4c9d-96c1-7008a423df5c",
             lines: [
-                {
-                    name: "Биометрия",
-                    id: 414,
-                    shortName: "doc",
-                    nearestDate: 1744708800000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 3,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                }
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744708800000,
@@ -183,21 +244,6 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             city: "Екатеринбург",
             id: "EEC7B4EB-8A11-440E-9F9F-17394DF4ED94",
             lines: [
-                {
-                    name: "Биометрия",
-                    id: 13,
-                    shortName: "doc",
-                    nearestDate: 1744710000000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 3,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                }
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744710000000,
@@ -209,21 +255,6 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             city: "Екатеринбург",
             id: "FDCDB175-1ECA-479A-B428-E6715984BF04",
             lines: [
-                {
-                    name: "Биометрия",
-                    id: 19,
-                    shortName: "doc",
-                    nearestDate: 1744710000000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 3,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                }
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744710000000,
@@ -235,27 +266,77 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             city: "Екатеринбург",
             id: "7DA75221-96A6-4F89-B9AE-FB5BA88C1A73",
             lines: [
-                {
-                    name: "Физические лица",
-                    id: 11,
-                    shortName: "doc",
-                    nearestDate: 1744716000000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 1,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                }
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744716000000,
             active: false
         },
     ],
+    });
+  }
+);
+
+const getServicesHandler: HttpHandler = http.get<never, never, { lineName: string, services: Service[] }>(
+  '/api/services',
+  () => {
+    return HttpResponse.json({
+      lineName: "Физические лица",
+      services: [
+        {
+            id: 1,
+            name: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
+            description: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+        },
+        {
+            id: 2,
+            name: "Внесудебное банкротство физических лиц",
+            description: "Внесудебное банкротство физических лиц",
+            officeIds: ["9e1ffa3d-5d37-4e6a-a776-4a9740627ad2"]
+        },
+        {
+            id: 3,
+            name: "Комплексная услуга по газификации",
+            description: "Комплексная услуга по газификации",
+            officeIds: ["d81b5e25-b72d-4ae0-b761-0b0b13c46b7a", "C961BF59-6ADA-42B9-92F4-8A59D9ECD64B"]
+        },
+        {
+            id: 4,
+            name: "Лагеря",
+            description: "Лагеря",
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+        },
+        {
+            id: 5,
+            name: "Школы",
+            description: "Школы",
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653", "C961BF59-6ADA-42B9-92F4-8A59D9ECD64B"]
+        },
+        {
+            id: 6,
+            name: "Услуги пенсионного обеспечения и социальной защиты (пособия, опека, пенсия и др.)",
+            description: "Услуги пенсионного обеспечения и социальной защиты (пособия, опека, пенсия и др.)",
+            officeIds: ["d81b5e25-b72d-4ae0-b761-0b0b13c46b7a"]
+        },
+        {
+            id: 7,
+            name: "МВД. Регистрация / снятие с регистрации по месту жительства граждан РФ (прописка) по месту нахождения объекта недвижимости",
+            description: "МВД. Регистрация / снятие с регистрации по месту жительства граждан РФ (прописка) по месту нахождения объекта недвижимости",
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+        },
+        {
+            id: 8,
+            name: "МВД. Замена водительского удостоверения",
+            description: "МВД. Замена водительского удостоверения",
+            officeIds: ["9e1ffa3d-5d37-4e6a-a776-4a9740627ad2"]
+        },
+        {
+            id: 9,
+            name: "Другие услуги",
+            description: "Другие услуги",
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+        },
+      ]
     });
   }
 );
@@ -363,4 +444,4 @@ const createAppointmentHandler: HttpHandler = http.post<never, Appointment, neve
     }
 );
 
-export const handlers = [getOfficesHandler, getDatesHandler, createAppointmentHandler];
+export const handlers = [getOfficesHandler, getDatesHandler, createAppointmentHandler, getServicesHandler];

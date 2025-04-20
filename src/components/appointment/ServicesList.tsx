@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { theme, SearchInput } from '../../ui';
+import { theme } from '../../ui';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setSelectedService } from '../../store/appointmentSlice';
 import { Service } from '../../models';
@@ -68,56 +67,23 @@ const ResetButton = styled.button`
   }
 `;
 
-// Mock services data
-const mockServices = [
-  {
-    id: 1,
-    name: "Физические лица",
-    description: "Регистрация, получение документов и другие услуги для физических лиц",
-  },
-  {
-    id: 2,
-    name: "Юридические лица",
-    description: "Регистрация ООО, ИП и другие услуги для бизнеса",
-  },
-  {
-    id: 3,
-    name: "Биометрия",
-    description: "Сдача биометрических данных, получение биометрических документов",
-  }
-];
-
 interface ServicesListProps {
+  services: Service[];
   showSearch?: boolean;
-  searchQuery?: string;
-  setSearchQuery?: (query: string) => void;
   onServiceSelect?: (service: Service) => void;
   onResetService?: () => void;
-  switchTabAfterSelect?: boolean;
 }
 
 export const ServicesList: React.FC<ServicesListProps> = ({ 
+  services,
   showSearch = true, 
-  searchQuery: externalSearchQuery,
-  setSearchQuery: externalSetSearchQuery,
   onServiceSelect,
   onResetService,
 }) => {
-  // Use internal state only if external search props are not provided
-  const [internalSearchQuery, setInternalSearchQuery] = useState("");
   const dispatch = useAppDispatch();
   const { selectedService } = useAppSelector(state => state.appointment);
+      
   
-  // Use external search state if provided, otherwise use internal
-  const searchQuery = externalSearchQuery !== undefined ? externalSearchQuery : internalSearchQuery;
-  const setSearchQuery = externalSetSearchQuery || setInternalSearchQuery;
-  
-  const filteredServices = searchQuery 
-    ? mockServices.filter(service => 
-        service.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-        (service.description && service.description.toLowerCase().includes(searchQuery.toLowerCase()))
-      )
-    : mockServices;
 
   const handleServiceSelect = (service: Service) => {
     dispatch(setSelectedService(service));
@@ -139,15 +105,6 @@ export const ServicesList: React.FC<ServicesListProps> = ({
 
   return (
     <>
-      {showSearch && !selectedService && (
-        <SearchInput
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Поиск услуги"
-          showIcon
-        />
-      )}
-      
       {showSearch && selectedService && (
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: theme.spacing[3] }}>
           <div style={{ padding: "8px 0", fontWeight: 500 }}>
@@ -160,11 +117,11 @@ export const ServicesList: React.FC<ServicesListProps> = ({
       )}
       
       <ServicesContainer>
-        {filteredServices.map((service) => (
+        {services.map((service) => (
           <ServiceCard 
             key={service.id}
             isSelected={selectedService?.id === service.id}
-            onClick={() => handleServiceSelect(service as Service)}
+            onClick={() => handleServiceSelect(service)}
           >
             <ServiceIcon>У</ServiceIcon>
             <ServiceInfo>

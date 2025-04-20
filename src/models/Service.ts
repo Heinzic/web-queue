@@ -3,4 +3,5 @@ export interface Service {
     name: string;
     description?: string;
     duration?: string;
+    officeIds: string[];
 }  
