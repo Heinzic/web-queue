@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../../components/general';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { resetAppointment, setAmountOfPackages } from '../../store/appointmentSlice';
+import { resetAppointment, setAmountOfPackages, setTimeSlot } from '../../store/appointmentSlice';
 import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../../ui';
 import { AppointmentDateContainer, TimeSlots } from '../../components/appointment';
 import { useQuery } from '@tanstack/react-query';
@@ -47,6 +47,7 @@ const AppointmentDateTimePage: React.FC = () => {
   };
 
   const handleBookAppointment = () => {
+    dispatch(setTimeSlot(selectedTimeSlot ? selectedTimeSlot : ''));
     navigate(nav.enterData());
   };
 

@@ -31,6 +31,7 @@ function ConfirmAppointmentForm() {
         createAppointment.mutate(undefined, {
             onSuccess: () => {
                 UserService.saveUserData(userData as User);
+                navigate(nav.appointmentSuccess());
             },
             onError: (error) => {
                 console.error('Error creating appointment:', error);

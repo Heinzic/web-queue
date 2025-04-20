@@ -5,7 +5,7 @@ import { Title } from "../../ui";
 function EnterDataPage() {
     return (
         <Container>
-            <Title>Введите данные</Title>
+            <Title size="large">Введите данные</Title>
             <EnterDataForm />
         </Container>
     );

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { nav } from "../../pages";
 import { User } from "../../models";
 import { setUserData } from "../../store/appointmentSlice";
+import { UserService } from "../../services/UserService";
 
 const schema = z.object({
   firstName: z.string().min(1, 'Имя обязательно'),
@@ -32,6 +33,11 @@ function EnterDataForm() {
     useEffect(() => {
         if (!selectedOffice || !selectedService) {
             navigate(nav.index());            
+        }
+        const storedUserData = UserService.loadUserData();
+        if (storedUserData && UserService.isValidUserData(storedUserData)) {
+            dispatch(setUserData(storedUserData));
+            setData(storedUserData);
         }
     }, []);
 
@@ -101,7 +107,7 @@ function EnterDataForm() {
                         type="text"
                         id="firstName"
                         name="firstName"
-                        value={data.firstName || userData?.firstName}
+                        value={data.firstName}
                         onChange={handleChange}
                     />
                     {errors.firstName && <Text color="error">{errors.firstName}</Text>}
@@ -112,7 +118,7 @@ function EnterDataForm() {
                         type="text"
                         id="lastName"
                         name="lastName"
-                        value={data.lastName || userData?.lastName}
+                        value={data.lastName}
                         onChange={handleChange}
                     />
                     {errors.lastName && <Text color="error">{errors.lastName}</Text>}
@@ -123,7 +129,7 @@ function EnterDataForm() {
                         type="email"
                         id="email"
                         name="email"
-                        value={data.email || userData?.email}
+                        value={data.email}
                         onChange={handleChange}
                     />
                     {errors.email && <Text color="error">{errors.email}</Text>}
@@ -134,7 +140,7 @@ function EnterDataForm() {
                         type="tel"
                         id="phoneNumber"
                         name="phoneNumber"
-                        value={data.phoneNumber || userData?.phoneNumber}
+                        value={data.phoneNumber}
                         onChange={handlePhoneChange}
                         placeholder="+7XXXXXXXXXX"
                     />

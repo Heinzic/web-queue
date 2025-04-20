@@ -6,6 +6,7 @@ interface AppointmentState {
   selectedService: Service | null;
   amountOfPackages: number;
   userData: User | null;
+  timeSlot: string | null;
 }
 
 const initialState: AppointmentState = {
@@ -13,6 +14,7 @@ const initialState: AppointmentState = {
   selectedService: null,
   amountOfPackages: 1,
   userData: null,
+  timeSlot: null,
 };
 
 const appointmentSlice = createSlice({
@@ -36,6 +38,9 @@ const appointmentSlice = createSlice({
       state.selectedService = null;
       state.amountOfPackages = 1;
     },
+    setTimeSlot: (state, action: PayloadAction<string>) => {
+      state.timeSlot = action.payload;
+    },
   },
 });
 
@@ -44,7 +49,8 @@ export const {
   setSelectedService, 
   setAmountOfPackages,
   setUserData,
-  resetAppointment 
+  resetAppointment,
+  setTimeSlot,
 } = appointmentSlice.actions;
 
 export default appointmentSlice.reducer; 

@@ -7,5 +7,6 @@ export const appointmentDateTime = () => '/appointment-datetime' as const;
 
 export const cancelAppointment = () => '/cancel-appointment' as const;
 export const confirmAppointment = () => '/confirm-appointment' as const;
+export const appointmentSuccess = () => '/appointment-success' as const;
 
 export const enterData = () => '/enter-data' as const;

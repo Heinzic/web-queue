@@ -1,0 +1,1 @@
+export { default as AppointmentSuccessPage } from './appointment-success-page';
