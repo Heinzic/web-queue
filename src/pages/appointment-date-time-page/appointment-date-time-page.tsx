@@ -59,10 +59,10 @@ const AppointmentDateTimePage: React.FC = () => {
     return <div>Error: {error.message}</div>;
   }
   
-  if (!selectedOffice || !selectedService) {
-    navigate(nav.selectOffice());
-    return null;
-  }
+  // if (!selectedOffice || !selectedService) {
+  //   navigate(nav.selectOffice());
+  //   return null;
+  // }
 
   return (
     <Container padding={0} maxWidth={800}>

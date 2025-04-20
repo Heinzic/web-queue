@@ -50,37 +50,6 @@ const SelectOfficeAndServicePage = () => {
       return matchesSearch && matchesService;
     });
 
-    // function filterOffices(
-    //   offices: Office[],
-    //   filters: typeof filtersList,
-    //   searchQuery: string,
-    //   selectedService?: { id: number }
-    // ) {
-    //   return offices.filter(office => {
-    //     // 1. Handle search query
-    //     const matchesSearch = !searchQuery || 
-    //       Object.values(office).some(
-    //         val => typeof val === 'string' && 
-    //         val.toLowerCase().includes(searchQuery.toLowerCase())
-    //       );
-    
-    //     // 2. Handle service filter
-    //     const matchesService = !selectedService || 
-    //       office.lines.some(line => line.serviceId === selectedService.id);
-    
-    //     // 3. Handle dynamic filters from filtersList
-    //     const matchesFilters = Object.entries(filters).every(([key, allowedValues]) => {
-    //       if (!allowedValues || allowedValues.length === 0) return true;
-    
-    //       // Convert office[key] to string for comparison
-    //       const officeValue = office[key as keyof typeof office];
-    //       return allowedValues.includes(String(officeValue)); // Convert to string
-    //     });
-    
-    //     return matchesSearch && matchesService && matchesFilters;
-    //   });
-    // }
-
   const handleOfficeSelect = (office: Office) => {
     dispatch(setSelectedOffice(office));
     setActiveTab("services");
