@@ -26,12 +26,16 @@ function ConfirmAppointmentForm() {
         }
     });
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await createAppointment.mutate();
-        if (createAppointment.status === 'success') {
-            UserService.saveUserData(userData as User);
-        }
+        createAppointment.mutate(undefined, {
+            onSuccess: () => {
+                UserService.saveUserData(userData as User);
+            },
+            onError: (error) => {
+                console.error('Error creating appointment:', error);
+            }
+        });
     }
 
     return ( 
@@ -207,7 +211,7 @@ function ConfirmAppointmentForm() {
                 <FlexBox justify="center">
                     <Button type="submit" variant="primary">
                         Записаться
-                    </Button> 
+                    </Button>
                 </FlexBox>
             </FlexBox>
         </form>
