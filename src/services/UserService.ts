@@ -16,7 +16,7 @@ export const UserService = {
   loadUserData: (): User | null => {
     try {
       const data = localStorage.getItem(USER_DATA_KEY);
-      return UserService.isValidUserData(data) ? JSON.parse(data) : null;
+      return data ? JSON.parse(data) : null;
     } catch (error) {
       console.error('Error loading user data from localStorage:', error);
       return null;

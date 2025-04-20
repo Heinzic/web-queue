@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import HandleAppointment from './HOC/HandleAppointment';
 import {nav, SelectOfficeAndServicePage, AppointmentDateTimePage, HomePage, CancelAppointmentPage, LocationSelectionPage, EnterDataPage, ConfirmAppointmentPage} from './pages'
 import './App.css';
+import { useAppDispatch } from './store/hooks';
+import { setUserData } from './store/appointmentSlice';
+import { UserService } from './services/UserService';
 
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const storedUserData = UserService.loadUserData();
+    if (storedUserData && UserService.isValidUserData(storedUserData)) {
+        dispatch(setUserData(storedUserData));
+    }
+  }, []);
+
   return (  
     <div className="widget-container">
         <HashRouter>
