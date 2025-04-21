@@ -43,12 +43,12 @@ const AppointmentDateTimePage: React.FC = () => {
   
   const handleChangeOffice = () => {
     dispatch(resetAppointment());
-    navigate(nav.general.selectOffice());
+    navigate(nav.mfc.selectOffice());
   };
 
   const handleBookAppointment = () => {
     dispatch(setTimeSlot(selectedTimeSlot ? selectedTimeSlot : ''));
-    navigate(nav.general.enterData());
+    navigate(nav.mfc.enterData());
   };
 
   if (isLoading) {
@@ -62,7 +62,7 @@ const AppointmentDateTimePage: React.FC = () => {
   return (
     <Container padding={0} maxWidth={800}>
       <FlexBox align="center" padding={4} gap={2}>
-        <BackLink to={nav.general.selectOffice()} onClick={handleGoBack}>
+        <BackLink to={nav.mfc.selectOffice()} onClick={handleGoBack}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 18L9 12L15 6" stroke={theme('mfc').colors.neutral.gray[800]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -90,7 +90,7 @@ const AppointmentDateTimePage: React.FC = () => {
         </FlexBox>
       </FlexBox>
       <Card variant='elevated' withArrow size='small'>
-        <CardLink to={nav.general.selectOffice()}>
+        <CardLink to={nav.mfc.selectOffice()}>
           <Text size="lg" weight="medium">Записаться на ближайшее время</Text>
         </CardLink>
       </Card>

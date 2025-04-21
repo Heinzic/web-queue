@@ -30,11 +30,6 @@ const TimeSlotContainer = styled.div<StyledComponentsProps>`
   padding: 0 ${({ theme }) => theme.spacing[4]};
 `;
 
-const TimeSlotTitle = styled.div<StyledComponentsProps>`
-  margin-bottom: ${({ theme }) => theme.spacing[2]};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-`;
-
 export const TimeSlots: React.FC<TimeSlotsProps> = memo(({
   selectedTimeSlot,
   onTimeSlotSelect,

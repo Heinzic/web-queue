@@ -16,7 +16,7 @@ const schema = z.object({
     .regex(/^\+7\d{10}$/, 'Неверный формат номера телефона'),
 });
 
-function EnterDataForm() {
+function EnterDataForm(props :{nextLink: string}) {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -71,7 +71,7 @@ function EnterDataForm() {
             schema.parse(data);
             setErrors({});
             dispatch(setUserData(data));
-            navigate(nav.general.confirmAppointment());
+            navigate(props.nextLink);
         } catch (err) {
             if (err instanceof z.ZodError) {
                 const fieldErrors: { firstName?: string; lastName?: string; email?: string; phoneNumber?: string } = {};

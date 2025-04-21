@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { UserService } from "../../../services/UserService";
 import { User } from "../../../models";
 
-function ConfirmAppointmentForm() {
+function ConfirmAppointmentForm(props :{nextLink: string}) {
     
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ function ConfirmAppointmentForm() {
         createAppointment.mutate(undefined, {
             onSuccess: () => {
                 UserService.saveUserData(userData as User);
-                navigate(nav.general.appointmentSuccess());
+                navigate(props.nextLink);
             },
             onError: (error) => {
                 console.error('Error creating appointment:', error);
