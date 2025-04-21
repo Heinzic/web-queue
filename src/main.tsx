@@ -2,8 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
-import { theme } from './ui'
-import { ThemeProvider } from '@emotion/react'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -22,9 +20,7 @@ deferRender().then(() => {
       <React.StrictMode>
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
-            <ThemeProvider theme={theme}>
               <App />
-            </ThemeProvider>
           </Provider>
         </QueryClientProvider>
       </React.StrictMode>,

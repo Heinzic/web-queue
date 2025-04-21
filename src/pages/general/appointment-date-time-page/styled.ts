@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { theme } from "../../ui";
+import { theme } from "../../../ui";
 
 export const PackagesAmountButton = styled.button`
   background: ${theme.colors.neutral.white};

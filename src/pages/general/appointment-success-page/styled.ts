@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Title, Text } from "../../ui";
+import { Title, Text } from "../../../ui";
 
 export const AppointmentSuccessCard = styled.div`
     display: flex;

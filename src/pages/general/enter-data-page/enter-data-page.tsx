@@ -1,6 +1,6 @@
-import { Container } from "../../components/general";
-import { EnterDataForm } from "../../containers/enter-data-form";
-import { Title } from "../../ui";
+import { Container } from "../../../components/shared";
+import { EnterDataForm } from "../../../containers/general/enter-data-form";
+import { Title } from "../../../ui";
 
 function EnterDataPage() {
     return (

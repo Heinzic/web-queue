@@ -1,6 +1,6 @@
-import { Container } from '../../components/general';
-import { Title, CardLink, Text, FlexBox } from '../../ui';
-import { nav } from '..';
+import { Container } from '../../../components/shared';
+import { Title, CardLink, Text, FlexBox } from '../../../ui';
+import { nav } from '../../../pages';
 const HomePage = () => {
   return (
     <Container padding={6}>
@@ -14,7 +14,7 @@ const HomePage = () => {
       
       <FlexBox direction="column" gap={4}>
         <CardLink 
-          to={nav.selectLocation()}
+          to={nav.general.selectLocation()}
           size="medium"
           variant="default"
           withArrow
@@ -23,7 +23,7 @@ const HomePage = () => {
         </CardLink>
         
         <CardLink 
-          to="/cancel-appointment"
+          to={nav.general.cancelAppointment()}
           size="medium"
           variant="default"
           withArrow

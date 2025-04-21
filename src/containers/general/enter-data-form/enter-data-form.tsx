@@ -1,12 +1,12 @@
-import { Button, FlexBox, Input, Text } from "../../ui";
+import { Button, FlexBox, Input, Text } from "../../../ui";
 import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
-import { nav } from "../../pages";
-import { User } from "../../models";
-import { setUserData } from "../../store/appointmentSlice";
-import { UserService } from "../../services/UserService";
+import { nav } from "../../../pages";
+import { User } from "../../../models";
+import { setUserData } from "../../../store/appointmentSlice";
+import { UserService } from "../../../services/UserService";
 
 const schema = z.object({
   firstName: z.string().min(1, 'Имя обязательно'),
@@ -32,7 +32,7 @@ function EnterDataForm() {
 
     useEffect(() => {
         if (!selectedOffice || !selectedService) {
-            navigate(nav.index());            
+            navigate(nav.general.index());          
         }
         const storedUserData = UserService.loadUserData();
         if (storedUserData && UserService.isValidUserData(storedUserData)) {
@@ -71,7 +71,7 @@ function EnterDataForm() {
             schema.parse(data);
             setErrors({});
             dispatch(setUserData(data));
-            navigate(nav.confirmAppointment());
+            navigate(nav.general.confirmAppointment());
         } catch (err) {
             if (err instanceof z.ZodError) {
                 const fieldErrors: { firstName?: string; lastName?: string; email?: string; phoneNumber?: string } = {};

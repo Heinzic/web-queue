@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { nav } from "..";
-import { Container } from "../../components/general";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { FlexBox, Button } from "../../ui";
+import { nav } from "../../../pages";
+import { Container } from "../../../components/shared";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { FlexBox, Button } from "../../../ui";
 import { AppointmentSuccessCard, AppointmentSuccessCardTitle, AppointmentSuccessCardText } from "./styled";
-import { resetAppointment } from "../../store/appointmentSlice";
+import { resetAppointment } from "../../../store/appointmentSlice";
 
 function AppointmentSuccessPage() {
     const { selectedOffice, userData, selectedService, amountOfPackages, timeSlot } = useAppSelector(state => state.appointment);
@@ -13,7 +13,7 @@ function AppointmentSuccessPage() {
 
     const handleClick = () => {
         dispatch(resetAppointment());
-        navigate(nav.index());
+        navigate(nav.general.index());
     };
 
     return ( 

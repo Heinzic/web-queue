@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setSelectedOffice, setSelectedService } from '../../store/appointmentSlice';
-import { Title, SearchInput, theme, FlexBox, FastFilters } from '../../ui';
-import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../components/appointment/Breadcrumbs';
-import { Tabs, TabItem } from '../../components/appointment/Tabs';
-import { Office, Service } from '../../models';
-import { OfficesList } from '../../components/appointment';
-import { Container } from '../../components/general';
-import { ServicesList } from '../../components/appointment/ServicesList';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setSelectedOffice, setSelectedService } from '../../../store/appointmentSlice';
+import { Title, SearchInput, theme, FlexBox, FastFilters } from '../../../ui';
+import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../../components/appointment/Breadcrumbs';
+import { Tabs, TabItem } from '../../../components/appointment/Tabs';
+import { Office, Service } from '../../../models';
+import { OfficesList } from '../../../components/appointment';
+import { Container } from '../../../components/shared';
+import { ServicesList } from '../../../components/appointment/ServicesList';
 import { ArrowBackIcon, ResetButton } from './styled';
 import { useQuery } from '@tanstack/react-query';
-import { instance } from '../../provider/client';
-import { nav } from '..';
+import { instance } from '../../../provider/client';
+import { nav } from '../../../pages';
 
 const filtersList = {name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"]};
 const SelectOfficeAndServicePage = () => {
@@ -103,11 +103,11 @@ const SelectOfficeAndServicePage = () => {
     <Container maxWidth={800}>
       <FlexBox direction="column" gap={1}>
         <Breadcrumbs>
-          <BreadcrumbItem to={nav.index()}>Главная</BreadcrumbItem>
+          <BreadcrumbItem to={nav.general.index()}>Главная</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem to={nav.selectLocation()}>Услуги</BreadcrumbItem>
+          <BreadcrumbItem to={nav.general.selectLocation()}>Услуги</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem to={nav.appointmentDateTime()}>Запись на прием</BreadcrumbItem>
+          <BreadcrumbItem to={nav.general.appointmentDateTime()}>Запись на прием</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
           <BreadcrumbItem>Запись в отделы города {selectedLocation}</BreadcrumbItem>
         </Breadcrumbs>
@@ -138,7 +138,7 @@ const SelectOfficeAndServicePage = () => {
           <ArrowBackIcon onClick={() => {
             dispatch(setSelectedOffice(null)); 
             dispatch(setSelectedService(null));
-            navigate('/');
+            navigate(nav.general.index());
             }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15 18L9 12L15 6" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

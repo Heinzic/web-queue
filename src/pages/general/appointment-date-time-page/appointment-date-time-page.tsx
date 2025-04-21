@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container } from '../../components/general';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { resetAppointment, setAmountOfPackages, setTimeSlot } from '../../store/appointmentSlice';
-import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../../ui';
-import { AppointmentDateContainer, TimeSlots } from '../../components/appointment';
+import { Container } from '../../../components/shared';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { resetAppointment, setAmountOfPackages, setTimeSlot } from '../../../store/appointmentSlice';
+import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../../../ui';
+import { AppointmentDateContainer, TimeSlots } from '../../../components/appointment';
 import { useQuery } from '@tanstack/react-query';
-import { instance } from '../../provider/client';
-import { DateInfo } from '../../models';
+import { instance } from '../../../provider/client';
+import { DateInfo } from '../../../models';
 import { isSameDay } from 'date-fns';
-import { nav } from '..';
+import { nav } from '../../../pages';
 import { PackagesAmountButton } from './styled';
 
 const AppointmentDateTimePage: React.FC = () => {  
@@ -43,12 +43,12 @@ const AppointmentDateTimePage: React.FC = () => {
   
   const handleChangeOffice = () => {
     dispatch(resetAppointment());
-    navigate(nav.selectOffice());
+    navigate(nav.general.selectOffice());
   };
 
   const handleBookAppointment = () => {
     dispatch(setTimeSlot(selectedTimeSlot ? selectedTimeSlot : ''));
-    navigate(nav.enterData());
+    navigate(nav.general.enterData());
   };
 
   if (isLoading) {
@@ -62,7 +62,7 @@ const AppointmentDateTimePage: React.FC = () => {
   return (
     <Container padding={0} maxWidth={800}>
       <FlexBox align="center" padding={4} gap={2}>
-        <BackLink to="/select-office" onClick={handleGoBack}>
+        <BackLink to={nav.general.selectOffice()} onClick={handleGoBack}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 18L9 12L15 6" stroke={theme.colors.neutral.gray[800]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -90,7 +90,7 @@ const AppointmentDateTimePage: React.FC = () => {
         </FlexBox>
       </FlexBox>
       <Card variant='elevated' withArrow size='small'>
-        <CardLink to="/select-office">
+        <CardLink to={nav.general.selectOffice()}>
           <Text size="lg" weight="medium">Записаться на ближайшее время</Text>
         </CardLink>
       </Card>

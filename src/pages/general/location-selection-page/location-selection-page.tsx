@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Container } from '../../components/general';
-import { Title, BackLink, Text, FlexBox, CardLink, SearchInput } from '../../ui';
-import { nav } from '..';
+import { Container } from '../../../components/shared';
+import { Title, BackLink, Text, FlexBox, CardLink, SearchInput } from '../../../ui';
+import { nav } from '../../../pages';
 const locations = [
   "г. Екатеринбург",
   "г. Нижний Тагил",
@@ -41,7 +41,7 @@ const LocationSelectionPage: React.FC = () => {
         {filteredLocations.map((location, index) => (
           <CardLink 
             key={index}
-            to={`${nav.selectOffice()}?location=${encodeURIComponent(location)}`}
+            to={`${nav.general.selectOffice()}?location=${encodeURIComponent(location)}`}
             size="medium"
             variant="default"
             withArrow

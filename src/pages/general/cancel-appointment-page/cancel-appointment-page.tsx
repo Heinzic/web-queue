@@ -1,6 +1,6 @@
-import { BackLink } from "../../ui";
-import { Container } from "../../components/general";
-import { Title } from "../../ui";
+import { BackLink } from "../../../ui";
+import { Container } from "../../../components/shared";
+import { Title } from "../../../ui";
 
 const CancelAppointmentPage: React.FC = () => {
   return (

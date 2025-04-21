@@ -1,6 +1,6 @@
-import { ConfirmAppointmentForm } from "../../containers/confirm-appointment-form";
-import { Container } from "../../components/general";
-import { Title } from "../../ui";
+import { ConfirmAppointmentForm } from "../../../containers/general/confirm-appointment-form";
+import { Container } from "../../../components/shared";
+import { Title } from "../../../ui";
 
 function ConfirmAppointmentPage() {
     return ( 
