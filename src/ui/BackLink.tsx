@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { theme } from './theme/theme';
+import { useTheme } from '@emotion/react';
 
 export interface BackLinkProps {
   to: string;
@@ -14,8 +13,7 @@ const StyledBackLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: ${theme.colors.primary.main};
-  font-weight: ${theme.typography.fontWeight.medium};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   
   &:hover {
     text-decoration: underline;
@@ -23,8 +21,10 @@ const StyledBackLink = styled(Link)`
 `;
 
 export const BackLink: React.FC<BackLinkProps> = ({ to, children = '← Назад', className, onClick }) => {
+  const theme = useTheme();
+
   return (
-    <StyledBackLink to={to} className={className} onClick={onClick}>
+    <StyledBackLink to={to} className={className} onClick={onClick} style={{ color: theme.colors.primary.main }}>
       {children}
     </StyledBackLink>
   );

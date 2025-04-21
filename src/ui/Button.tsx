@@ -1,6 +1,6 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { theme } from './theme/theme';
+import { useTheme } from '@emotion/react';
+import { Theme } from './theme/theme';
 
 // Button variants
 export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text';
@@ -15,21 +15,25 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   isLoading?: boolean;
-  disabled?: boolean;
 }
 
-const StyledButton = styled.button<ButtonProps>`
+// Styled component props (exclude theme from public props)
+interface StyledButtonProps extends Omit<ButtonProps, 'theme'> {
+  theme: Theme;
+}
+
+const StyledButton = styled.button<StyledButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: ${theme.borderRadius.default};
-  font-family: ${theme.typography.fontFamily.primary};
-  font-weight: ${theme.typography.fontWeight.medium};
+  border-radius: ${({ theme }) => theme.borderRadius.default};
+  font-family: ${({ theme }) => theme.typography.fontFamily.primary};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  gap: ${theme.spacing[2]};
-  width: ${props => props.fullWidth ? '100%' : 'auto'};
+  gap: ${({ theme }) => theme.spacing[2]};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   
   &:disabled {
     opacity: 0.6;
@@ -42,8 +46,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
   
   /* Variant styles */
-  ${props => {
-    const variant = props.variant || 'primary';
+  ${({ variant, theme }) => {
     switch (variant) {
       case 'primary':
         return `
@@ -97,8 +100,7 @@ const StyledButton = styled.button<ButtonProps>`
   }}
   
   /* Size styles */
-  ${props => {
-    const size = props.size || 'medium';
+  ${({ size, theme }) => {
     switch (size) {
       case 'small':
         return `
@@ -129,7 +131,7 @@ const ButtonLoader = styled.span`
   border-radius: 50%;
   border-top-color: transparent;
   animation: spin 0.7s linear infinite;
-  margin-right: ${theme.spacing[2]};
+  margin-right: ${({ theme }) => theme.spacing[2]};
   
   @keyframes spin {
     to {
@@ -149,12 +151,15 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   ...props
 }) => {
+  const theme = useTheme();
+
   return (
     <StyledButton
       variant={variant}
       size={size}
       fullWidth={fullWidth}
       disabled={disabled || isLoading}
+      theme={theme}
       {...props}
     >
       {isLoading && <ButtonLoader />}
@@ -165,4 +170,4 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button; 
+export default Button;

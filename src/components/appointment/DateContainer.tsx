@@ -1,19 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { theme } from '../../ui';
 import { CustomDatePicker } from '../../ui';
 
 const DateContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing[4]};
+  gap: ${({ theme }) => theme.spacing[4]};
 `;
 
 const DateSelectionSection = styled.div`
   display: flex;
   align-items: center;
-  gap: ${theme.spacing[3]};
-  padding: 0 ${theme.spacing[4]};
+  gap: ${({ theme }) => theme.spacing[3]};
+  padding: 0 ${({ theme }) => theme.spacing[4]};
 `;
 
 const CalendarIconButton = styled.button`
@@ -24,10 +23,10 @@ const CalendarIconButton = styled.button`
   border: none;
   padding: 8px;
   cursor: pointer;
-  color: ${theme.colors.neutral.gray[500]};
+  color: ${({ theme }) => theme.colors.neutral.gray[500]};
   
   &:hover {
-    color: ${theme.colors.primary.main};
+    color: ${({ theme }) => theme.colors.primary.main};
   }
   
   svg {
@@ -38,9 +37,9 @@ const CalendarIconButton = styled.button`
 
 const DaySelector = styled.div`
   display: flex;
-  gap: ${theme.spacing[2]};
+  gap: ${({ theme }) => theme.spacing[2]};
   overflow-x: auto;
-  padding: ${theme.spacing[1]} 0;
+  padding: ${({ theme }) => theme.spacing[1]} 0;
   
   &::-webkit-scrollbar {
     display: none;
@@ -54,31 +53,31 @@ const DayButton = styled.button<{ isSelected?: boolean; isToday?: boolean; isCur
   flex-direction: column;
   align-items: center;
   min-width: 48px;
-  padding: ${theme.spacing[2]} ${theme.spacing[2]};
+  padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[2]};
   border: none;
-  border-radius: ${theme.borderRadius.md};
-  background-color: ${props => props.isSelected ? theme.colors.primary.main : 'transparent'};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  background-color: ${props => props.isSelected ? props.theme.colors.primary.main : 'transparent'};
   color: ${props => {
     if (props.isSelected) return 'white';
-    if (!props.isCurrentMonth) return theme.colors.neutral.gray[300];
-    return theme.colors.neutral.gray[900];
+    if (!props.isCurrentMonth) return props.theme.colors.neutral.gray[300];
+    return props.theme.colors.neutral.gray[900];
   }};
   cursor: pointer;
   transition: all 0.2s ease;
   
   &:hover {
-    background-color: ${props => props.isSelected ? theme.colors.primary.dark : theme.colors.neutral.gray[100]};
+    background-color: ${props => props.isSelected ? props.theme.colors.primary.dark : props.theme.colors.neutral.gray[100]};
   }
   
   .day-number {
-    font-size: ${theme.typography.fontSize.lg};
-    font-weight: ${theme.typography.fontWeight.medium};
+    font-size: ${({ theme }) => theme.typography.fontSize.lg};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
     margin-bottom: 2px;
   }
   
   .day-label {
-    font-size: ${theme.typography.fontSize.xs};
-    color: ${props => props.isSelected ? 'rgba(255, 255, 255, 0.8)' : theme.colors.neutral.gray[500]};
+    font-size: ${({ theme }) => theme.typography.fontSize.xs};
+    color: ${props => props.isSelected ? 'rgba(255, 255, 255, 0.8)' : props.theme.colors.neutral.gray[500]};
   }
 `;
 
@@ -86,12 +85,12 @@ const HiddenDatePicker = styled.div`
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  z-index: ${theme.zIndex[50]};
+  z-index: ${({ theme }) => theme.zIndex[50]};
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s ease;
   background: white;
-  border-radius: ${theme.borderRadius.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   
   &.visible {
@@ -116,7 +115,7 @@ export const AppointmentDateContainer: React.FC<DateContainerProps> = ({
 }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const datePickerRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -210,4 +209,4 @@ export const AppointmentDateContainer: React.FC<DateContainerProps> = ({
       </DateSelectionSection>
     </DateContainer>
   );
-}; 
+};

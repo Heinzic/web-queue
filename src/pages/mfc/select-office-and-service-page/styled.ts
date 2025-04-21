@@ -3,7 +3,7 @@ import { theme } from "../../../ui";
 
 export const ArrowBackIcon = styled.div`
   cursor: pointer;
-  margin-right: ${theme().spacing[2]};
+  margin-right: ${theme('mfc').spacing[2]};
   display: flex;
   align-items: center;
 `;
@@ -11,10 +11,10 @@ export const ArrowBackIcon = styled.div`
 export const ResetButton = styled.button`
   background: none;
   border: none;
-  color: ${theme().colors.primary.main};
-  font-size: ${theme().typography.fontSize.sm};
+  color: ${theme('mfc').colors.primary.main};
+  font-size: ${theme('mfc').typography.fontSize.sm};
   cursor: pointer;
-  padding: ${theme().spacing[1]} ${theme().spacing[2]};
+  padding: ${theme('mfc').spacing[1]} ${theme('mfc').spacing[2]};
   margin-left: auto;
   
   &:hover {

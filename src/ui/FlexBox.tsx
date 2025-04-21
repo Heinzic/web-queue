@@ -1,13 +1,16 @@
 import styled from '@emotion/styled';
-import { theme } from './theme/theme';
+import { useTheme } from '@emotion/react';
+import { spacing } from './theme/theme';
 
+// Types
 export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 export type FlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
 export type JustifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
 export type AlignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
 export type AlignContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
-export type GapSize = keyof typeof theme.spacing;
+export type GapSize = keyof typeof spacing;
 
+// Props Interface
 interface FlexBoxProps {
   direction?: FlexDirection;
   wrap?: FlexWrap;
@@ -23,20 +26,22 @@ interface FlexBoxProps {
   children: React.ReactNode;
 }
 
+// Styled Component
 const StyledFlexBox = styled.div<FlexBoxProps>`
   display: flex;
-  flex-direction: ${props => props.direction || 'row'};
-  flex-wrap: ${props => props.wrap || 'nowrap'};
-  justify-content: ${props => props.justify || 'flex-start'};
-  align-items: ${props => props.align || 'stretch'};
-  align-content: ${props => props.alignContent || 'stretch'};
-  gap: ${props => props.gap ? theme.spacing[props.gap] : '0'};
-  width: ${props => props.fullWidth ? '100%' : 'auto'};
-  height: ${props => props.fullHeight ? '100%' : 'auto'};
-  padding: ${props => props.padding ? theme.spacing[props.padding] : '0'};
-  margin: ${props => props.margin ? theme.spacing[props.margin] : '0'};
+  flex-direction: ${({ direction }) => direction || 'row'};
+  flex-wrap: ${({ wrap }) => wrap || 'nowrap'};
+  justify-content: ${({ justify }) => justify || 'flex-start'};
+  align-items: ${({ align }) => align || 'stretch'};
+  align-content: ${({ alignContent }) => alignContent || 'stretch'};
+  gap: ${({ gap, theme }) => (gap ? theme.spacing[gap] : '0')};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+  height: ${({ fullHeight }) => (fullHeight ? '100%' : 'auto')};
+  padding: ${({ padding, theme }) => (padding ? theme.spacing[padding] : '0')};
+  margin: ${({ margin, theme }) => (margin ? theme.spacing[margin] : '0')};
 `;
 
+// FlexBox Component
 export const FlexBox: React.FC<FlexBoxProps> = ({
   direction = 'row',
   wrap = 'nowrap',
@@ -51,6 +56,8 @@ export const FlexBox: React.FC<FlexBoxProps> = ({
   className,
   children,
 }) => {
+  const theme = useTheme(); // Access the theme
+
   return (
     <StyledFlexBox
       direction={direction}
@@ -64,10 +71,11 @@ export const FlexBox: React.FC<FlexBoxProps> = ({
       padding={padding}
       margin={margin}
       className={className}
+      theme={theme} // Pass theme to styled component
     >
       {children}
     </StyledFlexBox>
   );
 };
 
-export default FlexBox; 
+export default FlexBox;

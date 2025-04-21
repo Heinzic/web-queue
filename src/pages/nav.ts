@@ -1,13 +1,13 @@
 export const nav = {
     general: {
     index: () => '/' as const,
-    selectLocation: () => '/select-location' as const,
-    selectOffice: () => '/select-office' as const,
-    appointmentDateTime: () => '/appointment-datetime' as const,
-    cancelAppointment: () => '/cancel-appointment' as const,
-    confirmAppointment: () => '/confirm-appointment' as const,
-    appointmentSuccess: () => '/appointment-success' as const,
-    enterData: () => '/enter-data' as const,
+    selectLocation: () => '/general/select-location' as const,
+    selectOffice: () => '/general/select-office' as const,
+    appointmentDateTime: () => '/general/appointment-datetime' as const,
+    cancelAppointment: () => '/general/cancel-appointment' as const,
+    confirmAppointment: () => '/general/confirm-appointment' as const,
+    appointmentSuccess: () => '/general/appointment-success' as const,
+    enterData: () => '/general/enter-data' as const,
     },
     mfc: {
         index: () => '/mfc' as const,

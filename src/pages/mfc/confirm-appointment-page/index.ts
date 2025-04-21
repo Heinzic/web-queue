@@ -1,0 +1,1 @@
+export { default as ConfirmAppointmentPage } from './confirm-appointment-page';

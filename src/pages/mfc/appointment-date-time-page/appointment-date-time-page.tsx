@@ -64,7 +64,7 @@ const AppointmentDateTimePage: React.FC = () => {
       <FlexBox align="center" padding={4} gap={2}>
         <BackLink to={nav.general.selectOffice()} onClick={handleGoBack}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18L9 12L15 6" stroke={theme().colors.neutral.gray[800]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M15 18L9 12L15 6" stroke={theme('mfc').colors.neutral.gray[800]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </BackLink>
         <FlexBox direction="column" gap={1}>

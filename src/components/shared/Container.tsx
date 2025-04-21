@@ -1,23 +1,23 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { theme } from '../../ui/theme/theme';
+import { theme, spacing } from '../../ui/theme/theme';
 
 export interface ContainerProps {
   children: React.ReactNode;
   maxWidth?: number | string;
-  padding?: keyof typeof theme.spacing;
+  padding?: keyof typeof spacing;
   backgroundColor?: string;
   className?: string;
 }
 
 const StyledContainer = styled.div<{
   maxWidth: number | string;
-  padding: keyof typeof theme.spacing;
+  padding: keyof typeof spacing;
   backgroundColor: string;
 }>`
   max-width: ${props => typeof props.maxWidth === 'number' ? `${props.maxWidth}px` : props.maxWidth};
   margin: 0 auto;
-  padding: ${props => theme.spacing[props.padding]};
+  padding: ${props => theme().spacing[props.padding]};
   background-color: ${props => props.backgroundColor};
   min-height: 100vh;
   width: 100%;

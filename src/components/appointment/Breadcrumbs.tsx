@@ -25,9 +25,9 @@ interface BreadcrumbItemProps {
 }
 
 const StyledLink = styled(Link)`
-  color: ${theme.colors.neutral.gray[600]};
+  color: ${theme().colors.neutral.gray[600]};
   text-decoration: none;
-  font-size: ${theme.typography.fontSize.sm};
+  font-size: ${theme().typography.fontSize.sm};
   
   &:hover {
     text-decoration: underline;

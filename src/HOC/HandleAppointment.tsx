@@ -3,12 +3,12 @@ import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store/store";
 import { useEffect } from "react";
 
-function HandleAppointment({ children }: { children: React.ReactNode }) {
+function HandleAppointment({ children, flow }: { children: React.ReactNode, flow: string }) {
     const { selectedOffice, selectedService } = useAppSelector((state: RootState) => state.appointment);
     const navigate = useNavigate();
     useEffect(() => {
         if (selectedOffice && selectedService) {
-            navigate('/appointment-datetime');
+            navigate(`${flow}/appointment-datetime`);
         }
     }, [selectedOffice, selectedService]);
 

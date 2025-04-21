@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from '../../ui';
+import { useTheme } from '@emotion/react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setSelectedService } from '../../store/appointmentSlice';
 import { Service } from '../../models';
@@ -7,15 +7,15 @@ import { Service } from '../../models';
 const ServicesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing[3]};
-  margin-top: ${theme.spacing[0]};
+  gap: ${({ theme }) => theme.spacing[3]};
+  margin-top: ${({ theme }) => theme.spacing[0]};
 `;
 
 const ServiceCard = styled.div<{ isSelected?: boolean }>`
   display: flex;
-  padding: ${theme.spacing[4]};
+  padding: ${({ theme }) => theme.spacing[4]};
   background-color: white;
-  border-radius: ${theme.borderRadius.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   border: ${props => props.isSelected ? '2px solid #7B61FF' : '2px solid #E0E0E0'};
   cursor: pointer;
   
@@ -33,9 +33,9 @@ const ServiceIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: ${theme.spacing[3]};
+  margin-right: ${({ theme }) => theme.spacing[3]};
   color: white;
-  font-weight: ${theme.typography.fontWeight.bold};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
 `;
 
 const ServiceInfo = styled.div`
@@ -43,23 +43,23 @@ const ServiceInfo = styled.div`
 `;
 
 const ServiceName = styled.div`
-  font-weight: ${theme.typography.fontWeight.medium};
-  margin-bottom: ${theme.spacing[1]};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  margin-bottom: ${({ theme }) => theme.spacing[1]};
 `;
 
 const ServiceDescription = styled.div`
-  font-size: ${theme.typography.fontSize.sm};
-  color: ${theme.colors.neutral.gray[600]};
-  margin-bottom: ${theme.spacing[2]};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  color: ${({ theme }) => theme.colors.neutral.gray[600]};
+  margin-bottom: ${({ theme }) => theme.spacing[2]};
 `;
 
 const ResetButton = styled.button`
   background: none;
   border: none;
   color: #F44336;
-  font-size: ${theme.typography.fontSize.sm};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
   cursor: pointer;
-  padding: ${theme.spacing[1]} ${theme.spacing[2]};
+  padding: ${({ theme }) => theme.spacing[1]} ${({ theme }) => theme.spacing[2]};
   margin-left: auto;
   
   &:hover {
@@ -82,8 +82,7 @@ export const ServicesList: React.FC<ServicesListProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { selectedService } = useAppSelector(state => state.appointment);
-      
-  
+  const theme = useTheme(); // Access the theme using useTheme
 
   const handleServiceSelect = (service: Service) => {
     dispatch(setSelectedService(service));

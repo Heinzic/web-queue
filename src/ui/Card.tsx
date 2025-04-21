@@ -1,13 +1,14 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { theme } from './theme/theme';
+import { Theme } from './theme/theme';
+import { useTheme } from '@emotion/react';
 
+// Types
 export type CardSize = 'small' | 'medium' | 'large';
 export type CardVariant = 'default' | 'outlined' | 'elevated';
 
-export interface CardBaseProps {
-  children: React.ReactNode;
+interface CardBaseProps {
   size?: CardSize;
   variant?: CardVariant;
   className?: string;
@@ -15,15 +16,16 @@ export interface CardBaseProps {
   withArrow?: boolean;
 }
 
-export interface CardProps extends CardBaseProps {
+export interface CardProps extends CardBaseProps, Omit<React.HTMLAttributes<HTMLDivElement>, keyof CardBaseProps> {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export interface CardLinkProps extends CardBaseProps {
+export interface CardLinkProps extends CardBaseProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof CardBaseProps> {
   to: string;
 }
 
-const getCardPadding = (size: CardSize) => {
+// Helper functions with theme parameter
+const getCardPadding = (theme: Theme, size: CardSize) => {
   switch (size) {
     case 'small':
       return `${theme.spacing[3]} ${theme.spacing[3]}`;
@@ -36,7 +38,7 @@ const getCardPadding = (size: CardSize) => {
   }
 };
 
-const getCardStyles = (variant: CardVariant) => {
+const getCardStyles = (theme: Theme, variant: CardVariant) => {
   switch (variant) {
     case 'outlined':
       return `
@@ -55,22 +57,24 @@ const getCardStyles = (variant: CardVariant) => {
   }
 };
 
-const BaseCardStyles = styled.div<{
-  size: CardSize;
-  variant: CardVariant;
-  backgroundColor: string;
-}>`
+// Styled components
+interface StyledCardProps extends CardBaseProps {
+  theme: Theme;
+}
+
+const BaseCardStyles = styled.div<StyledCardProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${props => getCardPadding(props.size)};
-  background-color: ${props => props.backgroundColor};
-  border-radius: ${theme.borderRadius.default};
-  ${props => getCardStyles(props.variant)}
-  margin: ${theme.spacing[2]};
-  
+  padding: ${({ theme, size = 'medium' }) => getCardPadding(theme, size)};
+  background-color: ${({ backgroundColor, theme }) => backgroundColor || theme.colors.neutral.white};
+  border-radius: ${({ theme }) => theme.borderRadius.default};
+  ${({ theme, variant = 'default' }) => getCardStyles(theme, variant)};
+  margin: ${({ theme }) => theme.spacing[2]};
+  transition: background-color 0.2s ease;
+
   &:hover {
-    background-color: #f9f9f9;
+    background-color: ${({ theme }) => theme.colors.neutral.gray[50]};
   }
 `;
 
@@ -78,76 +82,90 @@ const StyledCard = styled(BaseCardStyles)`
   cursor: pointer;
 `;
 
-const StyledCardLink = styled(Link)<{
-  size: CardSize;
-  variant: CardVariant;
-  backgroundColor: string;
-}>`
+const StyledCardLink = styled(Link)<StyledCardProps>`
   display: flex;
   justify-content: space-between;
+  padding: ${({ theme, size = 'medium' }) => getCardPadding(theme, size)};
+  background-color: ${({ backgroundColor, theme }) => backgroundColor || theme.colors.neutral.white};
+  border-radius: ${({ theme }) => theme.borderRadius.default};
   align-items: center;
-  padding: ${props => getCardPadding(props.size)};
-  background-color: ${props => props.backgroundColor};
-  border-radius: ${theme.borderRadius.default};
   text-decoration: none;
   color: inherit;
-  ${props => getCardStyles(props.variant)}
-  
-  &:hover {
-    background-color: #f9f9f9;
-  }
 `;
 
-const ArrowIcon = styled.span`
+const ArrowIcon = styled.span<{ theme: Theme }>`
   font-size: 1.2rem;
-  color: #999;
-  margin-left: ${theme.spacing[2]};
+  color: ${({ theme }) => theme.colors.neutral.gray[500]};
+  margin-left: ${({ theme }) => theme.spacing[2]};
 `;
 
-export const Card: React.FC<CardProps> = ({
-  children,
-  size = 'medium',
-  variant = 'default',
-  className,
-  backgroundColor = theme.colors.neutral.white,
-  withArrow = false,
-  onClick,
-}) => {
-  return (
-    <StyledCard
-      size={size}
-      variant={variant}
-      className={className}
-      backgroundColor={backgroundColor}
-      onClick={onClick}
-    >
-      {children}
-      {withArrow && <ArrowIcon>›</ArrowIcon>}
-    </StyledCard>
-  );
-};
+// Card Components
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  (
+    {
+      children,
+      size = 'medium',
+      variant = 'default',
+      className,
+      backgroundColor,
+      withArrow = false,
+      onClick,
+      ...props
+    },
+    ref
+  ) => {
+    const theme = useTheme();
 
-export const CardLink: React.FC<CardLinkProps> = ({
-  children,
-  to,
-  size = 'medium',
-  variant = 'default',
-  className,
-  backgroundColor = theme.colors.neutral.white,
-  withArrow = false,
-}) => {
-  return (
-    <StyledCardLink
-      to={to}
-      size={size}
-      variant={variant}
-      className={className}
-      backgroundColor={backgroundColor}
-    >
-      {children}
-      {withArrow && <ArrowIcon>›</ArrowIcon>}
-    </StyledCardLink>
-  );
-};
+    return (
+      <StyledCard
+        ref={ref}
+        size={size}
+        variant={variant}
+        className={className}
+        backgroundColor={backgroundColor}
+        onClick={onClick}
+        theme={theme}
+        {...props}
+      >
+        {children}
+        {withArrow && <ArrowIcon theme={theme}>›</ArrowIcon>}
+      </StyledCard>
+    );
+  }
+);
 
-export default { Card, CardLink }; 
+export const CardLink = forwardRef<HTMLAnchorElement, CardLinkProps>(
+  (
+    {
+      children,
+      to,
+      size = 'medium',
+      variant = 'default',
+      className,
+      backgroundColor,
+      withArrow = false,
+      ...props
+    },
+    ref
+  ) => {
+    const theme = useTheme();
+
+    return (
+      <StyledCardLink
+        ref={ref}
+        to={to}
+        size={size}
+        variant={variant}
+        className={className}
+        backgroundColor={backgroundColor}
+        theme={theme}
+        {...props}
+      >
+        {children}
+        {withArrow && <ArrowIcon theme={theme}>›</ArrowIcon>}
+      </StyledCardLink>
+    );
+  }
+);
+
+export default { Card, CardLink };

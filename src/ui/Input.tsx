@@ -1,26 +1,31 @@
-import styled from "@emotion/styled";
-import { theme } from "./theme/theme";
+import styled from '@emotion/styled';
+import { useTheme } from '@emotion/react';
 
+// Props Interface
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   hasIcon?: boolean;
 }
 
+// Styled Component
 const StyledInput = styled.input<{ hasIcon: boolean }>`
   width: 100%;
-  padding: ${theme.spacing[3]};
-  padding-left: ${props => props.hasIcon ? theme.spacing[8] : theme.spacing[3]};
-  border: 1px solid ${theme.colors.neutral.gray[200]};
-  border-radius: ${theme.borderRadius.xl};
-  font-family: ${theme.typography.fontFamily.primary};
-  font-size: ${theme.typography.fontSize.base};
+  padding: ${({ theme }) => theme.spacing[3]};
+  padding-left: ${({ hasIcon, theme }) => (hasIcon ? theme.spacing[8] : theme.spacing[3])};
+  border: 1px solid ${({ theme }) => theme.colors.neutral.gray[200]};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  font-family: ${({ theme }) => theme.typography.fontFamily.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
   background-color: white;
   outline: none;
-  
+
   &:focus {
-    border-color: ${theme.colors.primary.main};
+    border-color: ${({ theme }) => theme.colors.primary.main};
   }
 `;
 
-export const Input = ({ hasIcon = false, ...props }: InputProps) => {
-  return <StyledInput hasIcon={hasIcon} {...props} />;
+// Input Component
+export const Input: React.FC<InputProps> = ({ hasIcon = false, ...props }) => {
+  const theme = useTheme(); // Access the theme
+
+  return <StyledInput hasIcon={hasIcon} theme={theme} {...props} />;
 };
