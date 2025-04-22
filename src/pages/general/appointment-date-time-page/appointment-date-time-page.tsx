@@ -99,7 +99,7 @@ const AppointmentDateTimePage: React.FC = () => {
         <TimeSlots
           selectedTimeSlot={selectedTimeSlot}
           onTimeSlotSelect={handleTimeSlotSelect}
-          timeSlots={timeSlots.filter(slot => isSameDay(new Date(slot.date), selectedDate))}
+          timeSlots={timeSlots.filter(slot => isSameDay(new Date(slot.date), selectedDate)).filter((_, i) => i % amountOfPackages === 0)}
         />
       )}
       <FlexBox justify='center' padding={4} gap={2}>

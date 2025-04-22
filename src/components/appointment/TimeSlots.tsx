@@ -6,7 +6,6 @@ import { TimeSlot } from './TimeSlot';
 import { DateInfo } from '../../models';
 import { parseISO, format } from 'date-fns';
 import { FlexBox, Text } from '../../ui';
-import { Container } from '../shared';
 
 interface TimeSlotsProps {
   selectedTimeSlot: string | null;
