@@ -345,87 +345,234 @@ const getDatesHandler: HttpHandler = http.get<never, {lineName: string, placeId:
   '/api/dates',
   () => {
     return HttpResponse.json({
-            month: "2025-04-17T00:00:00Z",
-            dates: [
-                        {
-                            available: true,
-                            date: "2025-04-15T00:00:00Z",
-                            from: "2025-04-15T08:40:00Z",
-                            to: "2025-04-15T09:20:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-17T00:00:00Z",
-                            from: "2025-04-17T09:20:00Z",
-                            to: "2025-04-17T17:20:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-18T00:00:00Z",
-                            from: "2025-04-18T09:00:00Z",
-                            to: "2025-04-18T17:20:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-18T09:00:00Z",
-                            from: "2025-04-18T09:20:00Z",
-                            to: "2025-04-18T17:20:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-18T09:20:00Z",
-                            from: "2025-04-18T09:40:00Z",
-                            to: "2025-04-18T17:20:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-19T00:00:00Z",
-                            from: "2025-04-19T09:00:00Z",
-                            to: "2025-04-19T16:00:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-21T00:00:00Z",
-                            from: "2025-04-21T09:20:00Z",
-                            to: "2025-04-21T18:20:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-22T00:00:00Z",
-                            from: "2025-04-22T09:00:00Z",
-                            to: "2025-04-22T17:20:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-23T00:00:00Z",
-                            from: "2025-04-23T09:00:00Z",
-                            to: "2025-04-23T18:40:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-24T00:00:00Z",
-                            from: "2025-04-24T09:00:00Z",
-                            to: "2025-04-24T18:40:00Z",
-                            description: ""
-                        },
-                        {
-                            available: true,
-                            date: "2025-04-25T00:00:00Z",
-                            from: "2025-04-25T09:20:00Z",
-                            to: "2025-04-25T18:40:00Z",
-                            description: ""
-                        }
-                    ]
-    });
+        "month": "2025-04-17T00:00:00Z",
+        "dates": [
+            {
+                "available": true,
+                "date": "2025-04-15T00:00:00Z",
+                "from": "2025-04-15T03:40:00Z",
+                "to": "2025-04-15T04:20:00Z",
+                "description": "Morning slot"
+            },
+            {
+                "available": true,
+                "date": "2025-04-15T00:00:00Z",
+                "from": "2025-04-15T04:20:00Z",
+                "to": "2025-04-15T05:20:00Z",
+                "description": "Morning slot"
+            },
+            {
+                "available": true,
+                "date": "2025-04-15T00:00:00Z",
+                "from": "2025-04-15T08:40:00Z",
+                "to": "2025-04-15T09:20:00Z",
+                "description": "Morning slot"
+            },
+            {
+                "available": true,
+                "date": "2025-04-15T00:00:00Z",
+                "from": "2025-04-15T11:00:00Z",
+                "to": "2025-04-15T11:40:00Z",
+                "description": "Late morning"
+            },
+            {
+                "available": true,
+                "date": "2025-04-15T00:00:00Z",
+                "from": "2025-04-15T14:20:00Z",
+                "to": "2025-04-15T15:00:00Z",
+                "description": "Afternoon slot"
+            },
+            {
+                "available": true,
+                "date": "2025-04-17T00:00:00Z",
+                "from": "2025-04-17T09:20:00Z",
+                "to": "2025-04-17T10:00:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-17T00:00:00Z",
+                "from": "2025-04-17T10:20:00Z",
+                "to": "2025-04-17T11:00:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-17T00:00:00Z",
+                "from": "2025-04-17T13:00:00Z",
+                "to": "2025-04-17T13:40:00Z",
+                "description": "After lunch"
+            },
+            {
+                "available": true,
+                "date": "2025-04-17T00:00:00Z",
+                "from": "2025-04-17T15:20:00Z",
+                "to": "2025-04-17T16:00:00Z",
+                "description": "Late afternoon"
+            },
+            {
+                "available": true,
+                "date": "2025-04-18T00:00:00Z",
+                "from": "2025-04-18T09:00:00Z",
+                "to": "2025-04-18T09:40:00Z",
+                "description": "Early morning"
+            },
+            {
+                "available": true,
+                "date": "2025-04-18T00:00:00Z",
+                "from": "2025-04-18T11:20:00Z",
+                "to": "2025-04-18T12:00:00Z",
+                "description": "Before lunch"
+            },
+            {
+                "available": true,
+                "date": "2025-04-18T00:00:00Z",
+                "from": "2025-04-18T14:00:00Z",
+                "to": "2025-04-18T14:40:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-19T00:00:00Z",
+                "from": "2025-04-19T09:00:00Z",
+                "to": "2025-04-19T09:40:00Z",
+                "description": "Weekend morning"
+            },
+            {
+                "available": true,
+                "date": "2025-04-19T00:00:00Z",
+                "from": "2025-04-19T12:20:00Z",
+                "to": "2025-04-19T13:00:00Z",
+                "description": "Weekend noon"
+            },
+            {
+                "available": true,
+                "date": "2025-04-19T00:00:00Z",
+                "from": "2025-04-19T15:00:00Z",
+                "to": "2025-04-19T15:40:00Z",
+                "description": "Weekend afternoon"
+            },
+            {
+                "available": true,
+                "date": "2025-04-21T00:00:00Z",
+                "from": "2025-04-21T09:20:00Z",
+                "to": "2025-04-21T10:00:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-21T00:00:00Z",
+                "from": "2025-04-21T11:40:00Z",
+                "to": "2025-04-21T12:20:00Z",
+                "description": "Before lunch"
+            },
+            {
+                "available": true,
+                "date": "2025-04-21T00:00:00Z",
+                "from": "2025-04-21T14:20:00Z",
+                "to": "2025-04-21T15:00:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-21T00:00:00Z",
+                "from": "2025-04-21T16:40:00Z",
+                "to": "2025-04-21T17:20:00Z",
+                "description": "Late day"
+            },
+            {
+                "available": true,
+                "date": "2025-04-22T00:00:00Z",
+                "from": "2025-04-22T09:00:00Z",
+                "to": "2025-04-22T09:40:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-22T00:00:00Z",
+                "from": "2025-04-22T12:00:00Z",
+                "to": "2025-04-22T12:40:00Z",
+                "description": "Midday"
+            },
+            {
+                "available": true,
+                "date": "2025-04-22T00:00:00Z",
+                "from": "2025-04-22T15:20:00Z",
+                "to": "2025-04-22T16:00:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-23T00:00:00Z",
+                "from": "2025-04-23T09:00:00Z",
+                "to": "2025-04-23T09:40:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-23T00:00:00Z",
+                "from": "2025-04-23T11:20:00Z",
+                "to": "2025-04-23T12:00:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-23T00:00:00Z",
+                "from": "2025-04-23T14:40:00Z",
+                "to": "2025-04-23T15:20:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-23T00:00:00Z",
+                "from": "2025-04-23T17:00:00Z",
+                "to": "2025-04-23T17:40:00Z",
+                "description": "Evening slot"
+            },
+            {
+                "available": true,
+                "date": "2025-04-24T00:00:00Z",
+                "from": "2025-04-24T09:00:00Z",
+                "to": "2025-04-24T09:40:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-24T00:00:00Z",
+                "from": "2025-04-24T12:20:00Z",
+                "to": "2025-04-24T13:00:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-24T00:00:00Z",
+                "from": "2025-04-24T15:40:00Z",
+                "to": "2025-04-24T16:20:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-25T00:00:00Z",
+                "from": "2025-04-25T09:20:00Z",
+                "to": "2025-04-25T10:00:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-25T00:00:00Z",
+                "from": "2025-04-25T12:40:00Z",
+                "to": "2025-04-25T13:20:00Z",
+                "description": ""
+            },
+            {
+                "available": true,
+                "date": "2025-04-25T00:00:00Z",
+                "from": "2025-04-25T16:00:00Z",
+                "to": "2025-04-25T16:40:00Z",
+                "description": "Friday afternoon"
+            }
+        ]
+      });
   }
 );
 
