@@ -1,7 +1,12 @@
 import { Container } from '../../../components/shared';
 import { Title, CardLink, Text, FlexBox } from '../../../ui';
 import { nav } from '../../../pages';
+import { useLocation } from 'react-router-dom';
 const HomePage = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const selectedQueue = searchParams.get('queue') || 'Для физических лиц';
+
   return (
     <Container padding={6}>
       <Title 
@@ -9,7 +14,7 @@ const HomePage = () => {
         marginBottom={6}
         color="#333"
       >
-        Запись на прием
+        {selectedQueue}
       </Title>
       
       <FlexBox direction="column" gap={4}>

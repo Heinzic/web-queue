@@ -46,6 +46,7 @@ const App: React.FC = () => {
 
               {/* MFC Routes */}
               <Route path={nav.mfc.index()} element={<mfc.HomePage />} />
+              <Route path={nav.mfc.selectQueue()} element={<mfc.QueueSelectionPage/> }/>
               <Route path={nav.mfc.cancelAppointment()} element={<mfc.CancelAppointmentPage />} />
               <Route path={nav.mfc.selectLocation()} element={<mfc.LocationSelectionPage />} />
               <Route path={nav.mfc.selectOffice()} element={<mfc.SelectOfficeAndServicePage />} />

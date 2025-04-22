@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Container } from '../../../components/shared';
 import { Title, BackLink, Text, FlexBox, CardLink, SearchInput } from '../../../ui';
 import { nav } from '../../../pages';
+
 const locations = [
   "г. Екатеринбург",
   "г. Нижний Тагил",

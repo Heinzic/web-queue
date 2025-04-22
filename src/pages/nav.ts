@@ -10,7 +10,8 @@ export const nav = {
     enterData: () => '/general/enter-data' as const,
     },
     mfc: {
-        index: () => '/mfc' as const,
+        index: () => '/mfc/home' as const,
+        selectQueue: () => '/mfc' as const,
         selectLocation: () => '/mfc/select-location' as const,
         selectOffice: () => '/mfc/select-office' as const,
         appointmentDateTime: () => '/mfc/appointment-datetime' as const,
