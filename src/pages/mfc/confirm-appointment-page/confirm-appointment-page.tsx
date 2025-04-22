@@ -1,13 +1,12 @@
-import { ConfirmAppointmentForm } from "../../../containers/general/confirm-appointment-form";
 import { Container } from "../../../components/shared";
 import { Title } from "../../../ui";
-import { nav } from "../../nav";
+import { MfcConfirmAppointmentForm } from "../../../containers/mfc/confirm-appointment-form";
 
 function ConfirmAppointmentPage() {
     return ( 
         <Container>
             <Title size="large">Детали записи</Title>
-            <ConfirmAppointmentForm nextLink={nav.mfc.appointmentSuccess()}/>
+            <MfcConfirmAppointmentForm/>
         </Container>
     );
 }

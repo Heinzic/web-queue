@@ -13,7 +13,7 @@ function AppointmentSuccessPage() {
 
     const handleClick = () => {
         dispatch(resetAppointment());
-        navigate(nav.general.index());
+        navigate(nav.mfc.index());
     };
 
     return ( 

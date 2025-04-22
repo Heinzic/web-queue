@@ -1,5 +1,5 @@
 import { Container } from "../../../components/shared";
-import { EnterDataForm } from "../../../containers/general/enter-data-form";
+import { EnterDataForm } from "../../../containers/shared/enter-data-form";
 import { Title } from "../../../ui";
 import { nav } from "../../nav";
 

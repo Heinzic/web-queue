@@ -1,1 +1,1 @@
-export { default as ConfirmAppointmentForm } from './confirm-appointment-form';
+export { default as GeneralConfirmAppointmentForm } from './confirm-appointment-form';

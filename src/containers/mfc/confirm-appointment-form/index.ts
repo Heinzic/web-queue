@@ -1,0 +1,1 @@
+export { default as MfcConfirmAppointmentForm } from './confirm-appointment-form';
