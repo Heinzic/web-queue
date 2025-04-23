@@ -5,7 +5,7 @@ import { setSelectedOffice, setSelectedService } from '../../../store/appointmen
 import { Title, SearchInput, FlexBox, FastFilters } from '../../../ui';
 import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../../components/appointment/Breadcrumbs';
 import { Tabs, TabItem } from '../../../components/appointment/Tabs';
-import { Office, Service } from '../../../models';
+import { Office, OfficeServerResponse, Service } from '../../../models';
 import { OfficesList } from '../../../components/appointment';
 import { Container } from '../../../components/shared';
 import { ServicesList } from '../../../components/appointment/ServicesList';
@@ -14,7 +14,8 @@ import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../../provider/client';
 import { nav } from '../../../pages';
 
-const filtersList = {name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"]};
+const filtersList = { name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"] };
+
 const SelectOfficeAndServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -27,46 +28,60 @@ const SelectOfficeAndServicePage = () => {
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);  
 
-  const {data: offices, isLoading: isLoadingOffice, error: officeError} = useQuery({
+  const { data: officesData, isLoading: isLoadingOffice, error: officeError } = useQuery({
     queryKey: ['offices'],
-    queryFn: async (): Promise<Office[]> => {
-      const response = await instance.get<{ offices: Office[] }>('/api/offices');
-      return response.data.offices;
+    queryFn: async (): Promise<OfficeServerResponse[]> => {
+      const response = await instance.get<OfficeServerResponse[]>('/api/offices');
+      return response.data;
     }
-  })
+  });
   
-  const {data: services, isLoading: isServicesLoading, error: servicesError} = useQuery({
+  const { data: services, isLoading: isServicesLoading, error: servicesError } = useQuery({
     queryKey: ['services'],
     queryFn: async (): Promise<Service[]> => {
       const response = await instance.get<{ services: Service[] }>('/api/services');
       return response.data.services;
     }
-  })
+  });
 
-  const filteredOffices = offices
-    ?.filter(office => {
-      // Filter by search query
+  const allOffices = officesData?.flatMap(response => response.offices.map(office => ({
+    ...office,
+    companyName: response.companyName
+  }))) || [];
+
+  const groupedOffices = allOffices.reduce((acc, office) => {
+    const companyName = office.companyName || "Другие";
+    if (!acc[companyName]) {
+      acc[companyName] = [];
+    }
+    acc[companyName].push(office);
+    return acc;
+  }, {} as Record<string, Office[]>);
+
+  const filteredOffices = Object.entries(groupedOffices).map(([companyName, offices]) => ({
+    companyName,
+    offices: offices.filter(office => {
       const matchesSearch = !searchQuery || 
         office.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         office.address.toLowerCase().includes(searchQuery.toLowerCase());
       
-      // Filter by selected service if one is selected
       const matchesService = !selectedService || 
         office.lines.some(line => line.serviceId === selectedService.id);
       
       return matchesSearch && matchesService;
-    });
+    })
+  })).filter(group => group.offices.length > 0);
 
   const filteredServices = services?.filter(service => {
-        const matchesSearch = !searchQuery || 
-          service.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-          (service.description && service.description.toLowerCase().includes(searchQuery.toLowerCase()));
-        
-        const matchesOffice = !selectedOffice || 
-          service.officeIds.some(officeId => officeId === selectedOffice.id);
+    const matchesSearch = !searchQuery || 
+      service.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      (service.description && service.description.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    const matchesOffice = !selectedOffice || 
+      service.officeIds.some(officeId => officeId === selectedOffice.id);
 
     return matchesSearch && matchesOffice;
-  })
+  });
 
   const handleOfficeSelect = (office: Office) => {
     dispatch(setSelectedOffice(office));
@@ -96,8 +111,8 @@ const SelectOfficeAndServicePage = () => {
     setActiveTab(tab);
   };
 
-  if (isLoadingOffice || isServicesLoading) return <div>Загрузка...</div>
-  if (officeError || servicesError) return <div>Ошибка: {officeError?.message || servicesError?.message}</div>
+  if (isLoadingOffice || isServicesLoading) return <div>Загрузка...</div>;
+  if (officeError || servicesError) return <div>Ошибка: {officeError?.message || servicesError?.message}</div>;
 
   return (
     <Container maxWidth={800}>
@@ -139,7 +154,7 @@ const SelectOfficeAndServicePage = () => {
             dispatch(setSelectedOffice(null)); 
             dispatch(setSelectedService(null));
             navigate(nav.general.index());
-            }}>
+          }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15 18L9 12L15 6" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -147,7 +162,7 @@ const SelectOfficeAndServicePage = () => {
           {selectedOffice ? (
             <>
               <div style={{ padding: "8px 0", fontWeight: 500 }}>
-                {selectedOffice.name}
+                {selectedOffice.name} {selectedOffice.address}
               </div>
               <ResetButton onClick={handleResetOffice}>
                 Сбросить
@@ -187,11 +202,15 @@ const SelectOfficeAndServicePage = () => {
           {activeTab === "places" && (
             <FlexBox direction="column" gap={3}>
               {filteredOffices && filteredOffices.length > 0 ? (
-                <OfficesList 
-                  offices={filteredOffices} 
-                  selectedOfficeId={selectedOffice?.id}
-                  onOfficeSelect={handleOfficeSelect}
-                />
+                filteredOffices.map(group => (
+                  <div key={group.companyName}>
+                    <Title size='small' marginBottom={3}>{group.companyName}</Title>
+                    <OfficesList offices={group.offices} 
+                      selectedOfficeId={selectedOffice?.id}
+                      onOfficeSelect={handleOfficeSelect}
+                    />
+                  </div>
+                ))
               ) : (
                 <FlexBox justify='center'>
                   {selectedService 
@@ -219,10 +238,10 @@ const SelectOfficeAndServicePage = () => {
               </FlexBox>
             )
           )}
-        </div>
-      </FlexBox>
+        </div> 
+        </FlexBox>
     </Container>
   );
 };
 
-export default SelectOfficeAndServicePage; 
+export default SelectOfficeAndServicePage;

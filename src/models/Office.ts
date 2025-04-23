@@ -10,3 +10,8 @@ export interface Office {
   nearestDate: number;
   active: boolean;
 }
+
+export interface OfficeServerResponse {
+  companyName: string
+  offices: Office[]
+}

@@ -30,7 +30,7 @@ const SelectOfficeAndServicePage = () => {
   const {data: offices, isLoading: isLoadingOffice, error: officeError} = useQuery({
     queryKey: ['offices'],
     queryFn: async (): Promise<Office[]> => {
-      const response = await instance.get<{ offices: Office[] }>('/api/offices');
+      const response = await instance.get<{ offices: Office[] }>('/api/mfc/offices');
       return response.data.offices;
     }
   })

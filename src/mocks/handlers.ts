@@ -1,11 +1,9 @@
 import { http, HttpResponse, HttpHandler } from 'msw';
-import { Appointment, MonthData, Office, Service } from '../models';
+import { Appointment, MonthData, Service, OfficeServerResponse } from '../models';
 
-const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[] }>(
-  '/api/offices',
-  () => {
-    return HttpResponse.json({
-      offices: [
+const mfcOffices: OfficeServerResponse = {
+    companyName:'МФЦ',
+    offices: [
         {
             name: "МФЦ",
             address: "ул. Металлургов, д. 87 (ТЦ «МЕГА»)",
@@ -272,16 +270,144 @@ const getOfficesHandler: HttpHandler = http.get<never, never, { offices: Office[
             active: false
         },
     ],
-    });
-  }
-);
+}
 
-const getServicesHandler: HttpHandler = http.get<never, never, { lineName: string, services: Service[] }>(
-  '/api/services',
-  () => {
-    return HttpResponse.json({
-      lineName: "Физические лица",
-      services: [
+const resourceOffices: OfficeServerResponse = {
+    companyName:'ПМПК Ресурс',
+    offices: [
+        {
+            name: "ПМПК Ресурс",
+            address: "СОСТАВ № 1 ЦЕНТРАЛЬНОЙ ПМПК ГБОУ СО «ЦППМСП «Ресурс» (г. Екатеринбург, ул. Машинная 31)",
+            city: "Екатеринбург",
+            id: "3538314b-16b5-46db-9825-08c536bc6653",
+            lines: [
+                {
+                    name: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
+                    id: 1,
+                    shortName: "doc",
+                    nearestDate: 1744705200000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 1,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "Лагеря",
+                    id: 4,
+                    shortName: "doc",
+                    nearestDate: 1744710000000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 4,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "Школы",
+                    id: 5,
+                    shortName: "doc",
+                    nearestDate: 1744710000000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 5,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "МВД. Регистрация/снятие с регистрации",
+                    id: 7,
+                    shortName: "doc",
+                    nearestDate: 1744710000000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 7,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "Другие услуги",
+                    id: 9,
+                    shortName: "doc",
+                    nearestDate: 1744710000000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 9,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+
+            ],
+            timeZoneId: "Ekaterinburg Standard Time",
+            nearestDate: 1744705200000,
+            active: false
+        },
+        {
+            name: "ПМПК Ресурс",
+            address: "СОСТАВ № 5 ЦЕНТРАЛЬНОЙ ПМПК ГБОУ СО «ЦППМСП «Ресурс» (г. Екатеринбург, ул. Титова д. 28)",
+            city: "Екатеринбург",
+            id: "d81b5e25-b72d-4ae0-b761-0b0b13c46b7a",
+            lines: [
+                {
+                    name: "Комплексная услуга по газификации",
+                    id: 3,
+                    shortName: "doc",
+                    nearestDate: 1744705200000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 3,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+                {
+                    name: "Услуги пенсионного обеспечения и социальной защиты (пособия, опека, пенсия и др.)",
+                    id: 6,
+                    shortName: "doc",
+                    nearestDate: 1744705200000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 6,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                }
+            ],
+            timeZoneId: "Ekaterinburg Standard Time",
+            nearestDate: 1744705200000,
+            active: false
+        },
+    ],
+}
+const mfcServices = {
+    lineName: "Физические лица",
+    services: [
         {
             id: 1,
             name: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
@@ -336,243 +462,263 @@ const getServicesHandler: HttpHandler = http.get<never, never, { lineName: strin
             description: "Другие услуги",
             officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
         },
-      ]
-    });
+    ]
+}
+
+const timeSlots = {
+    "month": "2025-04-17T00:00:00Z",
+    "dates": [
+        {
+            "available": true,
+            "date": "2025-04-15T00:00:00Z",
+            "from": "2025-04-15T03:40:00Z",
+            "to": "2025-04-15T04:20:00Z",
+            "description": "Morning slot"
+        },
+        {
+            "available": true,
+            "date": "2025-04-15T00:00:00Z",
+            "from": "2025-04-15T04:20:00Z",
+            "to": "2025-04-15T05:20:00Z",
+            "description": "Morning slot"
+        },
+        {
+            "available": true,
+            "date": "2025-04-15T00:00:00Z",
+            "from": "2025-04-15T08:40:00Z",
+            "to": "2025-04-15T09:20:00Z",
+            "description": "Morning slot"
+        },
+        {
+            "available": true,
+            "date": "2025-04-15T00:00:00Z",
+            "from": "2025-04-15T11:00:00Z",
+            "to": "2025-04-15T11:40:00Z",
+            "description": "Late morning"
+        },
+        {
+            "available": true,
+            "date": "2025-04-15T00:00:00Z",
+            "from": "2025-04-15T14:20:00Z",
+            "to": "2025-04-15T15:00:00Z",
+            "description": "Afternoon slot"
+        },
+        {
+            "available": true,
+            "date": "2025-04-17T00:00:00Z",
+            "from": "2025-04-17T09:20:00Z",
+            "to": "2025-04-17T10:00:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-17T00:00:00Z",
+            "from": "2025-04-17T10:20:00Z",
+            "to": "2025-04-17T11:00:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-17T00:00:00Z",
+            "from": "2025-04-17T13:00:00Z",
+            "to": "2025-04-17T13:40:00Z",
+            "description": "After lunch"
+        },
+        {
+            "available": true,
+            "date": "2025-04-17T00:00:00Z",
+            "from": "2025-04-17T15:20:00Z",
+            "to": "2025-04-17T16:00:00Z",
+            "description": "Late afternoon"
+        },
+        {
+            "available": true,
+            "date": "2025-04-18T00:00:00Z",
+            "from": "2025-04-18T09:00:00Z",
+            "to": "2025-04-18T09:40:00Z",
+            "description": "Early morning"
+        },
+        {
+            "available": true,
+            "date": "2025-04-18T00:00:00Z",
+            "from": "2025-04-18T11:20:00Z",
+            "to": "2025-04-18T12:00:00Z",
+            "description": "Before lunch"
+        },
+        {
+            "available": true,
+            "date": "2025-04-18T00:00:00Z",
+            "from": "2025-04-18T14:00:00Z",
+            "to": "2025-04-18T14:40:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-19T00:00:00Z",
+            "from": "2025-04-19T09:00:00Z",
+            "to": "2025-04-19T09:40:00Z",
+            "description": "Weekend morning"
+        },
+        {
+            "available": true,
+            "date": "2025-04-19T00:00:00Z",
+            "from": "2025-04-19T12:20:00Z",
+            "to": "2025-04-19T13:00:00Z",
+            "description": "Weekend noon"
+        },
+        {
+            "available": true,
+            "date": "2025-04-19T00:00:00Z",
+            "from": "2025-04-19T15:00:00Z",
+            "to": "2025-04-19T15:40:00Z",
+            "description": "Weekend afternoon"
+        },
+        {
+            "available": true,
+            "date": "2025-04-21T00:00:00Z",
+            "from": "2025-04-21T09:20:00Z",
+            "to": "2025-04-21T10:00:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-21T00:00:00Z",
+            "from": "2025-04-21T11:40:00Z",
+            "to": "2025-04-21T12:20:00Z",
+            "description": "Before lunch"
+        },
+        {
+            "available": true,
+            "date": "2025-04-21T00:00:00Z",
+            "from": "2025-04-21T14:20:00Z",
+            "to": "2025-04-21T15:00:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-21T00:00:00Z",
+            "from": "2025-04-21T16:40:00Z",
+            "to": "2025-04-21T17:20:00Z",
+            "description": "Late day"
+        },
+        {
+            "available": true,
+            "date": "2025-04-22T00:00:00Z",
+            "from": "2025-04-22T09:00:00Z",
+            "to": "2025-04-22T09:40:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-22T00:00:00Z",
+            "from": "2025-04-22T12:00:00Z",
+            "to": "2025-04-22T12:40:00Z",
+            "description": "Midday"
+        },
+        {
+            "available": true,
+            "date": "2025-04-22T00:00:00Z",
+            "from": "2025-04-22T15:20:00Z",
+            "to": "2025-04-22T16:00:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-23T00:00:00Z",
+            "from": "2025-04-23T09:00:00Z",
+            "to": "2025-04-23T09:40:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-23T00:00:00Z",
+            "from": "2025-04-23T11:20:00Z",
+            "to": "2025-04-23T12:00:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-23T00:00:00Z",
+            "from": "2025-04-23T14:40:00Z",
+            "to": "2025-04-23T15:20:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-23T00:00:00Z",
+            "from": "2025-04-23T17:00:00Z",
+            "to": "2025-04-23T17:40:00Z",
+            "description": "Evening slot"
+        },
+        {
+            "available": true,
+            "date": "2025-04-24T00:00:00Z",
+            "from": "2025-04-24T09:00:00Z",
+            "to": "2025-04-24T09:40:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-24T00:00:00Z",
+            "from": "2025-04-24T12:20:00Z",
+            "to": "2025-04-24T13:00:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-24T00:00:00Z",
+            "from": "2025-04-24T15:40:00Z",
+            "to": "2025-04-24T16:20:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-25T00:00:00Z",
+            "from": "2025-04-25T09:20:00Z",
+            "to": "2025-04-25T10:00:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-25T00:00:00Z",
+            "from": "2025-04-25T12:40:00Z",
+            "to": "2025-04-25T13:20:00Z",
+            "description": ""
+        },
+        {
+            "available": true,
+            "date": "2025-04-25T00:00:00Z",
+            "from": "2025-04-25T16:00:00Z",
+            "to": "2025-04-25T16:40:00Z",
+            "description": "Friday afternoon"
+        }
+    ]
+}
+
+const getMfcOfficesHandler: HttpHandler = http.get<never, never, OfficeServerResponse>(
+  '/api/mfc/offices',
+  () => {
+    return HttpResponse.json(mfcOffices);
+  }
+);
+
+const getAllOfficesHandler: HttpHandler = http.get<never, never, OfficeServerResponse[]>(
+    '/api/offices',
+    () => {
+      return HttpResponse.json([mfcOffices, resourceOffices]);
+    }
+  );
+const getServicesHandler: HttpHandler = http.get<never, never, { lineName: string, services: Service[] }>(
+  '/api/services',
+  () => {
+    return HttpResponse.json(mfcServices);
   }
 );
 
 const getDatesHandler: HttpHandler = http.get<never, {lineName: string, placeId: string, serviceId: string, participantsNumber: number}, MonthData>(
   '/api/dates',
   () => {
-    return HttpResponse.json({
-        "month": "2025-04-17T00:00:00Z",
-        "dates": [
-            {
-                "available": true,
-                "date": "2025-04-15T00:00:00Z",
-                "from": "2025-04-15T03:40:00Z",
-                "to": "2025-04-15T04:20:00Z",
-                "description": "Morning slot"
-            },
-            {
-                "available": true,
-                "date": "2025-04-15T00:00:00Z",
-                "from": "2025-04-15T04:20:00Z",
-                "to": "2025-04-15T05:20:00Z",
-                "description": "Morning slot"
-            },
-            {
-                "available": true,
-                "date": "2025-04-15T00:00:00Z",
-                "from": "2025-04-15T08:40:00Z",
-                "to": "2025-04-15T09:20:00Z",
-                "description": "Morning slot"
-            },
-            {
-                "available": true,
-                "date": "2025-04-15T00:00:00Z",
-                "from": "2025-04-15T11:00:00Z",
-                "to": "2025-04-15T11:40:00Z",
-                "description": "Late morning"
-            },
-            {
-                "available": true,
-                "date": "2025-04-15T00:00:00Z",
-                "from": "2025-04-15T14:20:00Z",
-                "to": "2025-04-15T15:00:00Z",
-                "description": "Afternoon slot"
-            },
-            {
-                "available": true,
-                "date": "2025-04-17T00:00:00Z",
-                "from": "2025-04-17T09:20:00Z",
-                "to": "2025-04-17T10:00:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-17T00:00:00Z",
-                "from": "2025-04-17T10:20:00Z",
-                "to": "2025-04-17T11:00:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-17T00:00:00Z",
-                "from": "2025-04-17T13:00:00Z",
-                "to": "2025-04-17T13:40:00Z",
-                "description": "After lunch"
-            },
-            {
-                "available": true,
-                "date": "2025-04-17T00:00:00Z",
-                "from": "2025-04-17T15:20:00Z",
-                "to": "2025-04-17T16:00:00Z",
-                "description": "Late afternoon"
-            },
-            {
-                "available": true,
-                "date": "2025-04-18T00:00:00Z",
-                "from": "2025-04-18T09:00:00Z",
-                "to": "2025-04-18T09:40:00Z",
-                "description": "Early morning"
-            },
-            {
-                "available": true,
-                "date": "2025-04-18T00:00:00Z",
-                "from": "2025-04-18T11:20:00Z",
-                "to": "2025-04-18T12:00:00Z",
-                "description": "Before lunch"
-            },
-            {
-                "available": true,
-                "date": "2025-04-18T00:00:00Z",
-                "from": "2025-04-18T14:00:00Z",
-                "to": "2025-04-18T14:40:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-19T00:00:00Z",
-                "from": "2025-04-19T09:00:00Z",
-                "to": "2025-04-19T09:40:00Z",
-                "description": "Weekend morning"
-            },
-            {
-                "available": true,
-                "date": "2025-04-19T00:00:00Z",
-                "from": "2025-04-19T12:20:00Z",
-                "to": "2025-04-19T13:00:00Z",
-                "description": "Weekend noon"
-            },
-            {
-                "available": true,
-                "date": "2025-04-19T00:00:00Z",
-                "from": "2025-04-19T15:00:00Z",
-                "to": "2025-04-19T15:40:00Z",
-                "description": "Weekend afternoon"
-            },
-            {
-                "available": true,
-                "date": "2025-04-21T00:00:00Z",
-                "from": "2025-04-21T09:20:00Z",
-                "to": "2025-04-21T10:00:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-21T00:00:00Z",
-                "from": "2025-04-21T11:40:00Z",
-                "to": "2025-04-21T12:20:00Z",
-                "description": "Before lunch"
-            },
-            {
-                "available": true,
-                "date": "2025-04-21T00:00:00Z",
-                "from": "2025-04-21T14:20:00Z",
-                "to": "2025-04-21T15:00:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-21T00:00:00Z",
-                "from": "2025-04-21T16:40:00Z",
-                "to": "2025-04-21T17:20:00Z",
-                "description": "Late day"
-            },
-            {
-                "available": true,
-                "date": "2025-04-22T00:00:00Z",
-                "from": "2025-04-22T09:00:00Z",
-                "to": "2025-04-22T09:40:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-22T00:00:00Z",
-                "from": "2025-04-22T12:00:00Z",
-                "to": "2025-04-22T12:40:00Z",
-                "description": "Midday"
-            },
-            {
-                "available": true,
-                "date": "2025-04-22T00:00:00Z",
-                "from": "2025-04-22T15:20:00Z",
-                "to": "2025-04-22T16:00:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-23T00:00:00Z",
-                "from": "2025-04-23T09:00:00Z",
-                "to": "2025-04-23T09:40:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-23T00:00:00Z",
-                "from": "2025-04-23T11:20:00Z",
-                "to": "2025-04-23T12:00:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-23T00:00:00Z",
-                "from": "2025-04-23T14:40:00Z",
-                "to": "2025-04-23T15:20:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-23T00:00:00Z",
-                "from": "2025-04-23T17:00:00Z",
-                "to": "2025-04-23T17:40:00Z",
-                "description": "Evening slot"
-            },
-            {
-                "available": true,
-                "date": "2025-04-24T00:00:00Z",
-                "from": "2025-04-24T09:00:00Z",
-                "to": "2025-04-24T09:40:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-24T00:00:00Z",
-                "from": "2025-04-24T12:20:00Z",
-                "to": "2025-04-24T13:00:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-24T00:00:00Z",
-                "from": "2025-04-24T15:40:00Z",
-                "to": "2025-04-24T16:20:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-25T00:00:00Z",
-                "from": "2025-04-25T09:20:00Z",
-                "to": "2025-04-25T10:00:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-25T00:00:00Z",
-                "from": "2025-04-25T12:40:00Z",
-                "to": "2025-04-25T13:20:00Z",
-                "description": ""
-            },
-            {
-                "available": true,
-                "date": "2025-04-25T00:00:00Z",
-                "from": "2025-04-25T16:00:00Z",
-                "to": "2025-04-25T16:40:00Z",
-                "description": "Friday afternoon"
-            }
-        ]
-      });
+    return HttpResponse.json(timeSlots);
   }
 );
 
@@ -591,4 +737,4 @@ const createAppointmentHandler: HttpHandler = http.post<never, Appointment, neve
     }
 );
 
-export const handlers = [getOfficesHandler, getDatesHandler, createAppointmentHandler, getServicesHandler];
+export const handlers = [getMfcOfficesHandler, getDatesHandler, createAppointmentHandler, getServicesHandler, getAllOfficesHandler];
