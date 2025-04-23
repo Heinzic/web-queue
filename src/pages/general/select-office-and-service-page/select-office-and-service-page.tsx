@@ -204,12 +204,20 @@ const SelectOfficeAndServicePage = () => {
           )}
           
           {activeTab === "services" && (
-            <ServicesList 
+            filteredServices && filteredServices.length > 0 ? 
+            (<ServicesList 
               services={filteredServices || []}
               showSearch={false}
               onServiceSelect={handleServiceSelect}
               onResetService={handleResetService}
-            />
+            />) : (
+              <FlexBox justify='center'>
+                  {selectedOffice
+                    ? `Нет услуг, предоставляемых ${selectedOffice.name} ${selectedOffice.address}`
+                    : "Нет услуг, соответствующих поиску"
+                  }
+              </FlexBox>
+            )
           )}
         </div>
       </FlexBox>
