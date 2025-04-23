@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import HandleAppointment from './HOC/HandleAppointment';
-import { nav, general, mfc } from './pages';
+import { nav, general, mfc, uni } from './pages';
 import './App.css';
 import RouteGuard from './HOC/RouteGuard';
 import { ThemeProvider } from '@emotion/react';
@@ -16,6 +16,9 @@ const App: React.FC = () => {
     switch (true) {
       case location.pathname.startsWith('/mfc'):
         setFlow('mfc');
+        break;
+      case location.pathname.startsWith('/uni'):
+        setFlow('uni');
         break;
       default:
         setFlow('general');
@@ -59,6 +62,20 @@ const App: React.FC = () => {
               <Route element={<RouteGuard requiredParams={['userData', 'selectedOffice', 'selectedService', 'timeSlot']} redirectTo={nav.mfc.index()} />}>
                 <Route path={nav.mfc.confirmAppointment()} element={<mfc.ConfirmAppointmentPage />} />
                 <Route path={nav.mfc.appointmentSuccess()} element={<mfc.AppointmentSuccessPage />} />
+              </Route>
+
+              <Route path={nav.uni.index()} element={<uni.HomePage />} />
+              <Route path={nav.uni.cancelAppointment()} element={<uni.CancelAppointmentPage />} />
+              <Route path={nav.uni.selectOffice()} element={<uni.SelectServicePage />} />
+              <Route element={<RouteGuard requiredParams={['selectedOffice', 'selectedService']} redirectTo={nav.uni.index()} />}>
+                <Route path={nav.uni.appointmentDateTime()} element={<uni.AppointmentDateTimePage />} />
+              </Route>
+              <Route element={<RouteGuard requiredParams={['selectedOffice', 'selectedService', 'timeSlot']} redirectTo={nav.uni.index()} />}>
+                <Route path={nav.uni.enterData()} element={<uni.EnterDataPage />} />
+              </Route>
+              <Route element={<RouteGuard requiredParams={['userData', 'selectedOffice', 'selectedService', 'timeSlot']} redirectTo={nav.uni.index()} />}>
+                <Route path={nav.uni.confirmAppointment()} element={<uni.ConfirmAppointmentPage />} />
+                <Route path={nav.uni.appointmentSuccess()} element={<uni.AppointmentSuccessPage />} />
               </Route>
             </Routes>
           </ThemeProvider>

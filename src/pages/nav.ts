@@ -19,5 +19,14 @@ export const nav = {
         confirmAppointment: () => '/mfc/confirm-appointment' as const,
         appointmentSuccess: () => '/mfc/appointment-success' as const,
         enterData: () => '/mfc/enter-data' as const,
+    },
+    uni: {
+        index: () => '/uni' as const,
+        selectOffice: () => '/uni/select-service' as const,
+        appointmentDateTime: () => '/uni/appointment-datetime' as const,
+        cancelAppointment: () => '/uni/cancel-appointment' as const,
+        confirmAppointment: () => '/uni/confirm-appointment' as const,
+        appointmentSuccess: () => '/uni/appointment-success' as const,
+        enterData: () => '/uni/enter-data' as const,
     }
 }

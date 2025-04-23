@@ -405,6 +405,7 @@ const resourceOffices: OfficeServerResponse = {
         },
     ],
 }
+
 const mfcServices = {
     lineName: "Физические лица",
     services: [
@@ -461,6 +462,30 @@ const mfcServices = {
             name: "Другие услуги",
             description: "Другие услуги",
             officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+        },
+    ]
+}
+
+const uniServices = {
+    lineName: "Ирит-РТФ",
+    services: [
+        {
+            id: 1,
+            name: "Заказать справку об обучении",
+            description: "Заказать справку об обучении",
+            officeIds: ["uni"]
+        },
+        {
+            id: 2,
+            name: "Заказать справку студента",
+            description: "Заказать справку студента",
+            officeIds: ["uni"]
+        },
+        {
+            id: 3,
+            name: "Получить хвостовку",
+            description: "Получить хвостовку",
+            officeIds: ["uni"]
         },
     ]
 }
@@ -708,12 +733,20 @@ const getAllOfficesHandler: HttpHandler = http.get<never, never, OfficeServerRes
       return HttpResponse.json([mfcOffices, resourceOffices]);
     }
   );
+
 const getServicesHandler: HttpHandler = http.get<never, never, { lineName: string, services: Service[] }>(
   '/api/services',
   () => {
     return HttpResponse.json(mfcServices);
   }
 );
+
+const getUniServicesHandler: HttpHandler = http.get<never, never, { lineName: string, services: Service[] }>(
+    '/api/uni/services',
+    () => {
+      return HttpResponse.json(uniServices);
+    }
+  );
 
 const getDatesHandler: HttpHandler = http.get<never, {lineName: string, placeId: string, serviceId: string, participantsNumber: number}, MonthData>(
   '/api/dates',
@@ -737,4 +770,4 @@ const createAppointmentHandler: HttpHandler = http.post<never, Appointment, neve
     }
 );
 
-export const handlers = [getMfcOfficesHandler, getDatesHandler, createAppointmentHandler, getServicesHandler, getAllOfficesHandler];
+export const handlers = [getMfcOfficesHandler, getDatesHandler, createAppointmentHandler, getServicesHandler, getAllOfficesHandler, getUniServicesHandler];

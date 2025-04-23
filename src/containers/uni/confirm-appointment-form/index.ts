@@ -1,0 +1,1 @@
+export { default as UniConfirmAppointmentForm } from './confirm-appointment-form';
