@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/react'; // Import useTheme
+import { useTheme } from '@emotion/react';
 
 const TabsContainer = styled.div`
   display: flex;
@@ -14,15 +14,15 @@ const Tab = styled.button<{ active: boolean }>`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
   background: none;
   border: none;
-  border-bottom: 2px solid ${props => props.active ? '#F44336' : 'transparent'};
+  border-bottom: 2px solid ${props => props.active ? ({theme}) => theme.colors.primary.main : 'transparent'};
   cursor: pointer;
   font-size: ${({ theme }) => theme.typography.fontSize.base};
   font-weight: ${props => props.active ? props.theme.typography.fontWeight.medium : props.theme.typography.fontWeight.regular};
-  color: ${props => props.active ? '#F44336' : props.theme.colors.neutral.gray[700]};
+  color: ${props => props.active ? ({theme}) => theme.colors.primary.main : ({theme}) => theme.colors.neutral.gray[700]};
   text-align: center;
   
   &:hover {
-    color: #F44336;
+    color: ${({theme}) => theme.colors.primary.main};
   }
 `;
 
@@ -41,7 +41,7 @@ export const Tabs: React.FC<TabsProps> = ({ children }) => {
 };
 
 export const TabItem: React.FC<TabProps> = ({ active, onClick, children }) => {
-  const theme = useTheme(); // Access the theme using useTheme
+  const theme = useTheme();
 
   return (
     <Tab active={active} onClick={onClick} theme={theme}>

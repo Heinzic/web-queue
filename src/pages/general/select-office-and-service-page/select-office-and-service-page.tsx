@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setSelectedOffice, setSelectedService } from '../../../store/appointmentSlice';
-import { Title, SearchInput, theme, FlexBox, FastFilters } from '../../../ui';
+import { Title, SearchInput, FlexBox, FastFilters } from '../../../ui';
 import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../../components/appointment/Breadcrumbs';
 import { Tabs, TabItem } from '../../../components/appointment/Tabs';
 import { Office, Service } from '../../../models';
@@ -193,12 +193,12 @@ const SelectOfficeAndServicePage = () => {
                   onOfficeSelect={handleOfficeSelect}
                 />
               ) : (
-                <div style={{ padding: theme.spacing[4], textAlign: 'center', color: theme.colors.neutral.gray[600] }}>
+                <FlexBox justify='center'>
                   {selectedService 
                     ? `Нет офисов, предоставляющих услугу "${selectedService.name}"`
                     : "Нет офисов, соответствующих поиску"
                   }
-                </div>
+                </FlexBox>
               )}
             </FlexBox>
           )}
