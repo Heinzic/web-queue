@@ -7,27 +7,31 @@ import { nav } from "../../../pages";
 import { User } from "../../../models";
 import { setUserData } from "../../../store/appointmentSlice";
 import { UserService } from "../../../services/UserService";
+import { TextArea } from "../../../ui/TextArea";
 
 const schema = z.object({
-  firstName: z.string().min(1, 'Имя обязательно'),
-  lastName: z.string().min(1, 'Фамилия обязательна'),
-  email: z.string().email('Неверный email'),
-  phoneNumber: z.string()
-    .regex(/^\+7\d{10}$/, 'Неверный формат номера телефона'),
+    firstName: z.string().min(1, 'Имя обязательно'),
+    lastName: z.string().min(1, 'Фамилия обязательна'),
+    patronymic: z.string().min(1, 'Отчество обязательно'),
+    email: z.string().email('Неверный email'),
+    phoneNumber: z.string().regex(/^\+7\d{10}$/, 'Неверный формат номера телефона'),
+    comment: z.string().optional()
 });
 
 function EnterDataForm(props :{nextLink: string}) {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const [errors, setErrors] = useState<{ firstName?: string; lastName?: string; email?: string; phoneNumber?: string }>({});
+    const [errors, setErrors] = useState<{ firstName?: string; lastName?: string; email?: string; phoneNumber?: string; patronymic?: string}>({});
     const { selectedOffice, selectedService, userData } = useAppSelector(state => state.appointment);
 
     const [data, setData] = useState<User>({
       firstName: userData?.firstName || '', 
       lastName: userData?.lastName || '', 
       email: userData?.email || '', 
-      phoneNumber: userData?.phoneNumber || '+7'
+      phoneNumber: userData?.phoneNumber || '+7',
+      patronymic: userData?.patronymic || '',
+      comment:''
     });
 
     useEffect(() => {
@@ -58,7 +62,7 @@ function EnterDataForm(props :{nextLink: string}) {
         setData({ ...data, phoneNumber: formattedValue });
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         if (name !== 'phoneNumber') {
             setData({ ...data, [name]: value });
@@ -74,7 +78,7 @@ function EnterDataForm(props :{nextLink: string}) {
             navigate(props.nextLink);
         } catch (err) {
             if (err instanceof z.ZodError) {
-                const fieldErrors: { firstName?: string; lastName?: string; email?: string; phoneNumber?: string } = {};
+                const fieldErrors: { firstName?: string; lastName?: string; email?: string; phoneNumber?: string; patronymic?: string } = {};
                 err.errors.forEach((error) => {
                     switch (error.path[0]) {
                         case 'firstName':
@@ -82,6 +86,9 @@ function EnterDataForm(props :{nextLink: string}) {
                             break;
                         case 'lastName':
                             fieldErrors.lastName = error.message;
+                            break;
+                        case 'patronymic':
+                            fieldErrors.patronymic = error.message;
                             break;  
                         case 'email':
                             fieldErrors.email = error.message;
@@ -102,52 +109,76 @@ function EnterDataForm(props :{nextLink: string}) {
         <form onSubmit={handleSubmit}>
             <FlexBox direction="column" gap={2}>
                 <div>
-                    <Text>Имя:</Text>
-                    <Input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        value={data.firstName}
-                        onChange={handleChange}
-                    />
+                    <Text>ФИО</Text>
+                    <FlexBox gap={4}>
+                        <Input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            placeholder="Имя"
+                            value={data.firstName}
+                            onChange={handleChange}
+                        />
+                        <Input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Фамилия"
+                            value={data.lastName}
+                            onChange={handleChange}
+                        />
+                        <Input
+                            type="text"
+                            id="patronymic"
+                            name="patronymic"
+                            placeholder="Отчество"
+                            value={data.patronymic}
+                            onChange={handleChange}
+                        />
+                    </FlexBox>
+                    
                     {errors.firstName && <Text color="error">{errors.firstName}</Text>}
+                    {errors.patronymic && <Text color="error">{errors.patronymic}</Text>}
                 </div>
                 <div>
-                    <Text>Фамилия:</Text>
-                    <Input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        value={data.lastName}
+                    <FlexBox gap={4}>
+                        <FlexBox direction="column" fullWidth>
+                            <Text>Email:</Text>
+                            <Input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={data.email}
+                                onChange={handleChange}
+                            />
+                            {errors.email && <Text color="error">{errors.email}</Text>}
+                        </FlexBox>
+                        <FlexBox direction="column" fullWidth>
+                            <Text>Телефон</Text>
+                            <Input
+                                type="tel"
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                value={data.phoneNumber}
+                                onChange={handlePhoneChange}
+                                placeholder="+7XXXXXXXXXX"
+                            />
+                            {errors.phoneNumber && <Text color="error">{errors.phoneNumber}</Text>}
+                        </FlexBox>
+                    </FlexBox>
+                </div>
+                <div>
+                    <Text>Комментарий (не обязательно)</Text>
+                    <TextArea
+                        id="comment"
+                        name="comment"
+                        value={data.comment}
                         onChange={handleChange}
+                        placeholder="Комментарий"
                     />
-                    {errors.lastName && <Text color="error">{errors.lastName}</Text>}
-                </div>
-                <div>
-                    <Text>Email:</Text>
-                    <Input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={data.email}
-                        onChange={handleChange}
-                    />
-                    {errors.email && <Text color="error">{errors.email}</Text>}
-                </div>
-                <div>
-                    <Text>Номер телефона:</Text>
-                    <Input
-                        type="tel"
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        value={data.phoneNumber}
-                        onChange={handlePhoneChange}
-                        placeholder="+7XXXXXXXXXX"
-                    />
-                    {errors.phoneNumber && <Text color="error">{errors.phoneNumber}</Text>}
                 </div>
                 <FlexBox justify="center">
-                    <Button type="submit" variant="primary" disabled={!data.firstName || !data.lastName || !data.email || !data.phoneNumber}>
+                    <Button type="submit" variant="outlined"  size="large" disabled={!data.firstName || !data.lastName || !data.email || !data.phoneNumber || !data.patronymic}>
                         Записаться
                     </Button> 
                 </FlexBox>
