@@ -8,6 +8,7 @@ import { User } from "../../../models";
 import { setUserData } from "../../../store/slices/appointmentSlice";
 import { UserService } from "../../../services/UserService";
 import { TextArea } from "../../../ui/TextArea";
+import { BookingTimer } from "../BookingTimer";
 
 const schema = z.object({
     firstName: z.string().min(1, 'Имя обязательно'),
@@ -177,7 +178,8 @@ function EnterDataForm(props :{nextLink: string}) {
                         placeholder="Комментарий"
                     />
                 </div>
-                <FlexBox justify="center">
+                <FlexBox justify="center" gap={4}>
+                    <BookingTimer style="block"/>
                     <Button type="submit" variant="outlined"  size="large" disabled={!data.firstName || !data.lastName || !data.email || !data.phoneNumber || !data.patronymic}>
                         Записаться
                     </Button> 

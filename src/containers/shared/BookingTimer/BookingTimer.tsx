@@ -3,13 +3,14 @@ import { useTheme } from "@emotion/react";
 import 'react-circular-progressbar/dist/styles.css';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { startTimer } from '../../../store/slices/timerSlice';
+import { Text } from '../../../ui';
 
 interface BookingTimerProps {
-    onExpire?: () => void;
-    durationMinutes?: number;
-    style: 'circle' | 'block'
+  onExpire?: () => void;
+  durationMinutes?: number;
+  style: 'circle' | 'block'
 }
 
 const StyledProgressBar = styled(CircularProgressbar)`
@@ -28,34 +29,54 @@ const StyledProgressBar = styled(CircularProgressbar)`
   width: 57px;
 `
 
-export const BookingTimer: React.FC<BookingTimerProps> = ({onExpire, durationMinutes = 5}) => {
-  const dispatch = useAppDispatch()
-  const [remainingTime, setRemainingTime] = useState(durationMinutes * 60);
+const StyledBlockTImer = styled.div`
+  padding: ${({ theme }) => `${theme.spacing[2]} ${theme.spacing[5]}`};
+  border: 1px solid ${({ theme }) => theme.colors.neutral.gray[200]};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  font-family: ${({ theme }) => theme.typography.fontFamily.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  background: ${({ theme }) => theme.colors.background.secondary};
+`
+
+export const BookingTimer: React.FC<BookingTimerProps> = ({ onExpire, durationMinutes = 5, style }) => {
+  const dispatch = useAppDispatch();
+  const expirationTime = useAppSelector((state) => state.timer.expirationTime);
+  const [remainingTime, setRemainingTime] = useState(() => {
+    return expirationTime 
+      ? Math.max(0, Math.floor((expirationTime.getTime() - Date.now()) / 1000))
+      : durationMinutes * 60;
+  });
 
   useEffect(() => {
-    dispatch(startTimer(durationMinutes)); // Pass durationMinutes to startTimer
+    dispatch(startTimer(durationMinutes));
 
     const interval = setInterval(() => {
       setRemainingTime((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          if (onExpire) onExpire(); // Call onExpire when countdown reaches zero
+          if (onExpire) onExpire();
           return 0;
         }
-        return prev - 1; // Decrement remaining time
+        return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, [dispatch, durationMinutes, onExpire]);
 
-  const theme = useTheme()
+  const theme = useTheme();
   const minutes = Math.floor(remainingTime / 60);
   const seconds = remainingTime % 60;
 
+  if (style === 'block') {
+    return (
+      <StyledBlockTImer>
+        <Text>{`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}</Text>
+      </StyledBlockTImer>
+    );
+  }
+
   return (
-    <>
-      <StyledProgressBar value={(remainingTime / (durationMinutes * 60)) * 100} text={`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`} theme={theme}/>
-    </>
-  )
+    <StyledProgressBar value={(remainingTime / (durationMinutes * 60)) * 100} text={`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`} theme={theme} />
+  );
 };
