@@ -9,7 +9,6 @@ export const PackagesAmountButton = styled.button`
   font-size: ${theme().typography.fontSize.sm};
   cursor: pointer;
   padding: ${theme().spacing[1]} ${theme().spacing[2]};
-  margin-left: auto;
   width: 40px;
   height: 40px;
   display: flex;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setSelectedService } from '../../store/appointmentSlice';
+import { setSelectedService } from '../../store/slices/appointmentSlice';
 import { Service } from '../../models';
 
 const ServicesContainer = styled.div`

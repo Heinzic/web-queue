@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import appointmentReducer from './appointmentSlice';
+import {appointmentReducer, timerReducer} from './slices';
 
 export const store = configureStore({
   reducer: {
     appointment: appointmentReducer,
+    timer: timerReducer
   },
 });
 

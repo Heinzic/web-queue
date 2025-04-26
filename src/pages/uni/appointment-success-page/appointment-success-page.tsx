@@ -4,7 +4,7 @@ import { Container } from "../../../components/shared";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { FlexBox, Button } from "../../../ui";
 import { AppointmentSuccessCard, AppointmentSuccessCardTitle, AppointmentSuccessCardText } from "./styled";
-import { resetAppointment } from "../../../store/appointmentSlice";
+import { resetAppointment } from "../../../store/slices/appointmentSlice";
 
 function AppointmentSuccessPage() {
     const { selectedOffice, userData, selectedService, amountOfPackages, timeSlot } = useAppSelector(state => state.appointment);

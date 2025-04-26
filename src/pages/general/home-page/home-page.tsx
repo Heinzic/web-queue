@@ -1,6 +1,7 @@
 import { Container } from '../../../components/shared';
 import { Title, CardLink, Text, FlexBox } from '../../../ui';
 import { nav } from '../../../pages';
+
 const HomePage = () => {
   return (
     <Container padding={6}>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { setSelectedOffice, setSelectedService } from '../../../store/appointmentSlice';
+import { setSelectedOffice, setSelectedService } from '../../../store/slices/appointmentSlice';
 import { Title, SearchInput, FlexBox, FastFilters } from '../../../ui';
 import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../../components/appointment/Breadcrumbs';
 import { Tabs, TabItem } from '../../../components/appointment/Tabs';

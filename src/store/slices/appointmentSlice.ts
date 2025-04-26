@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Office, Service, User } from '../models';
+import { Office, Service, User } from '../../models';
 
 interface AppointmentState {
   selectedOffice: Office | null;

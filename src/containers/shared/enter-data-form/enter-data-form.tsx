@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { nav } from "../../../pages";
 import { User } from "../../../models";
-import { setUserData } from "../../../store/appointmentSlice";
+import { setUserData } from "../../../store/slices/appointmentSlice";
 import { UserService } from "../../../services/UserService";
 import { TextArea } from "../../../ui/TextArea";
 
