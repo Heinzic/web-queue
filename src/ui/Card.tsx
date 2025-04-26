@@ -67,7 +67,7 @@ const BaseCardStyles = styled.div<StyledCardProps>`
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme, size = 'medium' }) => getCardPadding(theme, size)};
-  background-color: ${({ backgroundColor, theme }) => backgroundColor || theme.colors.neutral.white};
+  background: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.borderRadius.default};
   ${({ theme, variant = 'default' }) => getCardStyles(theme, variant)};
   margin: ${({ theme }) => theme.spacing[2]};
@@ -86,7 +86,7 @@ const StyledCardLink = styled(Link)<StyledCardProps>`
   display: flex;
   justify-content: space-between;
   padding: ${({ theme, size = 'medium' }) => getCardPadding(theme, size)};
-  background-color: ${({ backgroundColor, theme }) => backgroundColor || theme.colors.neutral.white};
+  background: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.borderRadius.default};
   align-items: center;
   text-decoration: none;

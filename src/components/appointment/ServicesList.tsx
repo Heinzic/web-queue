@@ -14,7 +14,7 @@ const ServicesContainer = styled.div`
 const ServiceCard = styled.div<{ isSelected?: boolean }>`
   display: flex;
   padding: ${({ theme }) => theme.spacing[4]};
-  background-color: white;
+  background: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   border: ${props => props.isSelected ? '2px solid #7B61FF' : '2px solid #E0E0E0'};
   cursor: pointer;

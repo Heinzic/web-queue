@@ -31,7 +31,7 @@ const SearchIconContainer = styled.span`
   left: ${({ theme }) => theme.spacing[3]};
   top: 50%;
   transform: translateY(-50%);
-  color: ${({ theme }) => theme.colors.neutral.gray[500]};
+  color: ${({ theme }) => theme.colors.background.secondary};
   pointer-events: none;
   display: flex;
   align-items: center;

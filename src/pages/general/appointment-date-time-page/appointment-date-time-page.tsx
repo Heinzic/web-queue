@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { Container } from '../../../components/shared';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { resetAppointment, setAmountOfPackages, setTimeSlot } from '../../../store/slices/appointmentSlice';
-import { Card, CardLink, BackLink, Text, FlexBox, theme, Button } from '../../../ui';
+import { CardLink, BackLink, Text, FlexBox, theme, Button } from '../../../ui';
 import { AppointmentDateContainer, TimeSlots } from '../../../components/appointment';
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../../provider/client';
 import { DateInfo } from '../../../models';
 import { isSameDay } from 'date-fns';
 import { nav } from '../../../pages';
-import { PackagesAmountButton } from './styled';
+import { NearestDateCard, PackagesAmountButton } from './styled';
 import { BookingTimer } from '../../../containers/shared/BookingTimer';
 import { startTimer } from '../../../store/slices/timerSlice';
 
@@ -91,13 +91,13 @@ const AppointmentDateTimePage: React.FC = () => {
               <Text size="xl" color="primary">+</Text>
             </PackagesAmountButton>
         </FlexBox>
-       {selectedTimeSlot && ( <BookingTimer key={selectedTimeSlot} style='circle' durationMinutes={5} />)}               
+       {selectedTimeSlot && ( <BookingTimer key={selectedTimeSlot} style='circle' durationMinutes={5} />)}
       </FlexBox>
-      <Card variant='elevated' withArrow size='small'>
+      <NearestDateCard variant='elevated' withArrow size='small'>
         <CardLink to={nav.general.selectOffice()}>
           <Text size="lg" weight="medium">Записаться на ближайшее время</Text>
         </CardLink>
-      </Card>
+      </NearestDateCard>
 
       {selectedDate && timeSlots && (
         <TimeSlots

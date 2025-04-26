@@ -12,9 +12,9 @@ interface OfficeCardProps {
 
 const StyledCard = styled.div<OfficeCardProps>`
   display: flex;
-  padding: ${({ theme }) => theme.spacing[4]}; // Use theme from props
-  background-color: white;
-  border-radius: ${({ theme }) => theme.borderRadius.md}; // Use theme from props
+  padding: ${({ theme }) => theme.spacing[4]};
+  background: ${({ theme }) => theme.colors.background.secondary};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   border: ${(props) => props.isSelected ? '2px solid #7B61FF' : '2px solid #E0E0E0'};
   cursor: pointer;
   

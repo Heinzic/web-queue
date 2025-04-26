@@ -51,6 +51,10 @@ export const generalColors = {
     light: '#03a9f4',
     dark: '#01579b',
   },
+  background: {
+    primary: '#F7F7F7',
+    secondary: '#F7F7F7'
+  }
 };
 
 export const mfcColors = {
@@ -106,6 +110,10 @@ export const mfcColors = {
     light: '#03a9f4',
     dark: '#01579b',
   },
+  background: {
+    primary: '#F7F7F7',
+    secondary: '#F7F7F7'
+  }
 };
 
 export const uniColors = {
@@ -161,6 +169,10 @@ export const uniColors = {
     light: '#03a9f4',
     dark: '#01579b',
   },
+  background: {
+    primary: '#F7F7F7',
+    secondary: '#F7F7F7'
+  }
 };
 
 export const typography = {

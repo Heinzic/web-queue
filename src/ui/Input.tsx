@@ -15,7 +15,7 @@ const StyledInput = styled.input<{ hasIcon: boolean }>`
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   font-family: ${({ theme }) => theme.typography.fontFamily.primary};
   font-size: ${({ theme }) => theme.typography.fontSize.base};
-  background-color: white;
+  background: ${({ theme }) => theme.colors.background.secondary};
   outline: none;
 
   &:focus {
