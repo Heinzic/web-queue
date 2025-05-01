@@ -1,4 +1,5 @@
-import { useState } from 'react';
+
+import { useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setSelectedOffice, setSelectedService } from '../../../store/slices/appointmentSlice';
@@ -15,20 +16,6 @@ import { instance } from '../../../provider/client';
 import { nav } from '../../../pages';
 import { FastFilters } from '../../../containers/shared/FastFilters/FastFilters';
 
-const companyOptions = [
-  { label: "МФЦ", value: "МФЦ" },
-  { label: "ПМПК Ресурс", value: "ПМПК Ресурс" },
-];
-const cityOptions = [
-  { label: "Екатеринбург", value: "Екатеринбург" },
-  { label: "Спб", value: "Спб" },
-];
-const tagsOptions = [
-  { label: "Доступно для инвалидов", value: "accessible" },
-  { label: "Есть парковка", value: "parking" },
-  { label: "Работает по выходным", value: "weekend" },
-];
-
 const SelectOfficeAndServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,8 +26,18 @@ const SelectOfficeAndServicePage = () => {
   const [activeTab, setActiveTab] = useState("places");
   const [companyFilter, setCompanyFilter] = useState<string>('');
   const [cityFilter, setCityFilter] = useState<string>(selectedLocation);
+  const [districtFilter, setDistrictFilter] = useState<string>('');
+  const [officeTypeFilter, setOfficeTypeFilter] = useState<string>('');
   const [tagsFilter, setTagsFilter] = useState<string[]>([]);
-  
+
+  // --- Service filters ---
+  const [serviceCategoryFilter, setServiceCategoryFilter] = useState<string>('');
+  const [serviceTypeFilter, setServiceTypeFilter] = useState<string>('');
+  const [serviceIsOnlineFilter, setServiceIsOnlineFilter] = useState<string>(''); // "true" | "false" | ""
+  const [serviceTagsFilter, setServiceTagsFilter] = useState<string[]>([]);
+  // For price, you might want a range slider, but for simplicity, let's use price groups:
+  const [servicePriceFilter, setServicePriceFilter] = useState<string>(''); // e.g. "free", "low", "medium", "high"
+
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);  
 
@@ -59,6 +56,102 @@ const SelectOfficeAndServicePage = () => {
       return response.data.services;
     }
   });
+
+  // Dynamically generate office filter options from server data
+  const {
+    companyOptions,
+    cityOptions,
+    districtOptions,
+    officeTypeOptions,
+    tagsOptions
+  } = useMemo(() => {
+    const companies = new Set<string>();
+    const cities = new Set<string>();
+    const districts = new Set<string>();
+    const officeTypes = new Set<string>();
+    const tagsSet = new Set<string>();
+
+    officesData?.forEach(group => {
+      companies.add(group.companyName);
+      group.offices.forEach(office => {
+        if (office.city) cities.add(office.city);
+        if (office.district) districts.add(office.district);
+        if (office.type) officeTypes.add(office.type);
+        if (office.isAccessible) tagsSet.add("accessible");
+        if (office.hasParking) tagsSet.add("parking");
+        if (office.worksOnWeekends) tagsSet.add("weekend");
+      });
+    });
+
+    // Tag labels
+    const tagLabels: Record<string, string> = {
+      accessible: "Доступно для инвалидов",
+      parking: "Есть парковка",
+      weekend: "Работает по выходным",
+    };
+
+    return {
+      companyOptions: Array.from(companies).map(label => ({ label, value: label })),
+      cityOptions: Array.from(cities).map(label => ({ label, value: label })),
+      districtOptions: Array.from(districts).map(label => ({ label, value: label })),
+      officeTypeOptions: Array.from(officeTypes).map(label => ({ label, value: label })),
+      tagsOptions: Array.from(tagsSet).map(tag => ({
+        label: tagLabels[tag] || tag,
+        value: tag,
+      })),
+    };
+  }, [officesData]);
+
+  // --- Service filter options ---
+  const {
+    serviceCategoryOptions,
+    serviceTypeOptions,
+    serviceIsOnlineOptions,
+    serviceTagsOptions,
+    servicePriceOptions
+  } = useMemo(() => {
+    const categories = new Set<string>();
+    const types = new Set<string>();
+    const tagsSet = new Set<string>();
+    let hasOnline = false;
+    let hasOffline = false;
+    let minPrice = Infinity;
+    let maxPrice = -Infinity;
+
+    services?.forEach(service => {
+      if (service.category) categories.add(service.category);
+      if (service.type) types.add(service.type);
+      if (service.tags) service.tags.forEach(tag => tagsSet.add(tag));
+      if (service.isOnline === true) hasOnline = true;
+      if (service.isOnline === false) hasOffline = true;
+      if (typeof service.price === "number") {
+        minPrice = Math.min(minPrice, service.price);
+        maxPrice = Math.max(maxPrice, service.price);
+      }
+    });
+
+    // Price groups (example: free, low, medium, high)
+    const priceOptions = [
+      { label: "Бесплатно", value: "free" },
+      { label: "До 500₽", value: "low" },
+      { label: "500₽ - 1000₽", value: "medium" },
+      { label: "1000₽ и выше", value: "high" }
+    ];
+
+    // Online/offline options
+    const isOnlineOptions = [
+      ...(hasOnline ? [{ label: "Онлайн", value: "true" }] : []),
+      ...(hasOffline ? [{ label: "Очная", value: "false" }] : [])
+    ];
+
+    return {
+      serviceCategoryOptions: Array.from(categories).map(label => ({ label, value: label })),
+      serviceTypeOptions: Array.from(types).map(label => ({ label, value: label })),
+      serviceIsOnlineOptions: isOnlineOptions,
+      serviceTagsOptions: Array.from(tagsSet).map(tag => ({ label: tag, value: tag })),
+      servicePriceOptions: priceOptions
+    };
+  }, [services]);
 
   const allOffices = officesData?.flatMap(response => response.offices.map(office => ({
     ...office,
@@ -86,18 +179,20 @@ const SelectOfficeAndServicePage = () => {
 
       const matchesCompany = !companyFilter || companyName === companyFilter;
       const matchesCity = !cityFilter || office.city === cityFilter;
-      
-      const matchesTags = !tagsFilter || tagsFilter.length === 0 || tagsFilter.every(tag => {
+      const matchesDistrict = !districtFilter || office.district === districtFilter;
+      const matchesOfficeType = !officeTypeFilter || office.type === officeTypeFilter;
+      const matchesTags = tagsFilter.length === 0 || tagsFilter.every(tag => {
         if (tag === 'accessible') return office.isAccessible;
         if (tag === 'parking') return office.hasParking;
         if (tag === 'weekend') return office.worksOnWeekends;
         return true;
       });
       
-      return matchesSearch && matchesService && matchesCompany && matchesCity && matchesTags;
+      return matchesSearch && matchesService && matchesCompany && matchesCity && matchesDistrict && matchesOfficeType && matchesTags;
     })
   })).filter(group => group.offices.length > 0);
 
+  // --- Service filtering logic ---
   const filteredServices = services?.filter(service => {
     const matchesSearch = !searchQuery || 
       service.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -106,7 +201,35 @@ const SelectOfficeAndServicePage = () => {
     const matchesOffice = !selectedOffice || 
       service.officeIds.some(officeId => officeId === selectedOffice.id);
 
-    return matchesSearch && matchesOffice;
+    const matchesCategory = !serviceCategoryFilter || service.category === serviceCategoryFilter;
+    const matchesType = !serviceTypeFilter || service.type === serviceTypeFilter;
+    const matchesIsOnline =
+      !serviceIsOnlineFilter ||
+      (serviceIsOnlineFilter === "true" && service.isOnline === true) ||
+      (serviceIsOnlineFilter === "false" && service.isOnline === false);
+
+    const matchesTags =
+      serviceTagsFilter.length === 0 ||
+      (service.tags && serviceTagsFilter.every(tag => service.tags?.includes(tag)));
+
+    // Price filter
+    let matchesPrice = true;
+    if (servicePriceFilter) {
+      if (servicePriceFilter === "free") matchesPrice = service.price === 0;
+      else if (servicePriceFilter === "low") matchesPrice = service.price !== undefined && service.price > 0 && service.price < 500;
+      else if (servicePriceFilter === "medium") matchesPrice = service.price !== undefined && service.price >= 500 && service.price < 1000;
+      else if (servicePriceFilter === "high") matchesPrice = service.price !== undefined && service.price >= 1000;
+    }
+
+    return (
+      matchesSearch &&
+      matchesOffice &&
+      matchesCategory &&
+      matchesType &&
+      matchesIsOnline &&
+      matchesTags &&
+      matchesPrice
+    );
   });
 
   const handleOfficeSelect = (office: Office) => {
@@ -150,7 +273,7 @@ const SelectOfficeAndServicePage = () => {
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
           <BreadcrumbItem to={nav.general.appointmentDateTime()}>Запись на прием</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem>Запись в отделы города {cityFilter? cityFilter: 'Екатеринбург'}</BreadcrumbItem>
+          <BreadcrumbItem>Запись в отделы города {cityFilter ? cityFilter : 'Екатеринбург'}</BreadcrumbItem>
         </Breadcrumbs>
         <Title 
           size="large" 
@@ -221,30 +344,85 @@ const SelectOfficeAndServicePage = () => {
             />
           )}
         </FlexBox>
-        <FlexBox gap={1}>
-          <FastFilters
-            filters={cityOptions}
-            selected={cityFilter}
-            onSelect={(value) => setCityFilter(value as string)}
-            type="toggle"
-            placeholder="Город"
-          />
-          <FastFilters
-            filters={companyOptions}
-            selected={companyFilter}
-            onSelect={(value) => setCompanyFilter(value as string)}
-            type="toggle"
-            placeholder="Компания"
-          />
-          <FastFilters
-            filters={tagsOptions}
-            selected={tagsFilter}
-            onSelect={(value) => setTagsFilter(value as string[])}
-            type="multiple"
-            placeholder="Специальные условия"
-          />
-        </FlexBox>
-       <div>
+        {activeTab === "places" && (
+          <FlexBox gap={1} wrap='wrap'>
+            <FastFilters
+              filters={cityOptions}
+              selected={cityFilter}
+              onSelect={value => setCityFilter(typeof value === "string" ? value : "")}
+              type="toggle"
+              placeholder="Город"
+            />
+            <FastFilters
+              filters={companyOptions}
+              selected={companyFilter}
+              onSelect={value => setCompanyFilter(typeof value === "string" ? value : "")}
+              type="toggle"
+              placeholder="Компания"
+            />
+            <FastFilters
+              filters={districtOptions}
+              selected={districtFilter}
+              onSelect={value => setDistrictFilter(typeof value === "string" ? value : "")}
+              type="toggle"
+              placeholder="Район"
+            />
+            <FastFilters
+              filters={officeTypeOptions}
+              selected={officeTypeFilter}
+              onSelect={value => setOfficeTypeFilter(typeof value === "string" ? value : "")}
+              type="toggle"
+              placeholder="Тип офиса"
+            />
+            <FastFilters
+              filters={tagsOptions}
+              selected={tagsFilter}
+              onSelect={value => setTagsFilter(Array.isArray(value) ? value : [])}
+              type="multiple"
+              placeholder="Особенности"
+            />
+          </FlexBox>
+        )}
+        {activeTab === "services" && (
+          <FlexBox gap={1} wrap='wrap'>
+            <FastFilters
+              filters={serviceCategoryOptions}
+              selected={serviceCategoryFilter}
+              onSelect={value => setServiceCategoryFilter(typeof value === "string" ? value : "")}
+              type="toggle"
+              placeholder="Категория"
+            />
+            <FastFilters
+              filters={serviceTypeOptions}
+              selected={serviceTypeFilter}
+              onSelect={value => setServiceTypeFilter(typeof value === "string" ? value : "")}
+              type="toggle"
+              placeholder="Тип услуги"
+            />
+            <FastFilters
+              filters={serviceIsOnlineOptions}
+              selected={serviceIsOnlineFilter}
+              onSelect={value => setServiceIsOnlineFilter(typeof value === "string" ? value : "")}
+              type="toggle"
+              placeholder="Формат"
+            />
+            <FastFilters
+              filters={servicePriceOptions}
+              selected={servicePriceFilter}
+              onSelect={value => setServicePriceFilter(typeof value === "string" ? value : "")}
+              type="toggle"
+              placeholder="Стоимость"
+            />
+            <FastFilters
+              filters={serviceTagsOptions}
+              selected={serviceTagsFilter}
+              onSelect={value => setServiceTagsFilter(Array.isArray(value) ? value : [])}
+              type="multiple"
+              placeholder="Теги"
+            />
+          </FlexBox>
+        )}
+        <div>
           {activeTab === "places" && (
             <FlexBox direction="column" gap={3}>
               {filteredOffices && filteredOffices.length > 0 ? (
@@ -285,7 +463,7 @@ const SelectOfficeAndServicePage = () => {
             )
           )}
         </div> 
-        </FlexBox>
+      </FlexBox>
     </Container>
   );
 };

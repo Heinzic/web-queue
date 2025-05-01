@@ -111,7 +111,7 @@ const mfcOffices: OfficeServerResponse = {
             worksOnWeekends: false,
             phone: "+7 (343) 234-56-78",
             email: "8marta@mfc.ru",
-            openingHours: "08:00 -1 8:00",
+            openingHours: "08:00 - 18:00",
             lines: [
                 {
                     name: "Комплексная услуга по газификации",
@@ -501,55 +501,100 @@ const mfcServices = {
             id: 1,
             name: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
             description: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
-            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"],
+            category: "Документы",
+            type: "Очная",
+            isOnline: false,
+            price: 0,
+            tags: ["срочно", "госуслуга"]
         },
         {
             id: 2,
             name: "Внесудебное банкротство физических лиц",
             description: "Внесудебное банкротство физических лиц",
-            officeIds: ["9e1ffa3d-5d37-4e6a-a776-4a9740627ad2"]
+            officeIds: ["9e1ffa3d-5d37-4e6a-a776-4a9740627ad2"],
+            category: "Финансы",
+            type: "Очная",
+            isOnline: false,
+            price: 500,
+            tags: ["без очереди"]
         },
         {
             id: 3,
             name: "Комплексная услуга по газификации",
             description: "Комплексная услуга по газификации",
-            officeIds: ["d81b5e25-b72d-4ae0-b761-0b0b13c46b7a", "C961BF59-6ADA-42B9-92F4-8A59D9ECD64B"]
+            officeIds: ["d81b5e25-b72d-4ae0-b761-0b0b13c46b7a", "C961BF59-6ADA-42B9-92F4-8A59D9ECD64B"],
+            category: "ЖКХ",
+            type: "Очная",
+            isOnline: false,
+            price: 1000,
+            tags: ["госуслуга"]
         },
         {
             id: 4,
             name: "Лагеря",
             description: "Лагеря",
-            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"],
+            category: "Дети",
+            type: "Очная",
+            isOnline: false,
+            price: 200,
+            tags: ["дети", "лето"]
         },
         {
             id: 5,
             name: "Школы",
             description: "Школы",
-            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653", "C961BF59-6ADA-42B9-92F4-8A59D9ECD64B"]
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653", "C961BF59-6ADA-42B9-92F4-8A59D9ECD64B"],
+            category: "Образование",
+            type: "Очная",
+            isOnline: false,
+            price: 0,
+            tags: ["школа", "дети"]
         },
         {
             id: 6,
             name: "Услуги пенсионного обеспечения и социальной защиты (пособия, опека, пенсия и др.)",
             description: "Услуги пенсионного обеспечения и социальной защиты (пособия, опека, пенсия и др.)",
-            officeIds: ["d81b5e25-b72d-4ae0-b761-0b0b13c46b7a"]
+            officeIds: ["d81b5e25-b72d-4ae0-b761-0b0b13c46b7a"],
+            category: "Социальная защита",
+            type: "Очная",
+            isOnline: false,
+            price: 0,
+            tags: ["пенсия", "соцзащита"]
         },
         {
             id: 7,
             name: "МВД. Регистрация / снятие с регистрации по месту жительства граждан РФ (прописка) по месту нахождения объекта недвижимости",
             description: "МВД. Регистрация / снятие с регистрации по месту жительства граждан РФ (прописка) по месту нахождения объекта недвижимости",
-            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"],
+            category: "Регистрация",
+            type: "Очная",
+            isOnline: false,
+            price: 0,
+            tags: ["мвд", "регистрация"]
         },
         {
             id: 8,
             name: "МВД. Замена водительского удостоверения",
             description: "МВД. Замена водительского удостоверения",
-            officeIds: ["9e1ffa3d-5d37-4e6a-a776-4a9740627ad2"]
+            officeIds: ["9e1ffa3d-5d37-4e6a-a776-4a9740627ad2"],
+            category: "Транспорт",
+            type: "Очная",
+            isOnline: false,
+            price: 800,
+            tags: ["мвд", "водительское"]
         },
         {
             id: 9,
             name: "Другие услуги",
             description: "Другие услуги",
-            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"]
+            officeIds: ["3538314b-16b5-46db-9825-08c536bc6653"],
+            category: "Прочее",
+            type: "Очная",
+            isOnline: false,
+            price: 0,
+            tags: ["прочее"]
         },
     ]
 }
@@ -561,19 +606,34 @@ const uniServices = {
             id: 1,
             name: "Заказать справку об обучении",
             description: "Заказать справку об обучении",
-            officeIds: ["uni"]
+            officeIds: ["uni"],
+            category: "Образование",
+            type: "Онлайн",
+            isOnline: true,
+            price: 0,
+            tags: ["студент", "онлайн"]
         },
         {
             id: 2,
             name: "Заказать справку студента",
             description: "Заказать справку студента",
-            officeIds: ["uni"]
+            officeIds: ["uni"],
+            category: "Образование",
+            type: "Очная",
+            isOnline: false,
+            price: 0,
+            tags: ["студент"]
         },
         {
             id: 3,
             name: "Получить хвостовку",
             description: "Получить хвостовку",
-            officeIds: ["uni"]
+            officeIds: ["uni"],
+            category: "Образование",
+            type: "Очная",
+            isOnline: false,
+            price: 0,
+            tags: ["студент", "экзамен"]
         },
     ]
 }

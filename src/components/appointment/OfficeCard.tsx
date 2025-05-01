@@ -15,7 +15,7 @@ const StyledCard = styled.div<OfficeCardProps>`
   padding: ${({ theme }) => theme.spacing[4]};
   background: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  border: ${(props) => props.isSelected ? '2px solid #7B61FF' : '2px solid #E0E0E0'};
+  border: ${(props) => props.isSelected ? '2px solid' + props.theme.colors.primary.light : '2px solid' + props.theme.colors.neutral.gray[300]};
   cursor: pointer;
   
   &:hover {

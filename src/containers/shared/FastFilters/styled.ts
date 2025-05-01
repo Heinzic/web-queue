@@ -59,7 +59,7 @@ export const FilterButton = styled.button<{ active: boolean }>`
 
 export const DropdownContainer = styled.div`
   position: relative;
-  min-width: 200px;
+  min-width: 100px;
 `;
 
 export const DropdownButton = styled.button<{ active: boolean }>`
@@ -72,7 +72,7 @@ export const DropdownButton = styled.button<{ active: boolean }>`
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
-  width: 100%;
+  width: fit-content;
   display: flex;
   align-items: center;
   justify-content: space-between;
