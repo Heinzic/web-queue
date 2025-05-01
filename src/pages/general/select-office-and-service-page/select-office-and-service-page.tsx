@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setSelectedOffice, setSelectedService } from '../../../store/slices/appointmentSlice';
-import { Title, SearchInput, FlexBox, FastFilters } from '../../../ui';
+import { Title, SearchInput, FlexBox } from '../../../ui';
 import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../../components/appointment/Breadcrumbs';
 import { Tabs, TabItem } from '../../../components/appointment/Tabs';
 import { Office, OfficeServerResponse, Service } from '../../../models';
@@ -13,17 +13,33 @@ import { ArrowBackIcon, ResetButton } from './styled';
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../../provider/client';
 import { nav } from '../../../pages';
+import { FastFilters } from '../../../containers/shared/FastFilters/FastFilters';
 
-const filtersList = { name: ["МВД", "Росреестр"], city: ["Екатеринбург", "Спб"] };
+const companyOptions = [
+  { label: "МФЦ", value: "МФЦ" },
+  { label: "ПМПК Ресурс", value: "ПМПК Ресурс" },
+];
+const cityOptions = [
+  { label: "Екатеринбург", value: "Екатеринбург" },
+  { label: "Спб", value: "Спб" },
+];
+const tagsOptions = [
+  { label: "Доступно для инвалидов", value: "accessible" },
+  { label: "Есть парковка", value: "parking" },
+  { label: "Работает по выходным", value: "weekend" },
+];
 
 const SelectOfficeAndServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const selectedLocation = searchParams.get('location') || 'Екатеринбург';
+  const selectedLocation = searchParams.get('location') || 'Екатеринбург';  
   
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("places");
+  const [companyFilter, setCompanyFilter] = useState<string>('');
+  const [cityFilter, setCityFilter] = useState<string>(selectedLocation);
+  const [tagsFilter, setTagsFilter] = useState<string[]>([]);
   
   const dispatch = useAppDispatch();
   const { selectedOffice, selectedService } = useAppSelector(state => state.appointment);  
@@ -67,8 +83,18 @@ const SelectOfficeAndServicePage = () => {
       
       const matchesService = !selectedService || 
         office.lines.some(line => line.serviceId === selectedService.id);
+
+      const matchesCompany = !companyFilter || companyName === companyFilter;
+      const matchesCity = !cityFilter || office.city === cityFilter;
       
-      return matchesSearch && matchesService;
+      const matchesTags = !tagsFilter || tagsFilter.length === 0 || tagsFilter.every(tag => {
+        if (tag === 'accessible') return office.isAccessible;
+        if (tag === 'parking') return office.hasParking;
+        if (tag === 'weekend') return office.worksOnWeekends;
+        return true;
+      });
+      
+      return matchesSearch && matchesService && matchesCompany && matchesCity && matchesTags;
     })
   })).filter(group => group.offices.length > 0);
 
@@ -124,7 +150,7 @@ const SelectOfficeAndServicePage = () => {
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
           <BreadcrumbItem to={nav.general.appointmentDateTime()}>Запись на прием</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem>Запись в отделы города {selectedLocation}</BreadcrumbItem>
+          <BreadcrumbItem>Запись в отделы города {cityFilter? cityFilter: 'Екатеринбург'}</BreadcrumbItem>
         </Breadcrumbs>
         <Title 
           size="large" 
@@ -195,10 +221,30 @@ const SelectOfficeAndServicePage = () => {
             />
           )}
         </FlexBox>
-        <FlexBox justify="space-between" align="center">
-          <FastFilters options={filtersList.name} selectedOption={activeTab} onSelect={handleTabChange} />
+        <FlexBox gap={1}>
+          <FastFilters
+            filters={cityOptions}
+            selected={cityFilter}
+            onSelect={(value) => setCityFilter(value as string)}
+            type="toggle"
+            placeholder="Город"
+          />
+          <FastFilters
+            filters={companyOptions}
+            selected={companyFilter}
+            onSelect={(value) => setCompanyFilter(value as string)}
+            type="toggle"
+            placeholder="Компания"
+          />
+          <FastFilters
+            filters={tagsOptions}
+            selected={tagsFilter}
+            onSelect={(value) => setTagsFilter(value as string[])}
+            type="multiple"
+            placeholder="Специальные условия"
+          />
         </FlexBox>
-        <div>
+       <div>
           {activeTab === "places" && (
             <FlexBox direction="column" gap={3}>
               {filteredOffices && filteredOffices.length > 0 ? (

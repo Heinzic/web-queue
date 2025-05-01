@@ -9,6 +9,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "ул. Металлургов, д. 87 (ТЦ «МЕГА»)",
             city: "Екатеринбург",
             id: "3538314b-16b5-46db-9825-08c536bc6653",
+            district: "Орджоникидзевский",
+            type: "Основной",
+            isAccessible: true,
+            hasParking: true,
+            worksOnWeekends: true,
+            phone: "+7 (343) 123-45-67",
+            email: "mega@mfc.ru",
+            openingHours: "09:00 - 20:00",
             lines: [
                 {
                     name: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
@@ -96,6 +104,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "ул. 8 Марта, д. 13",
             city: "Екатеринбург",
             id: "d81b5e25-b72d-4ae0-b761-0b0b13c46b7a",
+            district: "Ленинский",
+            type: "Филиал",
+            isAccessible: false,
+            hasParking: false,
+            worksOnWeekends: false,
+            phone: "+7 (343) 234-56-78",
+            email: "8marta@mfc.ru",
+            openingHours: "08:00 -1 8:00",
             lines: [
                 {
                     name: "Комплексная услуга по газификации",
@@ -137,6 +153,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "ул. Новосибирская, д. 109 ",
             city: "Екатеринбург",
             id: "9e1ffa3d-5d37-4e6a-a776-4a9740627ad2",
+            district: "Чкаловский",
+            type: "Передвижной пункт",
+            isAccessible: true,
+            hasParking: false,
+            worksOnWeekends: true,
+            phone: "+7 (343) 345-67-89",
+            email: "novosib@mfc.ru",
+            openingHours: "10:00 - 16:00",
             lines: [
                 {
                     name: "Внесудебное банкротство физических лиц",
@@ -178,6 +202,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "ул. Готвальда, д. 6/4",
             city: "Екатеринбург",
             id: "C961BF59-6ADA-42B9-92F4-8A59D9ECD64B",
+            district: "Железнодорожный",
+            type: "Филиал",
+            isAccessible: true,
+            hasParking: true,
+            worksOnWeekends: false,
+            phone: "+7 (343) 456-78-90",
+            email: "gotvalda@mfc.ru",
+            openingHours: "09:00 - 19:00",
             lines: [
                 {
                     name: "Комплексная услуга по газификации",
@@ -219,6 +251,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "г. Екатеринбург, ул. Победы, 14а",
             city: "Екатеринбург",
             id: "5E575B0C-D1C5-4C96-B1EE-45D028E87D8A",
+            district: "Кировский",
+            type: "Филиал",
+            isAccessible: false,
+            hasParking: true,
+            worksOnWeekends: true,
+            phone: "+7 (343) 567-89-01",
+            email: "pobedy@mfc.ru",
+            openingHours: "10:00 - 20:00",
             lines: [
             ],
             timeZoneId: "Ekaterinburg Standard Time",
@@ -230,6 +270,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "ул. Техническая, д. 63.",
             city: "Екатеринбург",
             id: "5aaca759-164c-4c9d-96c1-7008a423df5c",
+            district: "Железнодорожный",
+            type: "Основной",
+            isAccessible: true,
+            hasParking: false,
+            worksOnWeekends: false,
+            phone: "+7 (343) 678-90-12",
+            email: "tech@mfc.ru",
+            openingHours: "08:00 - 17:00",
             lines: [
             ],
             timeZoneId: "Ekaterinburg Standard Time",
@@ -241,6 +289,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "г. Екатеринбург, ул. Рощинская, 21",
             city: "Екатеринбург",
             id: "EEC7B4EB-8A11-440E-9F9F-17394DF4ED94",
+            district: "Чкаловский",
+            type: "Филиал",
+            isAccessible: true,
+            hasParking: true,
+            worksOnWeekends: true,
+            phone: "+7 (343) 789-01-23",
+            email: "roschinskaya@mfc.ru",
+            openingHours: "09:00 - 18:00",
             lines: [
             ],
             timeZoneId: "Ekaterinburg Standard Time",
@@ -252,6 +308,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "г. Екатеринбург, ул. Героев России, 2",
             city: "Екатеринбург",
             id: "FDCDB175-1ECA-479A-B428-E6715984BF04",
+            district: "Верх-Исетский",
+            type: "Передвижной пункт",
+            isAccessible: false,
+            hasParking: true,
+            worksOnWeekends: false,
+            phone: "+7 (343) 890-12-34",
+            email: "heroes@mfc.ru",
+            openingHours: "10:00 - 19:00",
             lines: [
             ],
             timeZoneId: "Ekaterinburg Standard Time",
@@ -263,6 +327,14 @@ const mfcOffices: OfficeServerResponse = {
             address: "г. Екатеринбург, ул. Учителей, 2Б",
             city: "Екатеринбург",
             id: "7DA75221-96A6-4F89-B9AE-FB5BA88C1A73",
+            district: "Кировский",
+            type: "Филиал",
+            isAccessible: true,
+            hasParking: false,
+            worksOnWeekends: true,
+            phone: "+7 (343) 901-23-45",
+            email: "teachers@mfc.ru",
+            openingHours: "08:00 - 20:00",
             lines: [
             ],
             timeZoneId: "Ekaterinburg Standard Time",
@@ -280,6 +352,14 @@ const resourceOffices: OfficeServerResponse = {
             address: "СОСТАВ № 1 ЦЕНТРАЛЬНОЙ ПМПК ГБОУ СО «ЦППМСП «Ресурс» (г. Екатеринбург, ул. Машинная 31)",
             city: "Екатеринбург",
             id: "3538314b-16b5-46db-9825-08c536bc6653",
+            district: "Октябрьский",
+            type: "Филиал",
+            isAccessible: true,
+            hasParking: true,
+            worksOnWeekends: false,
+            phone: "+7 (343) 456-78-90",
+            email: "mashinnaya@resurs.ru",
+            openingHours: "09:00 - 17:00",
             lines: [
                 {
                     name: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
@@ -367,6 +447,14 @@ const resourceOffices: OfficeServerResponse = {
             address: "СОСТАВ № 5 ЦЕНТРАЛЬНОЙ ПМПК ГБОУ СО «ЦППМСП «Ресурс» (г. Екатеринбург, ул. Титова д. 28)",
             city: "Екатеринбург",
             id: "d81b5e25-b72d-4ae0-b761-0b0b13c46b7a",
+            district: "Чкаловский",
+            type: "Основной",
+            isAccessible: false,
+            hasParking: false,
+            worksOnWeekends: true,
+            phone: "+7 (343) 567-89-01",
+            email: "titova@resurs.ru",
+            openingHours: "08:00 - 15:00",
             lines: [
                 {
                     name: "Комплексная услуга по газификации",
@@ -491,230 +579,230 @@ const uniServices = {
 }
 
 const timeSlots = {
-    "month": "2025-04-17T00:00:00Z",
+    "month": "2025-05-06T00:00:00Z",
     "dates": [
         {
             "available": true,
-            "date": "2025-04-15T00:00:00Z",
-            "from": "2025-04-15T03:40:00Z",
-            "to": "2025-04-15T04:20:00Z",
+            "date": "2025-05-04T00:00:00Z",
+            "from": "2025-05-04T03:40:00Z",
+            "to": "2025-05-04T04:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-04-15T00:00:00Z",
-            "from": "2025-04-15T04:20:00Z",
-            "to": "2025-04-15T05:20:00Z",
+            "date": "2025-05-04T00:00:00Z",
+            "from": "2025-05-04T04:20:00Z",
+            "to": "2025-05-04T05:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-04-15T00:00:00Z",
-            "from": "2025-04-15T08:40:00Z",
-            "to": "2025-04-15T09:20:00Z",
+            "date": "2025-05-04T00:00:00Z",
+            "from": "2025-05-04T08:40:00Z",
+            "to": "2025-05-04T09:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-04-15T00:00:00Z",
-            "from": "2025-04-15T11:00:00Z",
-            "to": "2025-04-15T11:40:00Z",
+            "date": "2025-05-04T00:00:00Z",
+            "from": "2025-05-04T11:00:00Z",
+            "to": "2025-05-04T11:40:00Z",
             "description": "Late morning"
         },
         {
             "available": true,
-            "date": "2025-04-15T00:00:00Z",
-            "from": "2025-04-15T14:20:00Z",
-            "to": "2025-04-15T15:00:00Z",
+            "date": "2025-05-04T00:00:00Z",
+            "from": "2025-05-04T14:20:00Z",
+            "to": "2025-05-04T15:00:00Z",
             "description": "Afternoon slot"
         },
         {
             "available": true,
-            "date": "2025-04-17T00:00:00Z",
-            "from": "2025-04-17T09:20:00Z",
-            "to": "2025-04-17T10:00:00Z",
+            "date": "2025-05-06T00:00:00Z",
+            "from": "2025-05-06T09:20:00Z",
+            "to": "2025-05-06T10:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-17T00:00:00Z",
-            "from": "2025-04-17T10:20:00Z",
-            "to": "2025-04-17T11:00:00Z",
+            "date": "2025-05-06T00:00:00Z",
+            "from": "2025-05-06T10:20:00Z",
+            "to": "2025-05-06T11:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-17T00:00:00Z",
-            "from": "2025-04-17T13:00:00Z",
-            "to": "2025-04-17T13:40:00Z",
+            "date": "2025-05-06T00:00:00Z",
+            "from": "2025-05-06T13:00:00Z",
+            "to": "2025-05-06T13:40:00Z",
             "description": "After lunch"
         },
         {
             "available": true,
-            "date": "2025-04-17T00:00:00Z",
-            "from": "2025-04-17T15:20:00Z",
-            "to": "2025-04-17T16:00:00Z",
+            "date": "2025-05-06T00:00:00Z",
+            "from": "2025-05-06T15:20:00Z",
+            "to": "2025-05-06T16:00:00Z",
             "description": "Late afternoon"
         },
         {
             "available": true,
-            "date": "2025-04-18T00:00:00Z",
-            "from": "2025-04-18T09:00:00Z",
-            "to": "2025-04-18T09:40:00Z",
+            "date": "2025-05-18T00:00:00Z",
+            "from": "2025-05-18T09:00:00Z",
+            "to": "2025-05-18T09:40:00Z",
             "description": "Early morning"
         },
         {
             "available": true,
-            "date": "2025-04-18T00:00:00Z",
-            "from": "2025-04-18T11:20:00Z",
-            "to": "2025-04-18T12:00:00Z",
+            "date": "2025-05-18T00:00:00Z",
+            "from": "2025-05-18T11:20:00Z",
+            "to": "2025-05-18T12:00:00Z",
             "description": "Before lunch"
         },
         {
             "available": true,
-            "date": "2025-04-18T00:00:00Z",
-            "from": "2025-04-18T14:00:00Z",
-            "to": "2025-04-18T14:40:00Z",
+            "date": "2025-05-18T00:00:00Z",
+            "from": "2025-05-18T14:00:00Z",
+            "to": "2025-05-18T14:40:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-19T00:00:00Z",
-            "from": "2025-04-19T09:00:00Z",
-            "to": "2025-04-19T09:40:00Z",
+            "date": "2025-05-19T00:00:00Z",
+            "from": "2025-05-19T09:00:00Z",
+            "to": "2025-05-19T09:40:00Z",
             "description": "Weekend morning"
         },
         {
             "available": true,
-            "date": "2025-04-19T00:00:00Z",
-            "from": "2025-04-19T12:20:00Z",
-            "to": "2025-04-19T13:00:00Z",
+            "date": "2025-05-19T00:00:00Z",
+            "from": "2025-05-19T12:20:00Z",
+            "to": "2025-05-19T13:00:00Z",
             "description": "Weekend noon"
         },
         {
             "available": true,
-            "date": "2025-04-19T00:00:00Z",
-            "from": "2025-04-19T15:00:00Z",
-            "to": "2025-04-19T15:40:00Z",
+            "date": "2025-05-19T00:00:00Z",
+            "from": "2025-05-19T15:00:00Z",
+            "to": "2025-05-19T15:40:00Z",
             "description": "Weekend afternoon"
         },
         {
             "available": true,
-            "date": "2025-04-21T00:00:00Z",
-            "from": "2025-04-21T09:20:00Z",
-            "to": "2025-04-21T10:00:00Z",
+            "date": "2025-05-21T00:00:00Z",
+            "from": "2025-05-21T09:20:00Z",
+            "to": "2025-05-21T10:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-21T00:00:00Z",
-            "from": "2025-04-21T11:40:00Z",
-            "to": "2025-04-21T12:20:00Z",
+            "date": "2025-05-21T00:00:00Z",
+            "from": "2025-05-21T11:40:00Z",
+            "to": "2025-05-21T12:20:00Z",
             "description": "Before lunch"
         },
         {
             "available": true,
-            "date": "2025-04-21T00:00:00Z",
-            "from": "2025-04-21T14:20:00Z",
-            "to": "2025-04-21T15:00:00Z",
+            "date": "2025-05-21T00:00:00Z",
+            "from": "2025-05-21T14:20:00Z",
+            "to": "2025-05-21T15:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-21T00:00:00Z",
-            "from": "2025-04-21T16:40:00Z",
-            "to": "2025-04-21T17:20:00Z",
+            "date": "2025-05-21T00:00:00Z",
+            "from": "2025-05-21T16:40:00Z",
+            "to": "2025-05-21T17:20:00Z",
             "description": "Late day"
         },
         {
             "available": true,
-            "date": "2025-04-22T00:00:00Z",
-            "from": "2025-04-22T09:00:00Z",
-            "to": "2025-04-22T09:40:00Z",
+            "date": "2025-05-22T00:00:00Z",
+            "from": "2025-05-22T09:00:00Z",
+            "to": "2025-05-22T09:40:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-22T00:00:00Z",
-            "from": "2025-04-22T12:00:00Z",
-            "to": "2025-04-22T12:40:00Z",
+            "date": "2025-05-22T00:00:00Z",
+            "from": "2025-05-22T12:00:00Z",
+            "to": "2025-05-22T12:40:00Z",
             "description": "Midday"
         },
         {
             "available": true,
-            "date": "2025-04-22T00:00:00Z",
-            "from": "2025-04-22T15:20:00Z",
-            "to": "2025-04-22T16:00:00Z",
+            "date": "2025-05-22T00:00:00Z",
+            "from": "2025-05-22T15:20:00Z",
+            "to": "2025-05-22T16:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-23T00:00:00Z",
-            "from": "2025-04-23T09:00:00Z",
-            "to": "2025-04-23T09:40:00Z",
+            "date": "2025-05-23T00:00:00Z",
+            "from": "2025-05-23T09:00:00Z",
+            "to": "2025-05-23T09:40:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-23T00:00:00Z",
-            "from": "2025-04-23T11:20:00Z",
-            "to": "2025-04-23T12:00:00Z",
+            "date": "2025-05-23T00:00:00Z",
+            "from": "2025-05-23T11:20:00Z",
+            "to": "2025-05-23T12:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-23T00:00:00Z",
-            "from": "2025-04-23T14:40:00Z",
-            "to": "2025-04-23T15:20:00Z",
+            "date": "2025-05-23T00:00:00Z",
+            "from": "2025-05-23T14:40:00Z",
+            "to": "2025-05-23T15:20:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-23T00:00:00Z",
-            "from": "2025-04-23T17:00:00Z",
-            "to": "2025-04-23T17:40:00Z",
+            "date": "2025-05-23T00:00:00Z",
+            "from": "2025-05-23T17:00:00Z",
+            "to": "2025-05-23T17:40:00Z",
             "description": "Evening slot"
         },
         {
             "available": true,
-            "date": "2025-04-24T00:00:00Z",
-            "from": "2025-04-24T09:00:00Z",
-            "to": "2025-04-24T09:40:00Z",
+            "date": "2025-05-24T00:00:00Z",
+            "from": "2025-05-24T09:00:00Z",
+            "to": "2025-05-24T09:40:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-24T00:00:00Z",
-            "from": "2025-04-24T12:20:00Z",
-            "to": "2025-04-24T13:00:00Z",
+            "date": "2025-05-24T00:00:00Z",
+            "from": "2025-05-24T12:20:00Z",
+            "to": "2025-05-24T13:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-24T00:00:00Z",
-            "from": "2025-04-24T15:40:00Z",
-            "to": "2025-04-24T16:20:00Z",
+            "date": "2025-05-24T00:00:00Z",
+            "from": "2025-05-24T15:40:00Z",
+            "to": "2025-05-24T16:20:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-25T00:00:00Z",
-            "from": "2025-04-25T09:20:00Z",
-            "to": "2025-04-25T10:00:00Z",
+            "date": "2025-05-25T00:00:00Z",
+            "from": "2025-05-25T09:20:00Z",
+            "to": "2025-05-25T10:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-25T00:00:00Z",
-            "from": "2025-04-25T12:40:00Z",
-            "to": "2025-04-25T13:20:00Z",
+            "date": "2025-05-25T00:00:00Z",
+            "from": "2025-05-25T12:40:00Z",
+            "to": "2025-05-25T13:20:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-04-25T00:00:00Z",
-            "from": "2025-04-25T16:00:00Z",
-            "to": "2025-04-25T16:40:00Z",
+            "date": "2025-05-25T00:00:00Z",
+            "from": "2025-05-25T16:00:00Z",
+            "to": "2025-05-25T16:40:00Z",
             "description": "Friday afternoon"
         }
     ]

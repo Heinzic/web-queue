@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setSelectedOffice, setSelectedService } from '../../../store/slices/appointmentSlice';
-import { Title, SearchInput, theme, FlexBox, FastFilters } from '../../../ui';
+import { Title, SearchInput, theme, FlexBox } from '../../../ui';
 import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../../components/appointment/Breadcrumbs';
 import { Tabs, TabItem } from '../../../components/appointment/Tabs';
 import { Office, Service } from '../../../models';
@@ -181,7 +181,7 @@ const SelectOfficeAndServicePage = () => {
           )}
         </FlexBox>
         <FlexBox justify="space-between" align="center">
-          <FastFilters options={filtersList.name} selectedOption={activeTab} onSelect={handleTabChange} />
+          <div className=""></div>
         </FlexBox>
         <div>
           {activeTab === "places" && (

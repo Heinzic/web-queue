@@ -2,16 +2,15 @@ export const generalColors = {
   // Primary colors
   primary: {
     main: '#DC143C',
-    light: '#42a5f5',
-    dark: '#1565c0',
-    contrastText: '#ffffff',
+    light: '#FF6B6B',
+    dark: '#8B0000',
+    contrastText: '#FFFFFF'
   },
-  // Secondary colors
   secondary: {
-    main: '#E7205F',
-    light: '#ba68c8',
-    dark: '#7b1fa2',
-    contrastText: '#ffffff',
+    main: '#2E8B57',    
+    light: '#7FC7AF',   
+    dark: '#1A535C',    
+    contrastText: '#FFFFFF'
   },
   // Neutral colors
   neutral: {
@@ -60,17 +59,16 @@ export const generalColors = {
 export const mfcColors = {
   // Primary colors
   primary: {
-    main: '#E04E39',
-    light: '#42a5f5',
-    dark: '#1565c0',
-    contrastText: '#ffffff',
+    main: '#E04E39',    // Основной теплый оранжево-красный
+    light: '#FF7F5B',   // Мягкий светлый коралловый
+    dark: '#A23527',    // Глубокий терракотовый
+    contrastText: '#FFFFFF'
   },
-  // Secondary colors
   secondary: {
-    main: '#E7205F',
-    light: '#ba68c8',
-    dark: '#7b1fa2',
-    contrastText: '#ffffff',
+    main: '#E7205F',    // Яркий фуксиевый
+    light: '#FF8FA3',   // Нежный розовый
+    dark: '#8A1538',    // Насыщенный бордовый
+    contrastText: '#FFFFFF'
   },
   // Neutral colors
   neutral: {
@@ -78,30 +76,30 @@ export const mfcColors = {
     black: '#000000',
     gray: {
       50: '#fafafa',
-      100: '#f5f5f5',
-      200: '#eeeeee',
-      300: '#e0e0e0',
-      400: '#bdbdbd',
-      500: '#9e9e9e',
-      600: '#757575',
-      700: '#616161',
-      800: '#424242',
-      900: '#212121',
+      100: '#F8F9FA',   // Снежно-белый
+      200: '#F1F3F5',
+      300: '#E9ECEF',
+      400: '#DEE2E6',
+      500: '#ADB5BD',   // Нейтральный серый
+      600: '#868E96',
+      700: '#495057',
+      800: '#343A40',
+      900: '#212529' 
     },
   },
   // Semantic colors
   success: {
-    main: '#2e7d32',
+    main: '#4CAF50',
     light: '#4caf50',
     dark: '#1b5e20',
   },
   error: {
-    main: '#d32f2f',
+    main: '#D32F2F',
     light: '#ef5350',
     dark: '#c62828',
   },
   warning: {
-    main: '#ed6c02',
+    main: '#FFB300',
     light: '#ff9800',
     dark: '#e65100',
   },
@@ -119,17 +117,17 @@ export const mfcColors = {
 export const uniColors = {
   // Primary colors
   primary: {
-    main: '#2955f4',
-    light: '#7B68EE',
-    dark: '#1565c0',
-    contrastText: '#ffffff',
+    main: '#2955F4',    // Яркий кобальтовый синий
+    light: '#6C8AFF',   // Светлый лавандово-синий
+    dark: '#1A3D8F',    // Глубокий ночной синий
+    contrastText: '#FFFFFF'
   },
   // Secondary colors
   secondary: {
-    main: '#E7205F',
-    light: '#ba68c8',
-    dark: '#7b1fa2',
-    contrastText: '#ffffff',
+    main: '#E7205F',    // Энергичный фуксиевый
+    light: '#FF7F9E',   // Нежный розовый кварц
+    dark: '#8A1538',    // Насыщенное бургунди
+    contrastText: '#FFFFFF'
   },
   // Neutral colors
   neutral: {
@@ -137,30 +135,30 @@ export const uniColors = {
     black: '#000000',
     gray: {
       50: '#fafafa',
-      100: '#f5f5f5',
-      200: '#eeeeee',
-      300: '#e0e0e0',
-      400: '#bdbdbd',
-      500: '#9e9e9e',
-      600: '#757575',
-      700: '#616161',
-      800: '#424242',
-      900: '#212121',
+      100: '#F8F9FA',   // Ледяной белый
+      200: '#E9ECEF',   
+      300: '#DEE2E6',   // Серебристый
+      400: '#CED4DA',
+      500: '#ADB5BD',   // Стальной серый
+      600: '#6C757D',   // Грифельный
+      700: '#495057',
+      800: '#343A40',   // Угольный
+      900: '#212529'    // Глубокий антрацит
     },
   },
   // Semantic colors
   success: {
-    main: '#2e7d32',
+    main: '#4CAF50',
     light: '#4caf50',
     dark: '#1b5e20',
   },
   error: {
-    main: '#d32f2f',
+    main: '#EF476F',
     light: '#ef5350',
     dark: '#c62828',
   },
   warning: {
-    main: '#ed6c02',
+    main: '#FFC043',
     light: '#ff9800',
     dark: '#e65100',
   },

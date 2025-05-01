@@ -3,12 +3,12 @@ import { Container } from '../../../components/shared';
 import { Title, BackLink, Text, FlexBox, CardLink, SearchInput } from '../../../ui';
 import { nav } from '../../../pages';
 const locations = [
-  "г. Екатеринбург",
-  "г. Нижний Тагил",
-  "г. Верхняя Пышма",
-  "г. Каменск-Уральский",
-  "г. Среднеуральск",
-  "г. Арамиль"
+  "Екатеринбург",
+  "Нижний Тагил",
+  "Верхняя Пышма",
+  "Каменск-Уральский",
+  "реднеуральск",
+  "Арамиль"
 ];
 
 const LocationSelectionPage: React.FC = () => {
@@ -46,7 +46,7 @@ const LocationSelectionPage: React.FC = () => {
             variant="default"
             withArrow
           >
-            <Text size="base">{location}</Text>
+            <Text size="base">г. {location}</Text>
           </CardLink>
         ))}
       </FlexBox>
