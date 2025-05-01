@@ -8,3 +8,4 @@ export { Title } from './Title';
 export { Button } from './Button';
 export { theme } from './theme/theme';
 export { Input } from './Input';
+export {Modal} from './Modal'

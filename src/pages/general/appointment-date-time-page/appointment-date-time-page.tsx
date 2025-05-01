@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../../../components/shared';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { resetAppointment, setAmountOfPackages, setTimeSlot } from '../../../store/slices/appointmentSlice';
+import { resetAppointment, setAmountOfPackages, setTimeSlot, setSelectedOffice } from '../../../store/slices/appointmentSlice';
 import { CardLink, BackLink, Text, FlexBox, theme, Button } from '../../../ui';
-import { AppointmentDateContainer, TimeSlots } from '../../../components/appointment';
+import { AppointmentDateContainer, TimeSlots, AccessibleOfficesModal } from '../../../components/appointment';
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../../provider/client';
-import { DateInfo } from '../../../models';
+import { DateInfo, Office, OfficeServerResponse } from '../../../models';
 import { isSameDay } from 'date-fns';
 import { nav } from '../../../pages';
 import { NearestDateCard, PackagesAmountButton } from './styled';
@@ -17,7 +17,8 @@ import { startTimer } from '../../../store/slices/timerSlice';
 const AppointmentDateTimePage: React.FC = () => {  
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { selectedOffice, selectedService, amountOfPackages } = useAppSelector(state => state.appointment);
+  const { selectedOffice, selectedService, amountOfPackages} = useAppSelector(state => state.appointment);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const { data: timeSlots, isLoading, error } = useQuery({
     queryKey: ['dates', selectedOffice?.id, selectedService?.id],
@@ -26,7 +27,15 @@ const AppointmentDateTimePage: React.FC = () => {
       return response.data.dates;
     }
   });
-  
+
+  const { data: officesData, isLoading: isLoadingOffice, error: officeError } = useQuery({
+    queryKey: ['offices'],
+    queryFn: async (): Promise<OfficeServerResponse[]> => {
+      const response = await instance.get<OfficeServerResponse[]>('/api/offices');
+      return response.data;
+    }
+  });
+
   const [selectedDate, setSelectedDate] = useState<Date>(timeSlots?.[0]?.date ? new Date(timeSlots[0].date) : new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
   
@@ -44,9 +53,30 @@ const AppointmentDateTimePage: React.FC = () => {
     dispatch(resetAppointment());
   };
   
+  const allOffices = officesData?.flatMap((group: OfficeServerResponse) =>
+    group.offices.map((office) => ({
+      ...office,
+      companyName: group.companyName,
+    }))
+  ) || [];
+  
+  const accessibleOffices = allOffices.filter((office) => {
+    const matchesService =
+      !selectedService ||
+      office.lines.some((line) => line.serviceId === selectedService.id);
+    return matchesService
+  });
+
+  const handleModalOfficeSelect = (office: Office) => {
+    dispatch(setSelectedOffice(office));
+    setSelectedDate(new Date())
+    setSelectedTimeSlot(null)
+    setModalOpen(false);
+    navigate(`${nav.general.appointmentDateTime()}?mode=edit`);
+  };
+
   const handleChangeOffice = () => {
-    dispatch(resetAppointment());
-    navigate(nav.general.selectOffice());
+    setModalOpen(true);
   };
 
   const handleBookAppointment = () => {
@@ -54,7 +84,7 @@ const AppointmentDateTimePage: React.FC = () => {
     navigate(nav.general.enterData());
   };
 
-  if (isLoading) {
+  if (isLoading || isLoadingOffice) {
     return <div>Loading...</div>;
   }
 
@@ -114,6 +144,14 @@ const AppointmentDateTimePage: React.FC = () => {
           Записаться
         </Button>}
       </FlexBox>
+      
+      <AccessibleOfficesModal
+        open={modalOpen}
+        offices={accessibleOffices}
+        onSelect={handleModalOfficeSelect}
+        onClose={() => setModalOpen(false)}
+      />
+      
     </Container>
   );
 };
