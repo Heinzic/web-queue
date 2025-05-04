@@ -51,7 +51,7 @@ function AppointmentSuccessPage() {
                 </FlexBox>
                 <FlexBox gap={2}>
                     <Button variant="outlined" fullWidth onClick={() => window.open('https://t.me/Vne_Ocheredi_notification_bot', '_blank')}>
-                        Получить уведомление в Telegram
+                        Получать уведомления в Telegram
                     </Button>
                     <Button variant="primary" fullWidth onClick={handleClick}>Перейти на главную</Button>
                 </FlexBox>
