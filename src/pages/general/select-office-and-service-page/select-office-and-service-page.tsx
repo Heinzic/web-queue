@@ -269,7 +269,7 @@ const SelectOfficeAndServicePage = () => {
         <Breadcrumbs>
           <BreadcrumbItem to={nav.general.index()}>Главная</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem to={nav.general.selectLocation()}>Услуги</BreadcrumbItem>
+          <BreadcrumbItem to={nav.general.selectLocation()}>Выбор города</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
           <BreadcrumbItem to={nav.general.appointmentDateTime()}>Запись на прием</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>

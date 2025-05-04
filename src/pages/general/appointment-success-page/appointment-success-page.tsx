@@ -49,7 +49,12 @@ function AppointmentSuccessPage() {
                         Мы отправили вам письмо на почту {userData?.email} с подробной информацией о записи.
                     </AppointmentSuccessCardText>
                 </FlexBox>
-                <Button variant="primary" onClick={handleClick}>Перейти на главную</Button>
+                <FlexBox gap={2}>
+                    <Button variant="outlined" fullWidth onClick={() => window.open('https://t.me/Vne_Ocheredi_notification_bot', '_blank')}>
+                        Получить уведомление в Telegram
+                    </Button>
+                    <Button variant="primary" fullWidth onClick={handleClick}>Перейти на главную</Button>
+                </FlexBox>
             </AppointmentSuccessCard>
         </Container>
     );
