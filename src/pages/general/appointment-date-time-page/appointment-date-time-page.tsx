@@ -10,9 +10,10 @@ import { instance } from '../../../provider/client';
 import { DateInfo, Office, OfficeServerResponse } from '../../../models';
 import { isSameDay } from 'date-fns';
 import { nav } from '../../../pages';
-import { NearestDateCard, PackagesAmountButton } from './styled';
+import { BreadcreumbsContainer, NearestDateCard, PackagesAmountButton } from './styled';
 import { BookingTimer } from '../../../containers/shared/BookingTimer';
 import { startTimer } from '../../../store/slices/timerSlice';
+import { Breadcrumbs, BreadcrumbItem, BreadcrumbSeparator } from '../../../components/appointment/Breadcrumbs';
 
 const AppointmentDateTimePage: React.FC = () => {  
   const navigate = useNavigate();
@@ -93,7 +94,17 @@ const AppointmentDateTimePage: React.FC = () => {
   }
   
   return (
-    <Container padding={0} maxWidth={800}>
+    <Container maxWidth={800}>
+      <BreadcreumbsContainer>
+        <Breadcrumbs>
+          <BreadcrumbItem to={nav.general.appointmentDateTime()}>Запись на прием</BreadcrumbItem>
+          <BreadcrumbSeparator>›</BreadcrumbSeparator>
+          <BreadcrumbItem to={nav.general.selectOffice()}>Выбор офиса и услуги</BreadcrumbItem>
+          <BreadcrumbSeparator>›</BreadcrumbSeparator>
+          <BreadcrumbItem>Выбор даты и времени</BreadcrumbItem>
+        </Breadcrumbs>
+      </BreadcreumbsContainer>
+      
       <FlexBox align="center" padding={4} gap={2}>
         <BackLink to={nav.general.selectOffice()} onClick={handleGoBack}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

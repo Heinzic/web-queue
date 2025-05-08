@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Card } from "../../../ui";
+import { Card, FlexBox } from "../../../ui";
 
 export const PackagesAmountButton = styled.button`
   background: ${({ theme }) => theme.colors.neutral.white};
@@ -29,4 +29,8 @@ export const PackagesAmountButton = styled.button`
 export const NearestDateCard = styled(Card)`
   border-radius: ${({ theme }) => theme.borderRadius["2xl"]};
   background: ${({ theme }) => theme.colors.background.secondary};
+`
+
+export const BreadcreumbsContainer = styled(FlexBox)`
+  padding: ${({theme}) => theme.spacing[0]} ${({theme}) => theme.spacing[5]}
 `

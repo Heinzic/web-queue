@@ -15,6 +15,7 @@ import { useQuery } from '@tanstack/react-query';
 import { instance } from '../../../provider/client';
 import { nav } from '../../../pages';
 import { FastFilters } from '../../../containers/shared/FastFilters/FastFilters';
+import { AnimatePresence, motion } from "motion/react"
 
 const SelectOfficeAndServicePage = () => {
   const location = useLocation();
@@ -267,11 +268,9 @@ const SelectOfficeAndServicePage = () => {
     <Container maxWidth={800}>
       <FlexBox direction="column" gap={1}>
         <Breadcrumbs>
-          <BreadcrumbItem to={nav.general.index()}>Главная</BreadcrumbItem>
-          <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem to={nav.general.selectLocation()}>Выбор города</BreadcrumbItem>
-          <BreadcrumbSeparator>›</BreadcrumbSeparator>
           <BreadcrumbItem to={nav.general.appointmentDateTime()}>Запись на прием</BreadcrumbItem>
+          <BreadcrumbSeparator>›</BreadcrumbSeparator>
+          <BreadcrumbItem to={nav.general.selectLocation()}>Выбор населенного пункта</BreadcrumbItem>
           <BreadcrumbSeparator>›</BreadcrumbSeparator>
           <BreadcrumbItem>Запись в отделы города {cityFilter ? cityFilter : 'Екатеринбург'}</BreadcrumbItem>
         </Breadcrumbs>
@@ -345,95 +344,136 @@ const SelectOfficeAndServicePage = () => {
           )}
         </FlexBox>
         {activeTab === "places" && (
-          <FlexBox gap={1} wrap='wrap'>
-            <FastFilters
-              filters={cityOptions}
-              selected={cityFilter}
-              onSelect={value => setCityFilter(typeof value === "string" ? value : "")}
-              type="toggle"
-              placeholder="Город"
-            />
-            <FastFilters
-              filters={companyOptions}
-              selected={companyFilter}
-              onSelect={value => setCompanyFilter(typeof value === "string" ? value : "")}
-              type="toggle"
-              placeholder="Компания"
-            />
-            <FastFilters
-              filters={districtOptions}
-              selected={districtFilter}
-              onSelect={value => setDistrictFilter(typeof value === "string" ? value : "")}
-              type="toggle"
-              placeholder="Район"
-            />
-            <FastFilters
-              filters={officeTypeOptions}
-              selected={officeTypeFilter}
-              onSelect={value => setOfficeTypeFilter(typeof value === "string" ? value : "")}
-              type="toggle"
-              placeholder="Тип офиса"
-            />
-            <FastFilters
-              filters={tagsOptions}
-              selected={tagsFilter}
-              onSelect={value => setTagsFilter(Array.isArray(value) ? value : [])}
-              type="multiple"
-              placeholder="Особенности"
-            />
-          </FlexBox>
+        <motion.div
+          layout
+          style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}
+        >
+          <AnimatePresence>
+            <motion.div key="city" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <FastFilters
+                filters={cityOptions}
+                selected={cityFilter}
+                onSelect={value => setCityFilter(typeof value === "string" ? value : "")}
+                type="toggle"
+                placeholder="Город"
+              />
+            </motion.div>
+            <motion.div key="company" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <FastFilters
+                filters={companyOptions}
+                selected={companyFilter}
+                onSelect={value => setCompanyFilter(typeof value === "string" ? value : "")}
+                type="toggle"
+                placeholder="Компания"
+              />
+            </motion.div>
+            <motion.div key="district" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <FastFilters
+                filters={districtOptions}
+                selected={districtFilter}
+                onSelect={value => setDistrictFilter(typeof value === "string" ? value : "")}
+                type="toggle"
+                placeholder="Район"
+              />
+            </motion.div>
+            <motion.div key="type" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <FastFilters
+                filters={officeTypeOptions}
+                selected={officeTypeFilter}
+                onSelect={value => setOfficeTypeFilter(typeof value === "string" ? value : "")}
+                type="toggle"
+                placeholder="Тип офиса"
+              />
+            </motion.div>
+            <motion.div key="tags" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <FastFilters
+                filters={tagsOptions}
+                selected={tagsFilter}
+                onSelect={value => setTagsFilter(Array.isArray(value) ? value : [])}
+                type="multiple"
+                placeholder="Особенности"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
         )}
+
         {activeTab === "services" && (
-          <FlexBox gap={1} wrap='wrap'>
-            <FastFilters
-              filters={serviceCategoryOptions}
-              selected={serviceCategoryFilter}
-              onSelect={value => setServiceCategoryFilter(typeof value === "string" ? value : "")}
-              type="toggle"
-              placeholder="Категория"
-            />
-            <FastFilters
-              filters={serviceTypeOptions}
-              selected={serviceTypeFilter}
-              onSelect={value => setServiceTypeFilter(typeof value === "string" ? value : "")}
-              type="toggle"
-              placeholder="Тип услуги"
-            />
-            <FastFilters
-              filters={serviceIsOnlineOptions}
-              selected={serviceIsOnlineFilter}
-              onSelect={value => setServiceIsOnlineFilter(typeof value === "string" ? value : "")}
-              type="toggle"
-              placeholder="Формат"
-            />
-            <FastFilters
-              filters={servicePriceOptions}
-              selected={servicePriceFilter}
-              onSelect={value => setServicePriceFilter(typeof value === "string" ? value : "")}
-              type="toggle"
-              placeholder="Стоимость"
-            />
-            <FastFilters
-              filters={serviceTagsOptions}
-              selected={serviceTagsFilter}
-              onSelect={value => setServiceTagsFilter(Array.isArray(value) ? value : [])}
-              type="multiple"
-              placeholder="Теги"
-            />
-          </FlexBox>
+          <motion.div
+            layout
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}
+          >
+            <AnimatePresence>
+              <motion.div key="category" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <FastFilters
+                  filters={serviceCategoryOptions}
+                  selected={serviceCategoryFilter}
+                  onSelect={value => setServiceCategoryFilter(typeof value === "string" ? value : "")}
+                  type="toggle"
+                  placeholder="Категория"
+                />
+              </motion.div>
+              <motion.div key="type" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <FastFilters
+                  filters={serviceTypeOptions}
+                  selected={serviceTypeFilter}
+                  onSelect={value => setServiceTypeFilter(typeof value === "string" ? value : "")}
+                  type="toggle"
+                  placeholder="Тип услуги"
+                />
+              </motion.div>
+              <motion.div key="format" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <FastFilters
+                  filters={serviceIsOnlineOptions}
+                  selected={serviceIsOnlineFilter}
+                  onSelect={value => setServiceIsOnlineFilter(typeof value === "string" ? value : "")}
+                  type="toggle"
+                  placeholder="Формат"
+                />
+              </motion.div>
+              <motion.div key="price" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <FastFilters
+                  filters={servicePriceOptions}
+                  selected={servicePriceFilter}
+                  onSelect={value => setServicePriceFilter(typeof value === "string" ? value : "")}
+                  type="toggle"
+                  placeholder="Стоимость"
+                />
+              </motion.div>
+              <motion.div key="tags" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <FastFilters
+                  filters={serviceTagsOptions}
+                  selected={serviceTagsFilter}
+                  onSelect={value => setServiceTagsFilter(Array.isArray(value) ? value : [])}
+                  type="multiple"
+                  placeholder="Особенности"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
         )}
+
         <div>
           {activeTab === "places" && (
             <FlexBox direction="column" gap={3}>
               {filteredOffices && filteredOffices.length > 0 ? (
                 filteredOffices.map(group => (
-                  <div key={group.companyName}>
-                    <Title size='small' marginBottom={3}>{group.companyName}</Title>
-                    <OfficesList offices={group.offices} 
-                      selectedOfficeId={selectedOffice?.id}
-                      onOfficeSelect={handleOfficeSelect}
-                    />
-                  </div>
+                    <div className="">
+                      <Title size='small' marginBottom={3}>{group.companyName}</Title>
+                        <motion.div
+                          key={group.companyName}
+                          layout
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                        <OfficesList offices={group.offices} 
+                          selectedOfficeId={selectedOffice?.id}
+                          onOfficeSelect={handleOfficeSelect}
+                        />
+                      </motion.div>
+                    </div>
                 ))
               ) : (
                 <FlexBox justify='center'>
@@ -455,10 +495,10 @@ const SelectOfficeAndServicePage = () => {
               onResetService={handleResetService}
             />) : (
               <FlexBox justify='center'>
-                  {selectedOffice
-                    ? `Нет услуг, предоставляемых ${selectedOffice.name} ${selectedOffice.address}`
-                    : "Нет услуг, соответствующих поиску"
-                  }
+                {selectedOffice
+                  ? `Нет услуг, предоставляемых ${selectedOffice.name} ${selectedOffice.address}`
+                  : "Нет услуг, соответствующих поиску"
+                }
               </FlexBox>
             )
           )}

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { startTimer } from '../../../store/slices/timerSlice';
 import { Text } from '../../../ui';
+import { motion } from 'motion/react';
 
 interface BookingTimerProps {
   onExpire?: () => void;
@@ -70,13 +71,26 @@ export const BookingTimer: React.FC<BookingTimerProps> = ({ onExpire, durationMi
 
   if (style === 'block') {
     return (
-      <StyledBlockTImer>
-        <Text>{`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}</Text>
-      </StyledBlockTImer>
+      <motion.div
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.15 }}>
+        <StyledBlockTImer>
+          <Text>{`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}</Text>
+        </StyledBlockTImer>
+      </motion.div>
+      
     );
   }
 
   return (
-    <StyledProgressBar value={(remainingTime / (durationMinutes * 60)) * 100} text={`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`} theme={theme} />
+    <motion.div
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.15 }}>
+        <StyledProgressBar value={(remainingTime / (durationMinutes * 60)) * 100} text={`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`} theme={theme} />
+    </motion.div>
   );
 };

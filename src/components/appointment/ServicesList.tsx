@@ -3,6 +3,7 @@ import { useTheme } from '@emotion/react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setSelectedService } from '../../store/slices/appointmentSlice';
 import { Service } from '../../models';
+import { motion } from 'motion/react';
 
 const ServicesContainer = styled.div`
   display: flex;
@@ -115,23 +116,33 @@ export const ServicesList: React.FC<ServicesListProps> = ({
         </div>
       )}
       
-      <ServicesContainer>
-        {services.map((service) => (
-          <ServiceCard 
-            key={service.id}
-            isSelected={selectedService?.id === service.id}
-            onClick={() => handleServiceSelect(service)}
-          >
-            <ServiceIcon>У</ServiceIcon>
-            <ServiceInfo>
-              <ServiceName>{service.name}</ServiceName>
-              {service.description && (
-                <ServiceDescription>{service.description}</ServiceDescription>
-              )}
-            </ServiceInfo>
-          </ServiceCard>
-        ))}
-      </ServicesContainer>
+      
+        <ServicesContainer>
+          {services.map((service) => (
+            <ServiceCard 
+              key={service.id}
+              isSelected={selectedService?.id === service.id}
+              onClick={() => handleServiceSelect(service)}
+            >
+              <ServiceIcon>У</ServiceIcon>
+              <motion.div 
+                layout 
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.15 }}>
+                <ServiceInfo>
+                  <ServiceName>{service.name}</ServiceName>
+                  {service.description && (
+                    <ServiceDescription>{service.description}</ServiceDescription>
+                  )}
+                </ServiceInfo>
+              </motion.div>
+            </ServiceCard>
+          ))}
+        </ServicesContainer>
+      
+      
     </>
   );
 };
