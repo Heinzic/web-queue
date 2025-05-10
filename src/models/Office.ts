@@ -18,6 +18,8 @@ export interface Office {
   phone?: string;            // Телефон
   email?: string;            // Email
   openingHours?: string;     // Часы работы (например, "09:00-18:00")
+  lat: number
+  lon: number
 }
 
 export interface OfficeServerResponse {

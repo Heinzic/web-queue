@@ -97,7 +97,9 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744705200000,
-            active: false
+            active: false,
+            lat: 56.8389,
+            lon: 60.6056
         },
         {
             name: "МФЦ",
@@ -146,7 +148,9 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744705200000,
-            active: false
+            active: false,
+            lat: 56.8430,
+            lon: 60.6100
         },
         {
             name: "МФЦ",
@@ -195,7 +199,9 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744706400000,
-            active: false
+            active: false,
+            lat: 56.8500,
+            lon: 60.6200
         },
         {
             name: "МФЦ",
@@ -244,7 +250,9 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744708800000,
-            active: false
+            active: false,
+            lat: 56.8550,
+            lon: 60.6300
         },
         {
             name: "МФЦ",
@@ -263,7 +271,9 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744708800000,
-            active: false
+            active: false,
+            lat: 56.8600,
+            lon: 60.6400
         },
         {
             name: "МФЦ",
@@ -282,7 +292,9 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744708800000,
-            active: false
+            active: false,
+            lat: 56.8650,
+            lon: 60.6500
         },
         {
             name: "МФЦ",
@@ -301,7 +313,9 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744710000000,
-            active: false
+            active: false,
+            lat: 56.8700,
+            lon: 60.6600
         },
         {
             name: "МФЦ",
@@ -320,7 +334,9 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744710000000,
-            active: false
+            active: false,
+            lat: 56.8750,
+            lon: 60.6700
         },
         {
             name: "МФЦ",
@@ -339,13 +355,15 @@ const mfcOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744716000000,
-            active: false
+            active: false,
+            lat: 56.8800,
+            lon: 60.6800
         },
     ],
 }
 
 const resourceOffices: OfficeServerResponse = {
-    companyName:'ПМПК Ресурс',
+    companyName: 'ПМПК Ресурс',
     offices: [
         {
             name: "ПМПК Ресурс",
@@ -436,11 +454,12 @@ const resourceOffices: OfficeServerResponse = {
                     positionsShowAlert: false,
                     servicePointsShowAlert: false
                 },
-
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744705200000,
-            active: false
+            active: false,
+            lat: 56.8389,
+            lon: 60.6056
         },
         {
             name: "ПМПК Ресурс",
@@ -489,7 +508,9 @@ const resourceOffices: OfficeServerResponse = {
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744705200000,
-            active: false
+            active: false,
+            lat: 56.8430,
+            lon: 60.6100
         },
     ],
 }

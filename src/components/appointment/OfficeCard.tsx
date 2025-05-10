@@ -5,9 +5,9 @@ import { Office } from '../../models';
 import { Logo } from './Logo';
 
 interface OfficeCardProps {
+  office: Office & { distance?: number };
   isSelected?: boolean;
   onClick?: () => void;
-  office: Office;
 }
 
 const StyledCard = styled.div<OfficeCardProps>`
@@ -24,7 +24,7 @@ const StyledCard = styled.div<OfficeCardProps>`
 `;
 
 export const OfficeCard: React.FC<OfficeCardProps> = ({ isSelected, onClick, office }) => {
-  const theme = useTheme(); // Access the theme using useTheme
+  const theme = useTheme();
 
   return (
     <StyledCard isSelected={isSelected} onClick={onClick} office={office} theme={theme}>
@@ -36,7 +36,11 @@ export const OfficeCard: React.FC<OfficeCardProps> = ({ isSelected, onClick, off
             <Text size="sm" color='muted'>{office.city}</Text>
             <FlexBox direction="row" gap={2}>
               <Text size="sm" color='muted'>{office.openingHours}</Text>
-              <Text size="sm" color='muted'>200м</Text>
+              <Text size="sm" color="muted">
+                {office.distance !== undefined
+                  ? `${Math.round(office.distance)} м`
+                  : ' '}
+              </Text>
             </FlexBox>
           </FlexBox>
         </FlexBox>

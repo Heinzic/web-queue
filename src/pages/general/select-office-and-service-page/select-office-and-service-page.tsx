@@ -1,5 +1,5 @@
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setSelectedOffice, setSelectedService } from '../../../store/slices/appointmentSlice';
@@ -16,6 +16,7 @@ import { instance } from '../../../provider/client';
 import { nav } from '../../../pages';
 import { FastFilters } from '../../../containers/shared/FastFilters/FastFilters';
 import { AnimatePresence, motion } from "motion/react"
+import { getDistance } from '../../../utils/getDistance';
 
 const SelectOfficeAndServicePage = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const SelectOfficeAndServicePage = () => {
   const searchParams = new URLSearchParams(location.search);
   const selectedLocation = searchParams.get('location') || 'Екатеринбург';  
   
+  const [userCoords, setUserCoords] = useState<{ lat: number; lon: number } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("places");
   const [companyFilter, setCompanyFilter] = useState<string>('');
@@ -57,6 +59,13 @@ const SelectOfficeAndServicePage = () => {
       return response.data.services;
     }
   });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => setUserCoords({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+      (err) => console.warn("Геолокация отключена:", err.message)
+    );    
+  }, []);
 
   // Dynamically generate office filter options from server data
   const {
@@ -168,32 +177,50 @@ const SelectOfficeAndServicePage = () => {
     return acc;
   }, {} as Record<string, Office[]>);
 
-  const filteredOffices = Object.entries(groupedOffices).map(([companyName, offices]) => ({
-    companyName,
-    offices: offices.filter(office => {
-      const matchesSearch = !searchQuery || 
-        office.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        office.address.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      const matchesService = !selectedService || 
-        office.lines.some(line => line.serviceId === selectedService.id);
-
-      const matchesCompany = !companyFilter || companyName === companyFilter;
-      const matchesCity = !cityFilter || office.city === cityFilter;
-      const matchesDistrict = !districtFilter || office.district === districtFilter;
-      const matchesOfficeType = !officeTypeFilter || office.type === officeTypeFilter;
-      const matchesTags = tagsFilter.length === 0 || tagsFilter.every(tag => {
-        if (tag === 'accessible') return office.isAccessible;
-        if (tag === 'parking') return office.hasParking;
-        if (tag === 'weekend') return office.worksOnWeekends;
-        return true;
+  const filteredOffices = Object.entries(groupedOffices).map(([companyName, offices]) => {
+    const updatedOffices = offices
+      .map(office => {
+        const distance = userCoords
+          ? getDistance(userCoords.lat, userCoords.lon, office.lat, office.lon)
+          : undefined;
+        return { ...office, distance };
+      })
+      .filter(office => {
+        const matchesSearch = !searchQuery ||
+          office.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          office.address.toLowerCase().includes(searchQuery.toLowerCase());
+  
+        const matchesService = !selectedService ||
+          office.lines.some(line => line.serviceId === selectedService.id);
+  
+        const matchesCompany = !companyFilter || companyName === companyFilter;
+        const matchesCity = !cityFilter || office.city === cityFilter;
+        const matchesDistrict = !districtFilter || office.district === districtFilter;
+        const matchesOfficeType = !officeTypeFilter || office.type === officeTypeFilter;
+        const matchesTags =
+          tagsFilter.length === 0 ||
+          tagsFilter.every(tag => {
+            if (tag === 'accessible') return office.isAccessible;
+            if (tag === 'parking') return office.hasParking;
+            if (tag === 'weekend') return office.worksOnWeekends;
+            return true;
+          });
+  
+        return matchesSearch && matchesService && matchesCompany && matchesCity && matchesDistrict && matchesOfficeType && matchesTags;
       });
-      
-      return matchesSearch && matchesService && matchesCompany && matchesCity && matchesDistrict && matchesOfficeType && matchesTags;
-    })
-  })).filter(group => group.offices.length > 0);
+  
+    // Сортировка по расстоянию, если доступно
+    if (userCoords) {
+      updatedOffices.sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
+    }
+  
+    return {
+      companyName,
+      offices: updatedOffices
+    };
+  }).filter(group => group.offices.length > 0);
+  
 
-  // --- Service filtering logic ---
   const filteredServices = services?.filter(service => {
     const matchesSearch = !searchQuery || 
       service.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -281,7 +308,6 @@ const SelectOfficeAndServicePage = () => {
         >
           Запись на прием
         </Title>
-        
         <Tabs>
           <TabItem 
             active={activeTab === "places"} 
@@ -402,9 +428,10 @@ const SelectOfficeAndServicePage = () => {
           <motion.div
             layout
             style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
           >
             <AnimatePresence>
-              <motion.div key="category" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div key="category" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2, ease: "easeOut" }}>
                 <FastFilters
                   filters={serviceCategoryOptions}
                   selected={serviceCategoryFilter}
@@ -413,7 +440,7 @@ const SelectOfficeAndServicePage = () => {
                   placeholder="Категория"
                 />
               </motion.div>
-              <motion.div key="type" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div key="type" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2, ease: "easeOut" }}>
                 <FastFilters
                   filters={serviceTypeOptions}
                   selected={serviceTypeFilter}
@@ -422,7 +449,7 @@ const SelectOfficeAndServicePage = () => {
                   placeholder="Тип услуги"
                 />
               </motion.div>
-              <motion.div key="format" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div key="format" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2, ease: "easeOut" }}>
                 <FastFilters
                   filters={serviceIsOnlineOptions}
                   selected={serviceIsOnlineFilter}
@@ -431,7 +458,7 @@ const SelectOfficeAndServicePage = () => {
                   placeholder="Формат"
                 />
               </motion.div>
-              <motion.div key="price" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div key="price" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2, ease: "easeOut" }}>
                 <FastFilters
                   filters={servicePriceOptions}
                   selected={servicePriceFilter}
@@ -440,7 +467,7 @@ const SelectOfficeAndServicePage = () => {
                   placeholder="Стоимость"
                 />
               </motion.div>
-              <motion.div key="tags" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div key="tags" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2, ease: "easeOut" }}>
                 <FastFilters
                   filters={serviceTagsOptions}
                   selected={serviceTagsFilter}
@@ -457,24 +484,26 @@ const SelectOfficeAndServicePage = () => {
           {activeTab === "places" && (
             <FlexBox direction="column" gap={3}>
               {filteredOffices && filteredOffices.length > 0 ? (
-                filteredOffices.map(group => (
+                <AnimatePresence>
+                  {filteredOffices.map(group => (
                     <div className="">
                       <Title size='small' marginBottom={3}>{group.companyName}</Title>
                         <motion.div
                           key={group.companyName}
-                          layout
                           initial={{ opacity: 0, y: 5 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          transition={{ duration: 0.15 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
                         >
-                        <OfficesList offices={group.offices} 
-                          selectedOfficeId={selectedOffice?.id}
-                          onOfficeSelect={handleOfficeSelect}
-                        />
+                          <OfficesList offices={group.offices} 
+                            selectedOfficeId={selectedOffice?.id}
+                            onOfficeSelect={handleOfficeSelect}
+                          />
                       </motion.div>
                     </div>
-                ))
+                  ))}
+                </AnimatePresence>
+                
               ) : (
                 <FlexBox justify='center'>
                   {selectedService 
