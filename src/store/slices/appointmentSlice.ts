@@ -30,7 +30,7 @@ const appointmentSlice = createSlice({
     setAmountOfPackages: (state, action: PayloadAction<number>) => {
       state.amountOfPackages = action.payload;
     },
-    setUserData: (state, action: PayloadAction<User>) => {
+    setUserData: (state, action: PayloadAction<User | null>) => {
       state.userData = action.payload;
     },
     resetAppointment: (state) => {

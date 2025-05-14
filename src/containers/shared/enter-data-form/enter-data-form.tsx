@@ -2,7 +2,7 @@ import { Button, FlexBox, Input, Text } from "../../../ui";
 import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { nav } from "../../../pages";
 import { User } from "../../../models";
 import { setUserData } from "../../../store/slices/appointmentSlice";
@@ -22,6 +22,8 @@ const schema = z.object({
 function EnterDataForm(props :{nextLink: string}) {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const [searchParams] = useSearchParams();
+    const mode = searchParams.get('mode');
 
     const [errors, setErrors] = useState<{ firstName?: string; lastName?: string; email?: string; phoneNumber?: string; patronymic?: string}>({});
     const { selectedOffice, selectedService, userData } = useAppSelector(state => state.appointment);
@@ -40,7 +42,7 @@ function EnterDataForm(props :{nextLink: string}) {
             navigate(nav.general.index());          
         }
         const storedUserData = UserService.loadUserData();
-        if (storedUserData && UserService.isValidUserData(storedUserData)) {
+        if (storedUserData && UserService.isValidUserData(storedUserData) && mode!=='edit') {
             dispatch(setUserData(storedUserData));
             setData(storedUserData);
         }

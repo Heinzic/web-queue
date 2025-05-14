@@ -32,13 +32,12 @@ const App: React.FC = () => {
       <div className="queue-content">
         <HandleAppointment flow={flow}>
           <ThemeProvider theme={theme(flow)}>
-            {/* Добавляем motion.div для анимации переходов */}
             <motion.div
-              key={location.key} // Это гарантирует, что каждый маршрут будет перерисовываться при изменении
-              initial={{ opacity: 0, x: 100 }}  // Начальное состояние анимации
-              animate={{ opacity: 1, x: 0 }}    // Конечное состояние
-              exit={{ opacity: 0, x: -100 }}    // Анимация при выходе
-              transition={{ duration: 0.5 }}     // Длительность анимации
+              key={location.key}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
             >
               <Routes>
                 <Route path={nav.general.index()} element={<general.HomePage />} />
