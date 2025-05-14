@@ -369,7 +369,7 @@ const resourceOffices: OfficeServerResponse = {
             name: "ПМПК Ресурс",
             address: "СОСТАВ № 1 ЦЕНТРАЛЬНОЙ ПМПК ГБОУ СО «ЦППМСП «Ресурс» (г. Екатеринбург, ул. Машинная 31)",
             city: "Екатеринбург",
-            id: "3538314b-16b5-46db-9825-08c536bc6653",
+            id: "qwer",
             district: "Октябрьский",
             type: "Филиал",
             isAccessible: true,
@@ -380,74 +380,14 @@ const resourceOffices: OfficeServerResponse = {
             openingHours: "09:00 - 17:00",
             lines: [
                 {
-                    name: "Поступление на ВС по контракту / Справка участника СВО и членов его семьи",
-                    id: 1,
+                    name: "Прохождение ПМПК",
+                    id: 10,
                     shortName: "doc",
                     nearestDate: 1744705200000,
                     notActive: false,
                     lineBookingOpenHours: false,
                     totalWaitingDelayShowAlert: false,
-                    serviceId: 1,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                },
-                {
-                    name: "Лагеря",
-                    id: 4,
-                    shortName: "doc",
-                    nearestDate: 1744710000000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 4,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                },
-                {
-                    name: "Школы",
-                    id: 5,
-                    shortName: "doc",
-                    nearestDate: 1744710000000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 5,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                },
-                {
-                    name: "МВД. Регистрация/снятие с регистрации",
-                    id: 7,
-                    shortName: "doc",
-                    nearestDate: 1744710000000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 7,
-                    lineBookingUnavailable: false,
-                    smartphoneModeEnabled: false,
-                    smartphoneModeEnabledShowAlert: false,
-                    positionsShowAlert: false,
-                    servicePointsShowAlert: false
-                },
-                {
-                    name: "Другие услуги",
-                    id: 9,
-                    shortName: "doc",
-                    nearestDate: 1744710000000,
-                    notActive: false,
-                    lineBookingOpenHours: false,
-                    totalWaitingDelayShowAlert: false,
-                    serviceId: 9,
+                    serviceId: 10,
                     lineBookingUnavailable: false,
                     smartphoneModeEnabled: false,
                     smartphoneModeEnabledShowAlert: false,
@@ -465,7 +405,7 @@ const resourceOffices: OfficeServerResponse = {
             name: "ПМПК Ресурс",
             address: "СОСТАВ № 5 ЦЕНТРАЛЬНОЙ ПМПК ГБОУ СО «ЦППМСП «Ресурс» (г. Екатеринбург, ул. Титова д. 28)",
             city: "Екатеринбург",
-            id: "d81b5e25-b72d-4ae0-b761-0b0b13c46b7a",
+            id: "pmpk2",
             district: "Чкаловский",
             type: "Основной",
             isAccessible: false,
@@ -476,14 +416,56 @@ const resourceOffices: OfficeServerResponse = {
             openingHours: "08:00 - 15:00",
             lines: [
                 {
-                    name: "Комплексная услуга по газификации",
-                    id: 3,
+                    name: "Прохождение ПМПК",
+                    id: 10,
                     shortName: "doc",
                     nearestDate: 1744705200000,
                     notActive: false,
                     lineBookingOpenHours: false,
                     totalWaitingDelayShowAlert: false,
-                    serviceId: 3,
+                    serviceId: 10,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
+            ],
+            timeZoneId: "Ekaterinburg Standard Time",
+            nearestDate: 1744705200000,
+            active: false,
+            lat: 56.8430,
+            lon: 60.6100
+        },
+    ],
+}
+
+const uniOffices: OfficeServerResponse = {
+    companyName: 'Уральский Федеральный Университет',
+    offices: [
+        {
+            name: "ИРИТ-РТФ",
+            address: "ул. Мира 19",
+            city: "Екатеринбург",
+            id: "uni",
+            district: "Кировский",
+            type: "Деканат",
+            isAccessible: true,
+            hasParking: true,
+            worksOnWeekends: false,
+            phone: "+7 (343) 456-78-90",
+            email: "mashinnaya@resurs.ru",
+            openingHours: "09:00 - 17:00",
+            lines: [
+                {
+                    name: "Заказать справку об обучении",
+                    id: 11,
+                    shortName: "doc",
+                    nearestDate: 1744705200000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 11,
                     lineBookingUnavailable: false,
                     smartphoneModeEnabled: false,
                     smartphoneModeEnabledShowAlert: false,
@@ -491,26 +473,41 @@ const resourceOffices: OfficeServerResponse = {
                     servicePointsShowAlert: false
                 },
                 {
-                    name: "Услуги пенсионного обеспечения и социальной защиты (пособия, опека, пенсия и др.)",
-                    id: 6,
+                    name: "Заказать справку студента",
+                    id: 12,
                     shortName: "doc",
                     nearestDate: 1744705200000,
                     notActive: false,
                     lineBookingOpenHours: false,
                     totalWaitingDelayShowAlert: false,
-                    serviceId: 6,
+                    serviceId: 12,
                     lineBookingUnavailable: false,
                     smartphoneModeEnabled: false,
                     smartphoneModeEnabledShowAlert: false,
                     positionsShowAlert: false,
                     servicePointsShowAlert: false
-                }
+                },
+                {
+                    name: "Получить хвостовку",
+                    id: 13,
+                    shortName: "doc",
+                    nearestDate: 1744705200000,
+                    notActive: false,
+                    lineBookingOpenHours: false,
+                    totalWaitingDelayShowAlert: false,
+                    serviceId: 13,
+                    lineBookingUnavailable: false,
+                    smartphoneModeEnabled: false,
+                    smartphoneModeEnabledShowAlert: false,
+                    positionsShowAlert: false,
+                    servicePointsShowAlert: false
+                },
             ],
             timeZoneId: "Ekaterinburg Standard Time",
             nearestDate: 1744705200000,
             active: false,
-            lat: 56.8430,
-            lon: 60.6100
+            lat: 56.8389,
+            lon: 60.6056
         },
     ],
 }
@@ -620,11 +617,28 @@ const mfcServices = {
     ]
 }
 
+const resourceServices = {
+    lineName: "Ресурс",
+    services: [
+        {
+            id: 10,
+            name: "Прохождение ПМПК",
+            description: "Создание, реализация и сопровождение условий психолого-педагогической и медико-социальной помощи в воспитании, получении образования, социализации независимо от индивидуальных особенностей, психических и физических возможностей детей",
+            officeIds: ["qwer", "pmpk2"],
+            category: "Медицина",
+            type: "Очная",
+            isOnline: true,
+            price: 0,
+            tags: ["ПМПК", "Дети"]
+        },
+    ]
+}
+
 const uniServices = {
     lineName: "Ирит-РТФ",
     services: [
         {
-            id: 1,
+            id: 11,
             name: "Заказать справку об обучении",
             description: "Заказать справку об обучении",
             officeIds: ["uni"],
@@ -635,7 +649,7 @@ const uniServices = {
             tags: ["студент", "онлайн"]
         },
         {
-            id: 2,
+            id: 12,
             name: "Заказать справку студента",
             description: "Заказать справку студента",
             officeIds: ["uni"],
@@ -646,7 +660,7 @@ const uniServices = {
             tags: ["студент"]
         },
         {
-            id: 3,
+            id: 13,
             name: "Получить хвостовку",
             description: "Получить хвостовку",
             officeIds: ["uni"],
@@ -660,90 +674,90 @@ const uniServices = {
 }
 
 const timeSlots = {
-    "month": "2025-05-06T00:00:00Z",
+    "month": "2025-05-15T00:00:00Z",
     "dates": [
         {
             "available": true,
-            "date": "2025-05-04T00:00:00Z",
-            "from": "2025-05-04T03:40:00Z",
-            "to": "2025-05-04T04:20:00Z",
+            "date": "2025-05-17T00:00:00Z",
+            "from": "2025-05-17T03:40:00Z",
+            "to": "2025-05-17T04:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-05-04T00:00:00Z",
-            "from": "2025-05-04T04:20:00Z",
-            "to": "2025-05-04T05:20:00Z",
+            "date": "2025-05-17T00:00:00Z",
+            "from": "2025-05-17T04:20:00Z",
+            "to": "2025-05-17T05:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-05-04T00:00:00Z",
-            "from": "2025-05-04T08:40:00Z",
-            "to": "2025-05-04T09:20:00Z",
+            "date": "2025-05-17T00:00:00Z",
+            "from": "2025-05-17T08:40:00Z",
+            "to": "2025-05-17T09:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-05-04T00:00:00Z",
-            "from": "2025-05-04T11:00:00Z",
-            "to": "2025-05-04T11:40:00Z",
+            "date": "2025-05-17T00:00:00Z",
+            "from": "2025-05-17T11:00:00Z",
+            "to": "2025-05-17T11:40:00Z",
             "description": "Late morning"
         },
         {
             "available": true,
-            "date": "2025-05-04T00:00:00Z",
-            "from": "2025-05-04T14:20:00Z",
-            "to": "2025-05-04T15:00:00Z",
+            "date": "2025-05-17T00:00:00Z",
+            "from": "2025-05-17T14:20:00Z",
+            "to": "2025-05-17T15:00:00Z",
             "description": "Afternoon slot"
         },
         {
             "available": true,
-            "date": "2025-05-06T00:00:00Z",
-            "from": "2025-05-06T09:20:00Z",
-            "to": "2025-05-06T10:00:00Z",
+            "date": "2025-05-15T00:00:00Z",
+            "from": "2025-05-15T09:20:00Z",
+            "to": "2025-05-15T10:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-05-06T00:00:00Z",
-            "from": "2025-05-06T10:20:00Z",
-            "to": "2025-05-06T11:00:00Z",
+            "date": "2025-05-15T00:00:00Z",
+            "from": "2025-05-15T10:20:00Z",
+            "to": "2025-05-15T11:00:00Z",
             "description": ""
         },
         {
             "available": true,
-            "date": "2025-05-06T00:00:00Z",
-            "from": "2025-05-06T13:00:00Z",
-            "to": "2025-05-06T13:40:00Z",
+            "date": "2025-05-15T00:00:00Z",
+            "from": "2025-05-15T13:00:00Z",
+            "to": "2025-05-15T13:40:00Z",
             "description": "After lunch"
         },
         {
             "available": true,
-            "date": "2025-05-06T00:00:00Z",
-            "from": "2025-05-06T15:20:00Z",
-            "to": "2025-05-06T16:00:00Z",
+            "date": "2025-05-15T00:00:00Z",
+            "from": "2025-05-15T15:20:00Z",
+            "to": "2025-05-15T16:00:00Z",
             "description": "Late afternoon"
         },
         {
             "available": true,
-            "date": "2025-05-18T00:00:00Z",
-            "from": "2025-05-18T09:00:00Z",
-            "to": "2025-05-18T09:40:00Z",
+            "date": "2025-05-21T00:00:00Z",
+            "from": "2025-05-21T09:00:00Z",
+            "to": "2025-05-21T09:40:00Z",
             "description": "Early morning"
         },
         {
             "available": true,
-            "date": "2025-05-18T00:00:00Z",
-            "from": "2025-05-18T11:20:00Z",
-            "to": "2025-05-18T12:00:00Z",
+            "date": "2025-05-21T00:00:00Z",
+            "from": "2025-05-21T11:20:00Z",
+            "to": "2025-05-21T12:00:00Z",
             "description": "Before lunch"
         },
         {
             "available": true,
-            "date": "2025-05-18T00:00:00Z",
-            "from": "2025-05-18T14:00:00Z",
-            "to": "2025-05-18T14:40:00Z",
+            "date": "2025-05-21T00:00:00Z",
+            "from": "2025-05-21T14:00:00Z",
+            "to": "2025-05-21T14:40:00Z",
             "description": ""
         },
         {
@@ -899,14 +913,17 @@ const getMfcOfficesHandler: HttpHandler = http.get<never, never, OfficeServerRes
 const getAllOfficesHandler: HttpHandler = http.get<never, never, OfficeServerResponse[]>(
     '/api/offices',
     () => {
-      return HttpResponse.json([mfcOffices, resourceOffices]);
+      return HttpResponse.json([mfcOffices, resourceOffices, uniOffices]);
     }
   );
 
 const getServicesHandler: HttpHandler = http.get<never, never, { lineName: string, services: Service[] }>(
   '/api/services',
   () => {
-    return HttpResponse.json(mfcServices);
+    return HttpResponse.json({
+      lineName: "Combined Services",
+      services: [...mfcServices.services, ...resourceServices.services, ...uniServices.services]
+    });
   }
 );
 
