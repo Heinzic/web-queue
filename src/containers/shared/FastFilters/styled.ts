@@ -104,6 +104,8 @@ export const DropdownMenu = styled.div`
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   z-index: 100;
   min-width: 240px;
+  max-height:300px;
+  overflow-y: auto;
   padding: 8px;
   animation: ${fadeIn} 0.2s ease-out, ${scaleUp} 0.15s ease;
   backdrop-filter: blur(12px);
