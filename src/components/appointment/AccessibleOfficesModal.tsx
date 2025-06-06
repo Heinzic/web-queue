@@ -48,7 +48,7 @@ export const AccessibleOfficesModal: React.FC<AccessibleOfficesModalProps> = ({
             marginBottom={2}
             showIcon
           />
-          <div>
+          <div style={{ width: '900px' }}>
             <OfficesList
               offices={filteredOffices}
               onOfficeSelect={onSelect}

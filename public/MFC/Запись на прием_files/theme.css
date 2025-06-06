@@ -1,0 +1,139 @@
+.cms-action-inline-button {
+  display: inline-block;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 32px 0 0;
+  background: #fff;
+  color: #03486e !important;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+  text-decoration: none;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  border-radius: 16px;
+  -webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); }
+  .cms-action-inline-button:hover {
+    color: #0080c6; }
+  .cms-action-inline-button:hover .cms-action-icon {
+    background-color: #007dc2; }
+  .cms-action-inline-button:active .cms-action-icon {
+    background-color: #268cc4; }
+
+.cms-action-icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 16px;
+  background-color: #7f7f7f;
+  background-position: center center;
+  background-repeat: no-repeat;
+  vertical-align: top;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  border-radius: 16px; }
+  .cms-action-icon:hover {
+    background-color: #007dc2; }
+  .cms-action-icon:active {
+    background-color: #268cc4; }
+
+.cms-action-icon.add,
+.cms-action-icon.create,
+.add .cms-action-icon,
+.create .cms-action-icon {
+  background-image: url(images/icon-add.png); }
+
+.cms-action-icon.edit,
+.edit .cms-action-icon {
+  background-image: url(images/icon-edit.png); }
+
+.cms-action-icon.arrow-right,
+.arrow-right .cms-action-icon {
+  background-image: url(images/icon-arrow-right.png); }
+
+.cms-action-panel {
+  position: relative;
+  top: 0;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  z-index: 1;
+  display: flex; }
+  .cms-action-panel .cms-panel-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    background-color: #7f7f7f;
+    background-image: url(images/icon-edit.png); }
+    .cms-action-panel .cms-panel-btn:hover {
+      background-color: #007dc2; }
+    .cms-action-panel .cms-panel-btn:active {
+      background-color: #268cc4; }
+  .cms-action-panel .cms-actions {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    padding: 44px 0;
+    background: #fff;
+    z-index: 12;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+    border-radius: 16px;
+    -webkit-box-shadow: 0 15px 80px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 15px 80px rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 0 15px 80px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 15px 80px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 80px rgba(0, 0, 0, 0.2); }
+    .cms-action-panel .cms-actions button {
+      display: block;
+      width: 100%;
+      height: 32px;
+      line-height: 32px;
+      padding: 0 48px;
+      white-space: nowrap;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      text-align: left;
+      outline: none; }
+      .cms-action-panel .cms-actions button:hover {
+        color: #0080c6; }
+    .cms-action-panel .cms-actions.reverse-popup {
+      top: auto;
+      left: auto;
+      bottom: 0;
+      right: 0;
+      margin: 0 -32px -32px 0; }
+  .cms-action-panel.switcher-enable {
+    z-index: 2; }
+    .cms-action-panel.switcher-enable .cms-panel-btn {
+      background-color: #03486e;
+      background-image: url(images/icon-close.png); }
+      .cms-action-panel.switcher-enable .cms-panel-btn:hover {
+        background-color: #007dc2;
+        -webkit-box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+        -moz-box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+        -ms-box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+        -o-box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.6); }
+      .cms-action-panel.switcher-enable .cms-panel-btn:active {
+        background-color: #268cc4; }
+    .cms-action-panel.switcher-enable .cms-actions {
+      display: block; }

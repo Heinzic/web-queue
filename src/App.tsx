@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import HandleAppointment from './HOC/HandleAppointment';
 import { nav, general, mfc, uni } from './pages';
 import './App.css';
@@ -96,9 +96,9 @@ const App: React.FC = () => {
 
 // Wrap App with HashRouter
 const AppWithRouter = () => (
-  <HashRouter>
+  <BrowserRouter>
     <App />
-  </HashRouter>
+  </BrowserRouter>
 );
 
 export default AppWithRouter;

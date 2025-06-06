@@ -29,7 +29,7 @@ const AppointmentDateTimePage: React.FC = () => {
     }
   });
 
-  const { data: officesData, isLoading: isLoadingOffice, error: officeError } = useQuery({
+  const { data: officesData, isLoading: isLoadingOffice } = useQuery({
     queryKey: ['offices'],
     queryFn: async (): Promise<OfficeServerResponse[]> => {
       const response = await instance.get<OfficeServerResponse[]>('/api/offices');

@@ -674,48 +674,48 @@ const uniServices = {
 }
 
 const timeSlots = {
-    "month": "2025-05-15T00:00:00Z",
+    "month": "2025-06-15T00:00:00Z",
     "dates": [
         {
             "available": true,
-            "date": "2025-05-17T00:00:00Z",
-            "from": "2025-05-17T03:40:00Z",
-            "to": "2025-05-17T04:20:00Z",
+            "date": "2025-06-03T00:00:00Z",
+            "from": "2025-06-03T03:40:00Z",
+            "to": "2025-06-03T04:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-05-17T00:00:00Z",
-            "from": "2025-05-17T04:20:00Z",
-            "to": "2025-05-17T05:20:00Z",
+            "date": "2025-06-03T00:00:00Z",
+            "from": "2025-06-03T04:20:00Z",
+            "to": "2025-06-03T05:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-05-17T00:00:00Z",
-            "from": "2025-05-17T08:40:00Z",
-            "to": "2025-05-17T09:20:00Z",
+            "date": "2025-06-03T00:00:00Z",
+            "from": "2025-06-03T08:40:00Z",
+            "to": "2025-06-03T09:20:00Z",
             "description": "Morning slot"
         },
         {
             "available": true,
-            "date": "2025-05-17T00:00:00Z",
-            "from": "2025-05-17T11:00:00Z",
-            "to": "2025-05-17T11:40:00Z",
+            "date": "2025-06-03T00:00:00Z",
+            "from": "2025-06-03T11:00:00Z",
+            "to": "2025-06-03T11:40:00Z",
             "description": "Late morning"
         },
         {
             "available": true,
-            "date": "2025-05-17T00:00:00Z",
-            "from": "2025-05-17T14:20:00Z",
-            "to": "2025-05-17T15:00:00Z",
+            "date": "2025-06-04T00:00:00Z",
+            "from": "2025-06-04T14:20:00Z",
+            "to": "2025-06-04T15:00:00Z",
             "description": "Afternoon slot"
         },
         {
             "available": true,
-            "date": "2025-05-15T00:00:00Z",
-            "from": "2025-05-15T09:20:00Z",
-            "to": "2025-05-15T10:00:00Z",
+            "date": "2025-06-04T00:00:00Z",
+            "from": "2025-06-04T09:20:00Z",
+            "to": "2025-06-04T10:00:00Z",
             "description": ""
         },
         {
@@ -903,10 +903,20 @@ const timeSlots = {
     ]
 }
 
-const getMfcOfficesHandler: HttpHandler = http.get<never, never, OfficeServerResponse>(
+const getMfcOfficesHandler: HttpHandler = http.get<never, never, OfficeServerResponse[]>(
   '/api/mfc/offices',
   () => {
-    return HttpResponse.json(mfcOffices);
+    return HttpResponse.json([mfcOffices]);
+  }
+);
+
+const getMfcServicesHandler: HttpHandler = http.get<never, never, { lineName: string, services: Service[] }>(
+  '/api/mfc/services',
+  () => {
+    return HttpResponse.json({
+        lineName: "МФЦ",
+        services: [...mfcServices.services]
+    });
   }
 );
 
@@ -956,4 +966,4 @@ const createAppointmentHandler: HttpHandler = http.post<never, Appointment, neve
     }
 );
 
-export const handlers = [getMfcOfficesHandler, getDatesHandler, createAppointmentHandler, getServicesHandler, getAllOfficesHandler, getUniServicesHandler];
+export const handlers = [getMfcOfficesHandler, getMfcServicesHandler, getDatesHandler, createAppointmentHandler, getServicesHandler, getAllOfficesHandler, getUniServicesHandler];

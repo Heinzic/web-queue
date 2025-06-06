@@ -51,7 +51,9 @@ const SelectServicePage = () => {
       lines: [],
       timeZoneId: "Ekaterinburg Standard Time",
       nearestDate: 1744705200000,
-      active: false
+      active: false,
+      lat: 0,
+      lon: 0
     }))
     dispatch(setSelectedService(service))
     nav.uni.appointmentDateTime()
